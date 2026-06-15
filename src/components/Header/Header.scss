@@ -1,0 +1,404 @@
+@use "../../styles/variables";
+
+// ══════════════════════════════
+//  HEADER
+// ══════════════════════════════
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, .92);
+  border-bottom: 1px solid #eee;
+}
+
+.header-container {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// ══════════════════════════════
+//  LOGO
+// ══════════════════════════════
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  color: variables.$dark;
+
+  &__dot {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: variables.$primary;
+    flex-shrink: 0;
+    transition: variables.$transition;
+  }
+
+  &:hover &__dot {
+    transform: scale(1.3);
+  }
+}
+
+// ══════════════════════════════
+//  DESKTOP NAV
+// ══════════════════════════════
+
+.desktop-nav {
+  display: flex;
+  gap: 35px;
+}
+
+.desktop-nav a {
+  position: relative;
+
+  color: variables.$dark;
+  font-weight: 600;
+  font-size: 14px;
+
+  display: inline-block;
+
+  transition: color .3s ease;
+}
+
+// ── Hover Effect — underline chapdan o'ngga ──
+
+.desktop-nav a::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+
+  width: 100%;
+  height: 2px;
+
+  background: variables.$primary;
+
+  transform: scaleX(0);
+  transform-origin: right;
+
+  transition: transform .35s cubic-bezier(.25, 1, .5, 1);
+}
+
+.desktop-nav a:hover {
+  color: variables.$primary;
+}
+
+.desktop-nav a:hover::after,
+.desktop-nav a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.desktop-nav a.active {
+  color: variables.$primary;
+}
+
+// ══════════════════════════════
+//  HEADER ACTIONS  (CTA + burger)
+// ══════════════════════════════
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+// ── CTA tugma (Hero btn bilan bir xil til) ──
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  background: variables.$dark;
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+
+  padding: 12px 22px;
+  border-radius: variables.$radius;
+
+  transition: variables.$transition;
+
+  svg { transition: transform .3s ease; }
+
+  &:hover {
+    background: variables.$primary;
+    gap: 14px;
+    box-shadow: 0 10px 28px rgba(variables.$primary, .28);
+
+    svg { transform: translateX(3px); }
+  }
+}
+
+// ── Mobile burger ──
+
+.menu-btn {
+  display: none;
+
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;
+  color: variables.$dark;
+
+  border: 1px solid rgba(variables.$dark, .1);
+  border-radius: variables.$radius;
+  background: transparent;
+
+  transition: variables.$transition;
+
+  &:hover {
+    border-color: variables.$primary;
+    color: variables.$primary;
+    background: rgba(variables.$primary, .06);
+  }
+}
+
+// ══════════════════════════════
+//  OVERLAY
+// ══════════════════════════════
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(17, 24, 39, .45);
+  backdrop-filter: blur(2px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: .35s ease;
+  z-index: 999;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+// ══════════════════════════════
+//  OFFCANVAS
+// ══════════════════════════════
+
+.offcanvas {
+  position: fixed;
+  top: 0;
+  right: -100%;
+
+  width: 380px;
+  height: 100vh;
+
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: -24px 0 60px rgba(0, 0, 0, .08);
+
+  transition: right .45s cubic-bezier(.22, 1, .36, 1);
+
+  z-index: 1000;
+}
+
+.offcanvas.active {
+  right: 0;
+}
+
+// ── Top ──
+
+.offcanvas-top {
+  padding: 28px 28px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(variables.$dark, .06);
+}
+
+.offcanvas-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  font-size: 20px;
+  color: variables.$dark;
+
+  border: 1px solid rgba(variables.$dark, .1);
+  border-radius: variables.$radius;
+  background: transparent;
+
+  transition: variables.$transition;
+
+  &:hover {
+    border-color: variables.$primary;
+    color: variables.$primary;
+    background: rgba(variables.$primary, .06);
+    transform: rotate(90deg);
+  }
+}
+
+// ── Nav ──
+
+.offcanvas nav {
+  flex: 1;
+  row-gap: 5px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px 16px;
+  overflow-y: auto;
+}
+
+.offcanvas nav a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 18px 12px;
+
+  color: variables.$dark;
+  font-size: 17px;
+  font-weight: 700;
+
+  border-radius: variables.$radius;
+
+  transition: variables.$transition;
+
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+// offcanvas ochilganda har bir link ketma-ket chiqadi
+.offcanvas.active nav a {
+  animation: offcanvas-link-in .5s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: calc(.08s + var(--i) * .06s);
+}
+
+@keyframes offcanvas-link-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-num {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: rgba(variables.$dark, .25);
+  transition: color .25s;
+  min-width: 22px;
+}
+
+.nav-label {
+  position: relative;
+}
+
+.offcanvas nav a:hover,
+.offcanvas nav a.active {
+  color: variables.$primary;
+  background: rgba(variables.$primary, .06);
+  padding-left: 18px;
+}
+
+.offcanvas nav a:hover .nav-num,
+.offcanvas nav a.active .nav-num {
+  color: variables.$primary;
+}
+
+// ── Bottom ──
+
+.offcanvas-bottom {
+  padding: 20px 24px 28px;
+  border-top: 1px solid rgba(variables.$dark, .06);
+}
+
+.offcanvas-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  width: 100%;
+
+  background: variables.$dark;
+  color: #fff;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  padding: 17px 0;
+  border-radius: variables.$radius;
+
+  transition: variables.$transition;
+
+  svg { transition: transform .3s ease; }
+
+  &:hover {
+    background: variables.$primary;
+    gap: 18px;
+
+    svg { transform: translateX(4px); }
+  }
+}
+
+// ══════════════════════════════
+//  RESPONSIVE
+// ══════════════════════════════
+
+@media (max-width: 992px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 576px) {
+  .offcanvas {
+    width: calc(100% - 40px); // chap tomonda 40px gap qoladi
+  }
+
+  .offcanvas nav a {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offcanvas nav a {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

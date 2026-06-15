@@ -1,0 +1,703 @@
+@use "../../styles/variables";
+
+// ══════════════════════════════
+//  WRAPPER
+// ══════════════════════════════
+
+.hs {
+  position: relative;
+  width: 100%;
+  height: 92vh;
+  min-height: 600px;
+  max-height: 980px;
+  overflow: hidden;
+  background: #0a0a0a;
+  user-select: none;
+  cursor: grab;
+
+  &:active { cursor: grabbing; }
+}
+
+// ══════════════════════════════
+//  IMAGES
+// ══════════════════════════════
+
+.hs-img {
+  position: absolute;
+  inset: -4%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 1.4s cubic-bezier(.4, 0, .2, 1),
+    transform 7s ease;
+  will-change: transform, opacity;
+  z-index: 0;
+
+  &.is-active {
+    opacity: 1;
+    transform: scale(1.0);
+    z-index: 1;
+  }
+
+  &.is-out {
+    opacity: 0;
+    transform: scale(.98);
+    transition: opacity .8s ease, transform .8s ease;
+    z-index: 0;
+  }
+}
+
+// ══════════════════════════════
+//  GRADIENT
+// ══════════════════════════════
+
+.hs-grad {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, .72) 0%,
+      rgba(0, 0, 0, .30) 50%,
+      rgba(0, 0, 0, .05) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, .60) 0%,
+      transparent        55%
+    );
+}
+
+// ══════════════════════════════
+//  YEAR BADGE  (top-left)
+// ══════════════════════════════
+
+.hs-year {
+  position: absolute;
+  top: 28px;
+  left: 32px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__line {
+    display: block;
+    width: 1px;
+    height: 22px;
+    background: rgba(255, 255, 255, .2);
+  }
+
+  &__txt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    color: rgba(255, 255, 255, .35);
+  }
+}
+
+// ══════════════════════════════
+//  CONTENT
+// ══════════════════════════════
+
+.hs-content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 60px 60px;
+  max-width: 680px;
+
+  // barcha bolalar boshlang'ich holat
+  .hs-tag,
+  .hs-title__inner,
+  .hs-sub,
+  .hs-cta {
+    opacity: 0;
+    transition: none;
+  }
+
+  // visible bo'lganda animatsiyalar yoqiladi
+  &.is-visible {
+
+    .hs-tag {
+      opacity: 1;
+      transition: opacity .55s cubic-bezier(.22, 1, .36, 1) .06s;
+
+      .hs-tag__bar {
+        width: 28px;
+        transition: width .7s cubic-bezier(.22, 1, .36, 1) .06s;
+      }
+
+      .hs-tag__txt {
+        opacity: 1;
+        transition: opacity .5s .2s;
+      }
+    }
+
+    .hs-title__inner {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity   .0s,
+        transform .8s cubic-bezier(.22, 1, .36, 1) .15s;
+    }
+
+    .hs-sub {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity   .6s cubic-bezier(.22, 1, .36, 1) .34s,
+        transform .6s cubic-bezier(.22, 1, .36, 1) .34s;
+    }
+
+    .hs-cta {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity   .55s cubic-bezier(.22, 1, .36, 1) .46s,
+        transform .55s cubic-bezier(.22, 1, .36, 1) .46s,
+        background .25s,
+        gap .25s;
+    }
+  }
+}
+
+// ── Tag ──
+
+.hs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+
+  &__bar {
+    display: block;
+    width: 0;
+    height: 1px;
+    background: variables.$primary;
+    flex-shrink: 0;
+  }
+
+  &__txt {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: variables.$primary;
+    opacity: 0;
+    white-space: nowrap;
+  }
+}
+
+// ── Title ──
+
+.hs-title {
+  // ── Hammasi shu yerdan boshqariladi ──
+  // hs-title__inner ichidagi barcha matnlar (title + accent)
+  // shu bitta o'zgaruvchi orqali o'lcham oladi.
+  --hs-title-size: clamp(40px, 4vw, 90px);
+
+  overflow: hidden;
+  margin-bottom: 16px;
+
+  &__inner {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+
+  &__line {
+    display: block;
+    font-size: var(--hs-title-size);
+    font-weight: 900;
+    line-height: .92;
+    letter-spacing: -.04em;
+    color: #fff;
+    word-break: break-word;
+
+    &--accent {
+      color: variables.$primary;
+    }
+  }
+}
+
+// ── Subtitle ──
+
+.hs-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .5);
+  line-height: 1.75;
+  max-width: 400px;
+  margin-bottom: 36px;
+  transform: translateY(12px);
+
+  // uzun matnlar uchun himoya — 4 qatordan ortig'i kesiladi
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+// ── CTA ──
+
+.hs-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: variables.$primary;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 15px 28px;
+  width: fit-content;
+  transform: translateY(10px);
+  white-space: nowrap;
+
+  svg { transition: transform .3s ease; flex-shrink: 0; }
+
+  &:hover {
+    background: variables.$primary-dark;
+    gap: 20px;
+
+    svg { transform: translateX(4px); }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+// ══════════════════════════════
+//  COUNTER  (o'ng tomon)
+// ══════════════════════════════
+
+.hs-counter {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  &__cur {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    color: #fff;
+  }
+
+  &__track {
+    width: 1px;
+    height: 48px;
+    background: rgba(255, 255, 255, .15);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  &__fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: variables.$primary;
+    transition: height .05s linear;
+  }
+
+  &__tot {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: rgba(255, 255, 255, .3);
+  }
+}
+
+// ══════════════════════════════
+//  BOTTOM NAV
+// ══════════════════════════════
+
+.hs-bottom {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+// ── Dots ──
+
+.hs-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.hs-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background .35s, transform .35s;
+  flex-shrink: 0;
+
+  &.is-active {
+    background: variables.$primary;
+    transform: scale(1.5);
+  }
+
+  &:hover:not(.is-active) {
+    background: rgba(255, 255, 255, .45);
+  }
+
+  &:focus-visible {
+    outline: 1px solid #fff;
+    outline-offset: 3px;
+  }
+}
+
+// ── Arrows ──
+
+.hs-arrows {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.hs-arr {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .15);
+  background: transparent;
+  color: rgba(255, 255, 255, .5);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: border-color .25s, color .25s, background .25s;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: variables.$primary;
+    color: variables.$primary;
+    background: rgba(180, 138, 100, .08);
+  }
+
+  &:focus-visible {
+    outline: 1px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+// ══════════════════════════════
+//  PROGRESS BAR
+// ══════════════════════════════
+
+.hs-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 8;
+  background: rgba(255, 255, 255, .06);
+
+  &__fill {
+    display: block;
+    height: 100%;
+    background: variables.$primary;
+    transition: width .05s linear;
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  RESPONSIVE — universal, barcha ekran o'lchamlari
+// ══════════════════════════════════════════════════════
+
+// ── Katta ekranlar (4K / wide monitors) ──
+@media (min-width: 1600px) {
+  .hs-content {
+    max-width: 760px;
+    padding: 140px 80px 80px;
+  }
+
+  .hs-sub {
+    font-size: 15px;
+    max-width: 460px;
+  }
+
+  .hs-counter,
+  .hs-bottom,
+  .hs-year {
+    right: 64px;
+  }
+
+  .hs-year { left: 64px; }
+}
+
+// ── Kichik laptoplar / katta tabletlar (landscape) ──
+@media (max-width: 1200px) {
+  .hs-content {
+    padding: 110px 48px 60px;
+    max-width: 580px;
+  }
+
+  .hs-counter { right: 32px; }
+
+  .hs-bottom {
+    right: 32px;
+    bottom: 40px;
+  }
+
+  .hs-year { left: 28px; }
+}
+
+// ── Tablet portrait ──
+@media (max-width: 900px) {
+  .hs-content {
+    max-width: 540px;
+  }
+
+  .hs-title {
+    --hs-title-size: clamp(36px, 7vw, 70px);
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hs-sub {
+    max-width: 100%;
+  }
+}
+
+// ── Planshet / kichik ekran (768px) ──
+@media (max-width: 768px) {
+  .hs {
+    height: 92svh;
+    min-height: 560px;
+  }
+
+  .hs-content {
+    padding: 100px 28px 50px;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .hs-title {
+    --hs-title-size: clamp(34px, 8.5vw, 60px);
+  }
+
+  .hs-sub {
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 100%;
+    margin-bottom: 28px;
+    -webkit-line-clamp: 4;
+  }
+
+  // hisoblagich — vertikaldan gorizontalga
+  .hs-counter {
+    top: auto;
+    bottom: 56px;
+    right: 28px;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    &__track {
+      width: 48px;
+      height: 1px;
+    }
+
+    &__fill {
+      height: 100%;
+    }
+  }
+
+  .hs-bottom {
+    bottom: 24px;
+    right: 28px;
+    gap: 14px;
+  }
+
+  .hs-arr {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hs-year {
+    top: 22px;
+    left: 28px;
+  }
+}
+
+// ── Mobil (telefon, portrait) ──
+@media (max-width: 480px) {
+  .hs {
+    height: 100svh;
+    min-height: 620px;
+  }
+
+  .hs-content {
+    padding: 84px 20px 96px; // pastda bottom-bar uchun joy
+    justify-content: center;
+  }
+
+  .hs-title {
+    --hs-title-size: clamp(32px, 10.5vw, 48px);
+  }
+
+  .hs-sub {
+    display: -webkit-box;
+    font-size: 12.5px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    -webkit-line-clamp: 3;
+  }
+
+  .hs-cta {
+    font-size: 10px;
+    padding: 13px 22px;
+    gap: 10px;
+
+    &:hover { gap: 14px; }
+  }
+
+  .hs-counter {
+    display: none;
+  }
+
+  .hs-bottom {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    justify-content: space-between;
+  }
+
+  .hs-year {
+    top: 18px;
+    left: 20px;
+
+    &__txt { font-size: 10px; }
+  }
+}
+
+// ── Juda kichik telefonlar ──
+@media (max-width: 360px) {
+  .hs-title {
+    --hs-title-size: clamp(28px, 11.5vw, 42px);
+  }
+
+  .hs-tag__txt {
+    display: none;
+  }
+
+  .hs-sub {
+    font-size: 12px;
+    -webkit-line-clamp: 3;
+    margin-bottom: 22px;
+  }
+
+  .hs-cta span {
+    font-size: 9px;
+  }
+
+  .hs-arr {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+// ── Mobil landscape (gorizontal telefon) ──
+@media (max-height: 480px) and (orientation: landscape) {
+  .hs {
+    height: 100vh;
+    min-height: 360px;
+  }
+
+  .hs-content {
+    padding: 70px 32px 24px;
+    justify-content: center;
+  }
+
+  .hs-title {
+    --hs-title-size: clamp(26px, 6vw, 46px);
+  }
+
+  .hs-sub {
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    max-width: 60%;
+    -webkit-line-clamp: 2;
+  }
+
+  .hs-tag { margin-bottom: 10px; }
+  .hs-title { margin-bottom: 8px; }
+
+  .hs-year { display: none; }
+
+  .hs-counter {
+    top: 50%;
+    bottom: auto;
+    right: 20px;
+    transform: translateY(-50%);
+    flex-direction: column;
+
+    &__track {
+      width: 1px;
+      height: 32px;
+    }
+
+    &__fill { height: 100%; width: 100%; }
+  }
+
+  .hs-bottom {
+    bottom: 16px;
+    right: 20px;
+  }
+}
+
+// ── Hover qo'llab-quvvatlanmaydigan qurilmalar (touch) ──
+@media (hover: none) {
+  .hs {
+    cursor: default;
+  }
+
+  .hs-cta:hover,
+  .hs-arr:hover,
+  .hs-dot:hover {
+    background: initial;
+  }
+}
+
+// ── Animatsiyani kamaytirish sozlamasi ──
+@media (prefers-reduced-motion: reduce) {
+  .hs-img,
+  .hs-title__inner,
+  .hs-tag,
+  .hs-sub,
+  .hs-cta,
+  .hs-tag__bar,
+  .hs-tag__txt {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
