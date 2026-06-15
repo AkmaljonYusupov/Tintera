@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Hero.scss";
 
 interface Props {
@@ -6,33 +5,23 @@ interface Props {
   subtitle: string;
 }
 
-// Tanlash mumkin bo'lgan bo'yoq palitrasi
-const PALETTE = [
-  { name: "Терракота", hex: "#C1633A" },
-  { name: "Шалфей", hex: "#8AA399" },
-  { name: "Слоновая кость", hex: "#EDE6D6" },
-  { name: "Глубокий синий", hex: "#2F4156" },
-  { name: "Горчичный", hex: "#D8A24A" },
-];
+// Fon rasmi — heroning orqasida pastki qatlam sifatida,
+// fonga mos ravishda yumshoq tarzda ko'rinadi (CSS orqali).
+const BG_IMG =
+  "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80";
 
 function Hero({ title, subtitle }: Props) {
   const words = title.split(" ");
 
-  const [activeColor, setActiveColor] = useState(0);
-  const current = PALETTE[activeColor];
-
   return (
     <section
       className="hero"
-      style={{ "--accent": current.hex } as React.CSSProperties}
+      style={{ "--hero-bg": `url(${BG_IMG})` } as React.CSSProperties}
     >
       <div className="container hero-inner">
-        {/* Chap ustun: matn + palitra */}
+        {/* ── Matn ── */}
         <div className="hero-content">
-          <div className="hero-eyebrow">
-            <span className="hero-eyebrow__dot" />
-            Tintera Decor Center
-          </div>
+          <span className="hero-eyebrow">Tintera Decor Center</span>
 
           <h1 className="hero-title">
             {words.map((word, i) => (
@@ -44,49 +33,9 @@ function Hero({ title, subtitle }: Props) {
                 <span className="hero-title__word">{word}</span>
               </span>
             ))}
-
-            {/* Bo'yoq cho'tkasi chizig'i */}
-            <svg
-              className="hero-title__brush"
-              viewBox="0 0 320 24"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path d="M2 16 C 60 4, 120 24, 180 10 S 280 20, 318 8" />
-            </svg>
           </h1>
 
           <p className="hero-sub">{subtitle}</p>
-
-          {/* Interaktiv rang palitrasi */}
-          <div className="hero-palette">
-            <span className="hero-palette__label">Выберите оттенок</span>
-
-            <div className="hero-palette__chips">
-              {PALETTE.map((c, i) => (
-                <button
-                  type="button"
-                  key={c.hex}
-                  className={`hero-palette__chip ${
-                    i === activeColor ? "is-active" : ""
-                  }`}
-                  style={
-                    {
-                      "--chip": c.hex,
-                      "--i": i,
-                    } as React.CSSProperties
-                  }
-                  onClick={() => setActiveColor(i)}
-                  aria-label={c.name}
-                  aria-pressed={i === activeColor}
-                />
-              ))}
-            </div>
-
-            <span className="hero-palette__name">
-              {current.name} · {current.hex}
-            </span>
-          </div>
 
           <div className="hero-actions">
             <a href="#products" className="hero-btn">
@@ -107,31 +56,6 @@ function Hero({ title, subtitle }: Props) {
               <span>О нас</span>
             </a>
           </div>
-        </div>
-
-        {/* O'ng ustun: rasm + tint + karta */}
-        <div className="hero-visual">
-          <div className="hero-visual__frame">
-            <img
-              className="hero-visual__img"
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
-              alt=""
-            />
-            <span className="hero-visual__tint" aria-hidden="true" />
-          </div>
-
-          <div className="hero-visual__card">
-            <span className="hero-visual__card-dot" />
-            <div>
-              <strong>120+</strong>
-              <small>оттенков краски</small>
-            </div>
-          </div>
-
-          <span className="hero-visual__scroll" aria-hidden="true">
-            <span className="hero-visual__scroll-line" />
-            Скролл
-          </span>
         </div>
       </div>
     </section>
