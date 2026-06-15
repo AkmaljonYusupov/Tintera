@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Hero.scss";
 
 interface Props {
@@ -6,76 +6,52 @@ interface Props {
   subtitle: string;
 }
 
-// Kichik galereya — bo'yoq/material namunalari
-const SWATCHES = [
-  "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80",
-  "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80",
-  "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
-  "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
+// Tanlash mumkin bo'lgan bo'yoq palitrasi.
+// Har bir chip bosilganda --accent CSS o'zgaruvchisi yangilanadi
+// va o'ng tomondagi rasm tint rangi, brush chizig'i, badge nuqtasi
+// shu rangga moslashadi.
+const PALETTE = [
+  { name: "Терракота", hex: "#C1633A" },
+  { name: "Шалфей", hex: "#8AA399" },
+  { name: "Слоновая кость", hex: "#EDE6D6" },
+  { name: "Глубокий синий", hex: "#2F4156" },
+  { name: "Горчичный", hex: "#D8A24A" },
 ];
 
-// Avtomatik almashish oralig'i (millisekund)
-const AUTO_INTERVAL = 4000;
-
-// Yuqoridagi tasma uchun takrorlanuvchi so'zlar
-const MARQUEE_WORDS = ["Tintera", "Краски", "Декор", "Штукатурка", "Дизайн", "Интерьер"];
+// Chap qirradagi vertikal marquee uchun so'zlar
+const SIDE_WORDS = ["Tintera", "Студия цвета", "Краски", "Интерьер"];
 
 function Hero({ title, subtitle }: Props) {
   const words = title.split(" ");
 
-  // ── Faol rasm holati ──
-  // Bosilmasa — avtomatik almashadi, bosilsa — o'shani ko'rsatadi
-  // va keyingi avtomatik almashish vaqtini qaytadan boshlaydi.
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setActive((prev) => (prev + 1) % SWATCHES.length);
-    }, AUTO_INTERVAL);
-
-    return () => clearTimeout(timer);
-  }, [active]);
+  // ── Faol rang holati ──
+  // Bosilgan chip butun heroning aksent rangini (--accent) belgilaydi:
+  // rasm tinti, brush chizig'i, badge va karta nuqtalari shu rangda.
+  const [activeColor, setActiveColor] = useState(0);
+  const current = PALETTE[activeColor];
 
   return (
-    <section className="hero">
-
-      {/* ── Yuqori tasma — uzluksiz aylanuvchi matn ── */}
-      <div className="hero-marquee" aria-hidden="true">
-        <div className="hero-marquee__track">
-          {[...MARQUEE_WORDS, ...MARQUEE_WORDS, ...MARQUEE_WORDS].map((w, i) => (
-            <span className="hero-marquee__item" key={i}>
+    <section
+      className="hero"
+      style={{ "--accent": current.hex } as React.CSSProperties}
+    >
+      {/* ── Chap qirra — vertikal uzluksiz tasma ── */}
+      <div className="hero-sidebar" aria-hidden="true">
+        <div className="hero-sidebar__track">
+          {[...SIDE_WORDS, ...SIDE_WORDS, ...SIDE_WORDS].map((w, i) => (
+            <span className="hero-sidebar__item" key={i}>
               {w}
-              <span className="hero-marquee__dot" />
+              <span className="hero-sidebar__dot" />
             </span>
           ))}
         </div>
       </div>
 
       <div className="container hero-inner">
-
-        {/* ── Markaziy sarlavha + bo'yoq namunalari ── */}
-        <div className="hero-main">
-
-          {/* Dekorativ bo'yoq doiralari */}
-          <span className="hero-swatch hero-swatch--1" aria-hidden="true" />
-          <span className="hero-swatch hero-swatch--3" aria-hidden="true" />
-          <span className="hero-swatch hero-swatch--4" aria-hidden="true" />
-
-          {/* ── Faol rasm ko'rinishi (preview) ── */}
-          <div className="hero-preview" aria-hidden="true">
-            {SWATCHES.map((src, i) => (
-              <img
-                key={src}
-                src={src}
-                alt=""
-                className={`hero-preview__img ${i === active ? "is-active" : ""}`}
-              />
-            ))}
-            <span className="hero-preview__ring" />
-          </div>
-
-          <div className="hero-badge">
-            <span className="hero-badge__dot" />
+        {/* ── Chap ustun: matn + palitra ── */}
+        <div className="hero-content">
+          <div className="hero-eyebrow">
+            <span className="hero-eyebrow__dot" />
             Tintera Decor Center
           </div>
 
@@ -86,64 +62,99 @@ function Hero({ title, subtitle }: Props) {
                 key={i}
                 style={{ "--i": i } as React.CSSProperties}
               >
-                <span
-                  className={[
-                    "hero-title__word",
-                    i === words.length - 1 ? "hero-title__word--accent" : "",
-                  ].join(" ")}
-                >
-                  {word}
-                </span>
+                <span className="hero-title__word">{word}</span>
               </span>
             ))}
+
+            {/* Bo'yoq cho'tkasi chizig'i — chap tomondan o'ngga "chiziladi" */}
+            <svg
+              className="hero-title__brush"
+              viewBox="0 0 320 24"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path d="M2 16 C 60 4, 120 24, 180 10 S 280 20, 318 8" />
+            </svg>
           </h1>
 
-          <div className="hero-bottom">
-            <p className="hero-sub">{subtitle}</p>
+          <p className="hero-sub">{subtitle}</p>
 
-            <div className="hero-actions">
-              <a href="#products" className="hero-btn">
-                <span>Начать</span>
-                <span className="hero-btn__icon">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4"
-                      stroke="currentColor" strokeWidth="1.5"
-                      strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </a>
-              <a href="#about" className="hero-link">
-                <span>Подробнее</span>
-              </a>
+          {/* ── Interaktiv rang palitrasi ── */}
+          <div className="hero-palette">
+            <span className="hero-palette__label">Выберите оттенок</span>
+
+            <div className="hero-palette__chips">
+              {PALETTE.map((c, i) => (
+                <button
+                  type="button"
+                  key={c.hex}
+                  className={`hero-palette__chip ${
+                    i === activeColor ? "is-active" : ""
+                  }`}
+                  style={
+                    {
+                      "--chip": c.hex,
+                      "--i": i,
+                    } as React.CSSProperties
+                  }
+                  onClick={() => setActiveColor(i)}
+                  aria-label={c.name}
+                  aria-pressed={i === activeColor}
+                />
+              ))}
+            </div>
+
+            <span className="hero-palette__name">
+              {current.name} · {current.hex}
+            </span>
+          </div>
+
+          <div className="hero-actions">
+            <a href="#products" className="hero-btn">
+              <span>Каталог</span>
+              <span className="hero-btn__icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+            <a href="#about" className="hero-link">
+              <span>О нас</span>
+            </a>
+          </div>
+        </div>
+
+        {/* ── O'ng ustun: rasm + tint + statistik karta ── */}
+        <div className="hero-visual">
+          <div className="hero-visual__frame">
+            <img
+              className="hero-visual__img"
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
+              alt=""
+            />
+            <span className="hero-visual__tint" aria-hidden="true" />
+          </div>
+
+          <div className="hero-visual__card">
+            <span className="hero-visual__card-dot" />
+            <div>
+              <strong>120+</strong>
+              <small>оттенков краски</small>
             </div>
           </div>
 
+          <span className="hero-visual__scroll" aria-hidden="true">
+            <span className="hero-visual__scroll-line" />
+            Скролл
+          </span>
         </div>
-
-        {/* ── Pastki mini-galereya ── */}
-        <div className="hero-gallery">
-          {SWATCHES.map((src, i) => (
-            <button
-              type="button"
-              className={`hero-gallery__item ${i === active ? "is-active" : ""}`}
-              key={i}
-              style={{ "--i": i } as React.CSSProperties}
-              onClick={() => setActive(i)}
-              aria-label={`${i + 1}-rasmni ko'rsatish`}
-              aria-pressed={i === active}
-            >
-              <img src={src} alt="" />
-            </button>
-          ))}
-
-          <div className="hero-gallery__more">
-            <span>100+</span>
-            <small>Решений</small>
-          </div>
-        </div>
-
       </div>
-
     </section>
   );
 }
