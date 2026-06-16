@@ -1,0 +1,341 @@
+@use "../../styles/variables";
+@use "sass:color";
+
+// ══════════════════════════════════════════
+//  WRAPPER
+// ══════════════════════════════════════════
+
+.about {
+  position: relative;
+  background: #f8f8f8;
+  padding: 110px 0;
+  overflow: hidden;
+}
+
+.about-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+// ══════════════════════════════════════════
+//  DEKORATIV SHAKLLAR — heroning bo'yoq doiralari bilan uyg'un
+// ══════════════════════════════════════════
+
+.about-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+
+  &--1 {
+    top: 8%;
+    right: 6%;
+    width: 220px;
+    height: 220px;
+    background: rgba(variables.$primary, .08);
+    animation: about-float 12s ease-in-out infinite;
+  }
+
+  &--2 {
+    bottom: 4%;
+    left: 4%;
+    width: 120px;
+    height: 120px;
+    background: rgba(variables.$dark, .04);
+    animation: about-float 14s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes about-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(18px, -22px); }
+}
+
+// ══════════════════════════════════════════
+//  CONTENT — chap ustun
+// ══════════════════════════════════════════
+
+.about-content {
+  position: relative;
+  z-index: 1;
+}
+
+.about-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: variables.$primary;
+  margin-bottom: 18px;
+
+  opacity: 0;
+  transform: translateY(12px);
+  animation: about-up .6s cubic-bezier(.22, 1, .36, 1) .05s forwards;
+}
+
+// ── Title ──
+
+.about-title {
+  font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: variables.$dark;
+  margin: 0 0 28px;
+}
+
+.about-title__row {
+  display: block;
+  overflow: hidden;
+}
+
+.about-title__word {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: about-title-up .7s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: calc(.1s + var(--i, 0) * .12s);
+
+  &--accent {
+    color: variables.$primary;
+  }
+}
+
+// ── Paragraflar ──
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 560px;
+  margin-bottom: 32px;
+
+  opacity: 0;
+  transform: translateY(14px);
+  animation: about-up .65s cubic-bezier(.22, 1, .36, 1) .3s forwards;
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(variables.$dark, .6);
+    margin: 0;
+  }
+}
+
+// ── Havola ──
+
+.about-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: variables.$dark;
+
+  opacity: 0;
+  transform: translateY(12px);
+  animation: about-up .6s cubic-bezier(.22, 1, .36, 1) .45s forwards;
+
+  span:first-child {
+    position: relative;
+    padding-bottom: 4px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: variables.$dark;
+    color: #fff;
+    transition: background .3s ease, transform .3s ease;
+
+    svg { transition: transform .3s ease; }
+  }
+
+  &:hover {
+    color: variables.$primary;
+
+    span:first-child::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    .about-link__icon {
+      background: variables.$primary;
+      transform: translateX(2px);
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+//  MEDIA — o'ng ustun: rasm + badge qatori
+// ══════════════════════════════════════════
+
+.about-media {
+  position: relative;
+  z-index: 1;
+
+  opacity: 0;
+  transform: scale(.97);
+  animation: about-media-in .8s cubic-bezier(.22, 1, .36, 1) .2s forwards;
+}
+
+.about-media__frame {
+  position: relative;
+  border-radius: variables.$radius;
+  overflow: hidden;
+  box-shadow: 0 16px 40px -28px rgba(variables.$dark, .18);
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.about-media__badges {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+
+  opacity: 0;
+  transform: translateY(14px);
+  animation: about-up .6s cubic-bezier(.22, 1, .36, 1) .55s forwards;
+}
+
+.about-media__badge {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: variables.$radius;
+  background: rgba(variables.$dark, .03);
+  border: 1px solid rgba(variables.$dark, .06);
+
+  strong {
+    font-size: 18px;
+    font-weight: 800;
+    color: variables.$dark;
+    letter-spacing: -.01em;
+  }
+
+  span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: rgba(variables.$dark, .4);
+  }
+}
+
+// ══════════════════════════════════════════
+//  KEYFRAMES
+// ══════════════════════════════════════════
+
+@keyframes about-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes about-title-up {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes about-media-in {
+  from { opacity: 0; transform: scale(.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+// ══════════════════════════════════════════
+//  RESPONSIVE
+// ══════════════════════════════════════════
+
+@media (max-width: 992px) {
+  .about {
+    padding: 80px 0;
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-media {
+    order: -1;
+  }
+
+  .about-shape--1 { width: 160px; height: 160px; }
+  .about-shape--2 { width: 90px; height: 90px; }
+}
+
+@media (max-width: 576px) {
+  .about {
+    padding: 64px 0;
+  }
+
+  .about-title {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .about-media__badges {
+    flex-direction: column;
+  }
+
+  .about-media__badge {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .about-shape--2 { display: none; }
+}
+
+// ── Animatsiyani kamaytirish ──
+@media (prefers-reduced-motion: reduce) {
+  .about-eyebrow,
+  .about-title__word,
+  .about-text,
+  .about-link,
+  .about-media,
+  .about-media__badges,
+  .about-shape {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
