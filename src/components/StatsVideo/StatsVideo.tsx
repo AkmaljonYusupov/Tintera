@@ -109,7 +109,8 @@ function StatsVideo() {
               className="vsection-frame__el"
               src={TinteraVideo}
               muted
-              autoPlay              
+              autoPlay
+              loop              
               controls
               playsInline
               preload="metadata"

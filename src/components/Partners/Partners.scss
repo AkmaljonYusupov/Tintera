@@ -1,0 +1,132 @@
+@use "../../styles/variables";
+
+.partners {
+  background: #f8f8f8;
+  padding: 90px 0 100px;
+  overflow: hidden;
+  border-top: 1px solid rgba(variables.$dark, .07);
+}
+
+.partners-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// ── Head ──
+
+.partners-head {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.partners-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: variables.$primary;
+  margin-bottom: 12px;
+}
+
+.partners-title {
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: variables.$dark;
+  margin: 0;
+
+  &--accent { color: variables.$primary; }
+}
+
+// ── Marquee ──
+
+.partners-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &:hover .partners-track {
+    animation-play-state: paused;
+  }
+}
+
+.partners-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 200px;
+  pointer-events: none;
+
+  &--l {
+    left: 0;
+    background: linear-gradient(to right, #f8f8f8, transparent);
+  }
+  &--r {
+    right: 0;
+    background: linear-gradient(to left, #f8f8f8, transparent);
+  }
+}
+
+.partners-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: partners-scroll 32s linear infinite;
+}
+
+@keyframes partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.3333%); }
+}
+
+// ── Logo — katta, tooltip yo'q, link bor ──
+
+.partners-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 120px;
+  margin: 0 32px;
+  flex-shrink: 0;
+  text-decoration: none;
+
+  img {
+    display: block;
+    height: 90px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+  }
+}
+
+// ── Responsive ──
+
+@media (max-width: 768px) {
+  .partners { padding: 70px 0 80px; }
+
+  .partners-logo {
+    width: 180px;
+    height: 90px;
+    margin: 0 20px;
+    img { height: 70px; }
+  }
+
+  .partners-fade { width: 80px; }
+}
+
+@media (max-width: 480px) {
+  .partners-logo {
+    width: 150px;
+    height: 76px;
+    margin: 0 14px;
+    img { height: 56px; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-track { animation: none !important; }
+}
