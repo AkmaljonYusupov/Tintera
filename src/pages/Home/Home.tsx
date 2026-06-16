@@ -1,5 +1,6 @@
 import HeroSlider from "../../components/HeroSlider/HeroSlider";
 import AboutTintera from "../../components/AboutTintera/AboutTintera";
+import StatsVideo from "../../components/StatsVideo/StatsVideo";
 import "./Home.scss";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
     <>
       <HeroSlider />
       <AboutTintera />
+      <StatsVideo />
     </>
   );
 }
