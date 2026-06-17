@@ -3,14 +3,14 @@ import tinteraLogo from "../../assets/logo.png";
 
 // Reel URL lari — thumb yo'q, to'g'ridan iframe embed
 const REELS = [
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
-  "https://www.instagram.com/reel/DY9FK3lIIPS/embed/",
+  "https://www.instagram.com/reel/REEL_ID_1/embed/",
+  "https://www.instagram.com/reel/REEL_ID_2/embed/",
+  "https://www.instagram.com/reel/REEL_ID_3/embed/",
+  "https://www.instagram.com/reel/REEL_ID_4/embed/",
+  "https://www.instagram.com/reel/REEL_ID_5/embed/",
+  "https://www.instagram.com/reel/REEL_ID_6/embed/",
+  "https://www.instagram.com/reel/REEL_ID_7/embed/",
+  "https://www.instagram.com/reel/REEL_ID_8/embed/",
 ];
 
 const INSTAGRAM_URL = "https://www.instagram.com/tinterauz/";
