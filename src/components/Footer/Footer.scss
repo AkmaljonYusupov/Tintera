@@ -5,15 +5,109 @@
 // ══════════════════════════════════════════
 
 .footer {
+  position: relative;
   background: #fff;
   border-top: 1px solid rgba(variables.$dark, .08);
+  overflow: hidden;
 }
 
 // ══════════════════════════════════════════
-//  YUQORI QISM — katta CTA banner
+//  ANIMATSION FON SHAKLLARI
+// ══════════════════════════════════════════
+
+.footer-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.footer-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: shape-fade-in .8s ease forwards;
+
+  // 1 — katta doira, chap yuqori
+  &--1 {
+    width: 320px; height: 320px;
+    top: -80px; left: -60px;
+    background: radial-gradient(circle, rgba(variables.$primary, .08) 0%, transparent 70%);
+    animation-delay: .1s;
+    animation: shape-fade-in .8s ease .1s forwards, shape-float-1 18s ease-in-out 1s infinite;
+  }
+
+  // 2 — o'rta doira, o'ng pastda
+  &--2 {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -40px;
+    background: radial-gradient(circle, rgba(variables.$primary, .07) 0%, transparent 70%);
+    animation: shape-fade-in .8s ease .2s forwards, shape-float-2 22s ease-in-out 1s infinite;
+  }
+
+  // 3 — kichik to'q doira, o'rta o'ng
+  &--3 {
+    width: 14px; height: 14px;
+    top: 30%; right: 15%;
+    background: variables.$primary;
+    opacity: 0;
+    animation: shape-fade-in .6s ease .3s forwards, shape-float-1 10s ease-in-out 1s infinite;
+  }
+
+  // 4 — kichik halqa, chap pastda
+  &--4 {
+    width: 50px; height: 50px;
+    bottom: 20%; left: 8%;
+    border: 2px solid rgba(variables.$primary, .2);
+    background: transparent;
+    border-radius: 50%;
+    animation: shape-fade-in .6s ease .4s forwards, shape-spin 30s linear 1s infinite;
+  }
+
+  // 5 — nuqta, o'rta
+  &--5 {
+    width: 8px; height: 8px;
+    top: 55%; left: 35%;
+    background: rgba(variables.$primary, .35);
+    animation: shape-fade-in .6s ease .5s forwards, shape-float-2 8s ease-in-out 1s infinite;
+  }
+
+  // 6 — katta halqa, o'ng yuqori
+  &--6 {
+    width: 180px; height: 180px;
+    top: -30px; right: 25%;
+    border: 1px solid rgba(variables.$primary, .08);
+    background: transparent;
+    border-radius: 50%;
+    animation: shape-fade-in .8s ease .3s forwards, shape-spin 50s linear 1s infinite reverse;
+  }
+}
+
+@keyframes shape-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shape-float-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(16px, -20px); }
+}
+@keyframes shape-float-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(-14px, 18px); }
+}
+@keyframes shape-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+// ══════════════════════════════════════════
+//  YUQORI CTA BANNER
 // ══════════════════════════════════════════
 
 .footer-hero {
+  position: relative;
+  z-index: 1;
   background: variables.$dark;
   padding: 72px 0;
 }
@@ -28,7 +122,7 @@
 .footer-hero__left {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .footer-hero__eyebrow {
@@ -36,20 +130,18 @@
   font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .45);
+  color: rgba(255,255,255,.4);
 }
 
 .footer-hero__title {
-  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -.03em;
   color: #fff;
   margin: 0;
 
-  span {
-    color: variables.$primary;
-  }
+  span { color: variables.$primary; }
 }
 
 .footer-hero__cta {
@@ -66,31 +158,54 @@
   letter-spacing: .06em;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: background .3s ease, transform .25s ease;
+  transition: filter .25s ease, transform .25s ease;
 
   svg { transition: transform .3s ease; }
 
   &:hover {
-    background: lighten(#C1633A, 8%);
+    filter: brightness(1.1);
     transform: translateY(-2px);
-
     svg { transform: translateX(4px); }
   }
 }
 
 // ══════════════════════════════════════════
-//  ASOSIY GRID
+//  ASOSIY GRID — 4 ustun
 // ══════════════════════════════════════════
 
 .footer-main {
+  position: relative;
+  z-index: 1;
   padding: 64px 0 56px;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1.4fr;
-  gap: 48px 56px;
+  grid-template-columns: 1.4fr 0.9fr 1.2fr 1.2fr;
+  gap: 48px 40px;
   align-items: start;
+}
+
+// ── Ustun sarlavhasi ──
+
+.footer-col__title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: variables.$dark;
+  margin: 0 0 22px;
+  padding-bottom: 12px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 24px; height: 2px;
+    background: variables.$primary;
+    border-radius: 2px;
+  }
 }
 
 // ══════════════════════════════════════════
@@ -100,17 +215,18 @@
 .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .footer-logo {
-  font-size: 2.4rem;
-  font-weight: 900;
-  letter-spacing: -.05em;
-  color: variables.$dark;
-  text-decoration: none;
-  line-height: 1;
   display: inline-block;
+
+  img {
+    height: 48px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
 }
 
 .footer-brand__desc {
@@ -118,27 +234,28 @@
   line-height: 1.8;
   color: rgba(variables.$dark, .5);
   margin: 0;
-  max-width: 320px;
+  max-width: 280px;
 }
 
-// Ijtimoiy tarmoqlar ikonkalari
 .footer-socials {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 4px;
+  gap: 8px;
+  flex-wrap: wrap;
 
   &__item {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
     border: 1px solid rgba(variables.$dark, .1);
     color: rgba(variables.$dark, .55);
-    background: transparent;
-    transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+    text-decoration: none;
+    transition: background .25s, border-color .25s, color .25s, transform .25s;
+
+    svg { display: block; }
 
     &:hover {
       background: variables.$dark;
@@ -150,39 +267,12 @@
 }
 
 // ══════════════════════════════════════════
-//  USTUN SARLAVHASI
-// ══════════════════════════════════════════
-
-.footer-col__title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: variables.$dark;
-  margin: 0 0 24px;
-  position: relative;
-  padding-bottom: 14px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 24px;
-    height: 2px;
-    background: variables.$primary;
-    border-radius: 2px;
-  }
-}
-
-// ══════════════════════════════════════════
 //  NAV USTUN
 // ══════════════════════════════════════════
 
 .footer-nav {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -190,27 +280,27 @@
   &__link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-size: 15px;
     font-weight: 500;
     color: rgba(variables.$dark, .52);
     text-decoration: none;
-    transition: color .25s ease, gap .25s ease;
+    transition: color .25s, gap .25s;
+  }
 
-    svg {
-      opacity: 0;
-      transition: opacity .25s ease, transform .25s ease;
-      flex-shrink: 0;
-    }
+  &__arrow {
+    opacity: 0;
+    flex-shrink: 0;
+    transition: opacity .25s, transform .25s;
+  }
 
-    &:hover {
-      color: variables.$dark;
-      gap: 12px;
+  &__link:hover {
+    color: variables.$dark;
+    gap: 10px;
 
-      svg {
-        opacity: 1;
-        transform: translateX(2px);
-      }
+    .footer-nav__arrow {
+      opacity: 1;
+      transform: translateX(2px);
     }
   }
 }
@@ -221,21 +311,20 @@
 
 .footer-contacts {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 
   &__item {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    font-size: 14px;
+    gap: 12px;
+    font-size: 13.5px;
     line-height: 1.65;
     color: rgba(variables.$dark, .55);
     text-decoration: none;
-    transition: color .25s ease;
+    transition: color .25s;
 
     &:hover {
       color: variables.$dark;
@@ -252,14 +341,127 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 9px;
     border: 1px solid rgba(variables.$dark, .1);
     background: #f8f8f8;
     flex-shrink: 0;
     margin-top: 1px;
-    transition: background .25s ease, border-color .25s ease, color .25s ease;
+    transition: background .25s, border-color .25s, color .25s;
+
+    svg { display: block; }
+  }
+}
+
+// ══════════════════════════════════════════
+//  MINI KALENDAR
+// ══════════════════════════════════════════
+
+.fc {
+  background: #fff;
+  border: 1px solid rgba(variables.$dark, .09);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 24px -8px rgba(variables.$dark, .08);
+}
+
+.fc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(variables.$dark, .07);
+}
+
+.fc-month {
+  font-size: 13px;
+  font-weight: 800;
+  color: variables.$dark;
+  letter-spacing: -.01em;
+}
+
+.fc-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid rgba(variables.$dark, .1);
+  background: transparent;
+  cursor: pointer;
+  color: rgba(variables.$dark, .45);
+  transition: background .2s, color .2s, border-color .2s;
+
+  svg { display: block; }
+
+  &:hover {
+    background: variables.$primary;
+    border-color: variables.$primary;
+    color: #fff;
+  }
+}
+
+.fc-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  margin-bottom: 4px;
+}
+
+.fc-day-label {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(variables.$dark, .3);
+  padding: 3px 0 6px;
+
+  &:nth-child(6),
+  &:nth-child(7) {
+    color: rgba(variables.$primary, .55);
+  }
+}
+
+.fc-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.fc-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(variables.$dark, .6);
+  cursor: pointer;
+  transition: background .18s, color .18s;
+
+  &:hover {
+    background: rgba(variables.$primary, .1);
+    color: variables.$primary;
+    font-weight: 600;
+  }
+
+  &--today {
+    background: variables.$primary;
+    color: #fff;
+    font-weight: 800;
+
+    &:hover {
+      background: variables.$primary;
+      filter: brightness(1.08);
+    }
   }
 }
 
@@ -268,6 +470,8 @@
 // ══════════════════════════════════════════
 
 .footer-bottom {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid rgba(variables.$dark, .08);
 
   &__inner {
@@ -288,14 +492,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
   border: 1px solid rgba(variables.$dark, .12);
   background: transparent;
   color: rgba(variables.$dark, .5);
   cursor: pointer;
-  transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+  transition: background .25s, border-color .25s, color .25s, transform .25s;
+
+  svg { display: block; }
 
   &:hover {
     background: variables.$dark;
@@ -309,38 +515,19 @@
 //  RESPONSIVE
 // ══════════════════════════════════════════
 
-// ── Kichik laptop ──
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .footer-grid {
-    grid-template-columns: 1.2fr 1fr 1.2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 40px 32px;
-  }
-
-  .footer-hero__title {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
   }
 }
 
-// ── Tablet ──
 @media (max-width: 768px) {
-  .footer-hero {
-    padding: 52px 0;
-  }
+  .footer-hero { padding: 48px 0; }
+  .footer-hero__inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .footer-hero__cta { width: 100%; justify-content: center; }
 
-  .footer-hero__inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 28px;
-  }
-
-  .footer-hero__cta {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .footer-main {
-    padding: 48px 0 40px;
-  }
+  .footer-main { padding: 48px 0 40px; }
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -351,48 +538,36 @@
     grid-column: 1 / -1;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 16px;
-    padding-bottom: 32px;
+    gap: 14px;
+    padding-bottom: 28px;
     border-bottom: 1px solid rgba(variables.$dark, .08);
   }
 
-  .footer-brand__desc {
-    width: 100%;
-    max-width: 100%;
-  }
+  .footer-brand__desc { max-width: 100%; }
 }
 
-// ── Mobil ──
 @media (max-width: 560px) {
-  .footer-hero {
-    padding: 44px 0;
-  }
+  .footer-hero { padding: 40px 0; }
+  .footer-hero__title { font-size: clamp(1.5rem, 6vw, 2rem); }
 
-  .footer-hero__title {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-
-  .footer-main {
-    padding: 40px 0 32px;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
+  .footer-main { padding: 40px 0 32px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 
   .footer-brand {
     flex-direction: column;
     gap: 14px;
-    padding-bottom: 28px;
+    padding-bottom: 24px;
   }
 
   .footer-bottom__inner {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 12px;
+    gap: 10px;
     padding: 16px 0;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-shape { animation: none !important; opacity: .5 !important; }
 }

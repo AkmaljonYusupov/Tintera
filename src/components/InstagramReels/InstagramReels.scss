@@ -11,8 +11,6 @@
   align-items: center;
 }
 
-// ── Sarlavha ──
-
 .insta-head {
   display: flex;
   flex-direction: column;
@@ -48,50 +46,45 @@
   margin: 0;
 }
 
-// ── 3×2 Grid ──
-// Kenglik sal katta, balandlik sal kichik — 4:5 nisbat (Instagram square-ish)
-
+// 4+4 grid
 .insta-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   width: 100%;
-  max-width: 960px;
 }
 
 .insta-card {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: card-in .5s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: calc(.04s + var(--i, 0) * .06s);
+}
+
+.insta-card__frame {
   position: relative;
-  // 4:5 — eniga keng, balandlikka kichikroq (9:16 dan farqli)
-  aspect-ratio: 4 / 5;
-  border-radius: 12px;
+  // Keng eniga, balandlikka kichikroq — 5:4
+  aspect-ratio: 5 / 4;
+  border-radius: 14px;
   overflow: hidden;
   background: rgba(variables.$dark, .04);
   border: 1px solid rgba(variables.$dark, .08);
+}
 
-  opacity: 0;
-  transform: translateY(18px);
-  animation: card-in .5s cubic-bezier(.22, 1, .36, 1) forwards;
-  animation-delay: calc(.05s + var(--i, 0) * .07s);
-
-  &__iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-  }
+.insta-card__iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
 
 @keyframes card-in {
   to { opacity: 1; transform: translateY(0); }
 }
 
-// ── Tugma ──
-
-.insta-footer {
-  margin-top: 44px;
-}
+.insta-footer { margin-top: 40px; }
 
 .insta-btn {
   display: inline-flex;
@@ -106,22 +99,19 @@
   letter-spacing: .06em;
   text-transform: uppercase;
   color: variables.$dark;
-  transition: background .3s ease, border-color .3s ease, color .3s ease;
+  transition: background .3s, border-color .3s, color .3s;
 
   &:hover {
-    background: variables.$primary;
-    border-color: variables.$primary;
+    background: variables.$dark;
+    border-color: variables.$dark;
     color: #fff;
   }
 }
 
-// ── Responsive ──
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .insta-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    max-width: 100%;
   }
   .insta-card:nth-child(n+5) { display: none; }
 }
@@ -129,12 +119,9 @@
 @media (max-width: 480px) {
   .insta { padding: 72px 0 80px; }
   .insta-grid { gap: 8px; }
+  .insta-card:nth-child(n+3) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .insta-card {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
+  .insta-card { animation: none !important; opacity: 1 !important; transform: none !important; }
 }

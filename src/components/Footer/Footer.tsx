@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./Footer.scss";
+import tinteraLogo from "../../assets/logo.png";
 
 const NAV_LINKS = [
   { label: "Главная",  href: "/" },
@@ -8,6 +10,7 @@ const NAV_LINKS = [
   { label: "Контакты", href: "/contacts" },
 ];
 
+// Haqiqiy inline SVG iconlar
 const SOCIALS = [
   {
     label: "Instagram",
@@ -16,7 +19,7 @@ const SOCIALS = [
       <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
         <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
         <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.8"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
       </svg>
     ),
   },
@@ -26,7 +29,7 @@ const SOCIALS = [
     icon: (
       <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
         <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M13 21v-6h2l.5-3H13v-1.5c0-.8.4-1.5 1.5-1.5H16V6s-1-.2-2-.2c-2.1 0-3.5 1.3-3.5 3.7V12H8v3h2.5v6H13Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M13.5 8H11.5C11.5 8 11 8 11 8.5V10.5H13.5L13 13H11V21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -36,8 +39,8 @@ const SOCIALS = [
     icon: (
       <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
         <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M15.5 11c-.4-2-1.8-3-3.5-3C9.8 8 8.5 9.8 8.5 12s1.3 4 3.5 4c1.4 0 2.5-.7 3-1.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-        <path d="M13 10c1 .5 2 1.5 2 2.5 0 1.4-1 2.5-3 2.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+        <path d="M16 11.5C15.5 9 13.5 8 12 8C9.8 8 8.5 9.8 8.5 12C8.5 14.2 9.8 16 12 16C13.5 16 14.8 15.2 15.3 13.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+        <path d="M13 10C14.2 10.6 15 11.8 15 13C15 14.6 13.7 16 12 16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
       </svg>
     ),
   },
@@ -47,7 +50,7 @@ const SOCIALS = [
     icon: (
       <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
         <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M17 7 7 11.5l3.5 1L12 17l1.5-3 3.5 2L17 7Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M17.5 7L7 11.8L10.8 13L12.5 18L14.2 14.5L17.5 17L17.5 7Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -58,8 +61,8 @@ const CONTACTS = [
     label: "+998 90 007 00 09",
     href: "tel:+998900070009",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-        <path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
+        <path d="M6.6 10.8C7.4 12.4 8.6 13.6 10.2 14.4L11.7 12.9C11.9 12.7 12.2 12.6 12.5 12.7C13.5 13.1 14.6 13.3 15.8 13.3C16.2 13.3 16.5 13.6 16.5 14V16.5C16.5 16.9 16.2 17.2 15.8 17.2C9.6 17.2 4.5 12.1 4.5 5.9C4.5 5.5 4.8 5.2 5.2 5.2H7.7C8.1 5.2 8.4 5.5 8.4 5.9C8.4 7.1 8.6 8.2 9 9.2C9.1 9.5 9 9.8 8.8 10L6.6 10.8Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -67,23 +70,77 @@ const CONTACTS = [
     label: "www.tintera.uz@gmail.com",
     href: "mailto:www.tintera.uz@gmail.com",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-        <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="1.7"/>
-        <path d="M2 7l10 7 10-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
+        <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/>
+        <path d="M2 8L12 14L22 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
       </svg>
     ),
   },
   {
     label: "г.Ташкент, Шайхонтохурский район, офис Хадра, Хадра кучаси, 25",
-    href: "https://maps.google.com/?q=Tashkent+Shayxontohur",
+    href: "https://maps.google.com/?q=Tashkent",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-        <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Z" stroke="currentColor" strokeWidth="1.7"/>
-        <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.7"/>
+      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
+        <path d="M12 2C8.1 2 5 5.1 5 9C5 14.2 12 22 12 22C12 22 19 14.2 19 9C19 5.1 15.9 2 12 2Z" stroke="currentColor" strokeWidth="1.6"/>
+        <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
       </svg>
     ),
   },
 ];
+
+// ── Mini Kalendar ──
+const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+const DAYS_SHORT = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+
+function MiniCalendar() {
+  const today = new Date();
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth());
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const startOffset = firstDay === 0 ? 6 : firstDay - 1;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells: (number | null)[] = [
+    ...Array(startOffset).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
+
+  const prev = () => { if (month === 0) { setMonth(11); setYear(y => y - 1); } else setMonth(m => m - 1); };
+  const next = () => { if (month === 11) { setMonth(0); setYear(y => y + 1); } else setMonth(m => m + 1); };
+  const isToday = (d: number) => d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+
+  return (
+    <div className="fc">
+      <div className="fc-head">
+        <button className="fc-nav" onClick={prev} aria-label="Oldingi oy">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <span className="fc-month">{MONTHS[month]} {year}</span>
+        <button className="fc-nav" onClick={next} aria-label="Keyingi oy">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div className="fc-days">
+        {DAYS_SHORT.map(d => <span key={d} className="fc-day-label">{d}</span>)}
+      </div>
+      <div className="fc-grid">
+        {cells.map((d, i) =>
+          d === null
+            ? <span key={`e-${i}`} />
+            : (
+              <button key={d} className={`fc-cell${isToday(d) ? " fc-cell--today" : ""}`}>
+                {d}
+              </button>
+            )
+        )}
+      </div>
+    </div>
+  );
+}
 
 function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -91,7 +148,17 @@ function Footer() {
   return (
     <footer className="footer">
 
-      {/* ── Yuqori qism: katta sarlavha + email ── */}
+      {/* ── Animatsion fon shakllari ── */}
+      <div className="footer-shapes" aria-hidden="true">
+        <span className="footer-shape footer-shape--1" />
+        <span className="footer-shape footer-shape--2" />
+        <span className="footer-shape footer-shape--3" />
+        <span className="footer-shape footer-shape--4" />
+        <span className="footer-shape footer-shape--5" />
+        <span className="footer-shape footer-shape--6" />
+      </div>
+
+      {/* ── Yuqori CTA banner ── */}
       <div className="footer-hero">
         <div className="container footer-hero__inner">
           <div className="footer-hero__left">
@@ -103,8 +170,8 @@ function Footer() {
           </div>
           <a href="mailto:www.tintera.uz@gmail.com" className="footer-hero__cta">
             Написать нам
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
         </div>
@@ -116,21 +183,16 @@ function Footer() {
 
           {/* Brand */}
           <div className="footer-brand">
-            <a href="/" className="footer-logo">tintera</a>
+            <a href="/" className="footer-logo">
+              <img src={tinteraLogo} alt="Tintera Decor Center" />
+            </a>
             <p className="footer-brand__desc">
               Центр декоративных красок и штукатурок в Ташкенте. Более 120 оттенков для вашего интерьера.
             </p>
             <div className="footer-socials">
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-socials__item"
-                  aria-label={s.label}
-                  title={s.label}
-                >
+              {SOCIALS.map(s => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  className="footer-socials__item" aria-label={s.label} title={s.label}>
                   {s.icon}
                 </a>
               ))}
@@ -141,11 +203,11 @@ function Footer() {
           <div className="footer-col">
             <h4 className="footer-col__title">Навигация</h4>
             <ul className="footer-nav">
-              {NAV_LINKS.map((l) => (
+              {NAV_LINKS.map(l => (
                 <li key={l.href}>
                   <a href={l.href} className="footer-nav__link">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg viewBox="0 0 24 24" fill="none" width="12" height="12" className="footer-nav__arrow">
+                      <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     {l.label}
                   </a>
@@ -154,7 +216,7 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Contacts */}
+          {/* Kontaktlar */}
           <div className="footer-col">
             <h4 className="footer-col__title">Контакты</h4>
             <ul className="footer-contacts">
@@ -169,6 +231,12 @@ function Footer() {
             </ul>
           </div>
 
+          {/* Kalendar */}
+          <div className="footer-col">
+            <h4 className="footer-col__title">Расписание</h4>
+            <MiniCalendar />
+          </div>
+
         </div>
       </div>
 
@@ -176,9 +244,9 @@ function Footer() {
       <div className="footer-bottom">
         <div className="container footer-bottom__inner">
           <span>© 2024 Tintera Decor Center. Все права защищены.</span>
-          <button className="footer-top-btn" onClick={scrollTop} aria-label="Yuqoriga qaytish">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <button className="footer-top-btn" onClick={scrollTop} aria-label="Yuqoriga">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
         </div>
