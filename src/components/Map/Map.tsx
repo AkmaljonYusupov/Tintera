@@ -7,7 +7,7 @@ function Map() {
 
         <div className="map-wrapper">
 
-          {/* Glass card */}
+          {/* ===== GLASS CARD ===== */}
           <div className="map-card">
             <span className="map-badge">📍 МЫ ЗДЕСЬ</span>
 
@@ -30,22 +30,24 @@ function Map() {
             </a>
           </div>
 
-          {/* Animated pin */}
+          {/* ===== ANIMATED LOCATION PIN ===== */}
           <div className="map-pin">
             <div className="pin-icon">📍</div>
             <div className="pin-pulse"></div>
           </div>
 
-          {/* Google Map */}
+          {/* ===== GOOGLE MAP ===== */}
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d5992.422914650532!2d69.251608!3d41.326015!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE5JzMzLjciTiA2OcKwMTUnMDUuOCJF!5e0!3m2!1sru!2s!4v1781671100920!5m2!1sru!2s"
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            title="map"
+            title="Google Map Location"
+            className="map-iframe"
           />
 
         </div>
+
       </div>
     </section>
   );
