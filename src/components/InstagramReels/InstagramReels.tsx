@@ -4,12 +4,12 @@ import "./InstagramReels.scss";
 // Har bir Reel postini ochib URL dan ID ni ko'chiring:
 // https://www.instagram.com/reel/REEL_ID_HERE/
 const REELS = [
-  "https://www.instagram.com/reel/DWRNCaSCHdt/embed/",
-  "https://www.instagram.com/reel/DKlj63-txat/embed/",
-  "https://www.instagram.com/reel/C7oH_zLNekd/embed/",
-  "https://www.instagram.com/reel/DZkYK3XI8Sx/embed/",
-  "https://www.instagram.com/reel/DZj6sPxopeQ/embed/",
-  "https://www.instagram.com/reel/DZbhE-foKPV/embed/",
+  "https://www.instagram.com/reel/REEL_ID_1/embed/",
+  "https://www.instagram.com/reel/REEL_ID_2/embed/",
+  "https://www.instagram.com/reel/REEL_ID_3/embed/",
+  "https://www.instagram.com/reel/REEL_ID_4/embed/",
+  "https://www.instagram.com/reel/REEL_ID_5/embed/",
+  "https://www.instagram.com/reel/REEL_ID_6/embed/",
 ];
 
 const INSTAGRAM_URL = "https://www.instagram.com/tinterauz/";

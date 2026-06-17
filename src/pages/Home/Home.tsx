@@ -2,6 +2,7 @@ import HeroSlider from "../../components/HeroSlider/HeroSlider";
 import AboutTintera from "../../components/AboutTintera/AboutTintera";
 import StatsVideo from "../../components/StatsVideo/StatsVideo";
 import InstagramReels from "../../components/InstagramReels/InstagramReels";
+import Map from "../../components/Map/Map";
 import "./Home.scss";
 import Partners from "../../components/Partners/Partners";
 
@@ -13,6 +14,7 @@ function Home() {
       <StatsVideo />
       <InstagramReels />
       <Partners />
+      <Map/>
     </>
   );
 }
