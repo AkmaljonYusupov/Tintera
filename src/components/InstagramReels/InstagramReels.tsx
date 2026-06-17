@@ -1,5 +1,4 @@
 import "./InstagramReels.scss";
-import tinteraLogo from "../../assets/logo.png";
 
 // Reel URL lari — thumb yo'q, to'g'ridan iframe embed
 const REELS = [
