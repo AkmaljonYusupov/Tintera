@@ -10,36 +10,165 @@
 }
 
 // ══════════════════════════════════════════
-//  GRID — 4 ustun
+//  YUQORI QISM — katta CTA banner
 // ══════════════════════════════════════════
+
+.footer-hero {
+  background: variables.$dark;
+  padding: 72px 0;
+}
+
+.footer-hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-hero__left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-hero__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .45);
+}
+
+.footer-hero__title {
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: #fff;
+  margin: 0;
+
+  span {
+    color: variables.$primary;
+  }
+}
+
+.footer-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 16px 32px;
+  border-radius: variables.$radius;
+  background: variables.$primary;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background .3s ease, transform .25s ease;
+
+  svg { transition: transform .3s ease; }
+
+  &:hover {
+    background: lighten(#C1633A, 8%);
+    transform: translateY(-2px);
+
+    svg { transform: translateX(4px); }
+  }
+}
+
+// ══════════════════════════════════════════
+//  ASOSIY GRID
+// ══════════════════════════════════════════
+
+.footer-main {
+  padding: 64px 0 56px;
+}
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1fr 1.3fr;
-  gap: 48px 40px;
-  padding: 72px 0 64px;
+  grid-template-columns: 1.6fr 1fr 1.4fr;
+  gap: 48px 56px;
+  align-items: start;
+}
+
+// ══════════════════════════════════════════
+//  BRAND USTUN
+// ══════════════════════════════════════════
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-logo {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -.05em;
+  color: variables.$dark;
+  text-decoration: none;
+  line-height: 1;
+  display: inline-block;
+}
+
+.footer-brand__desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(variables.$dark, .5);
+  margin: 0;
+  max-width: 320px;
+}
+
+// Ijtimoiy tarmoqlar ikonkalari
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    border: 1px solid rgba(variables.$dark, .1);
+    color: rgba(variables.$dark, .55);
+    background: transparent;
+    transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+
+    &:hover {
+      background: variables.$dark;
+      border-color: variables.$dark;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  }
 }
 
 // ══════════════════════════════════════════
 //  USTUN SARLAVHASI
 // ══════════════════════════════════════════
 
-.footer-col-title {
-  font-size: 20px;
+.footer-col__title {
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
   color: variables.$dark;
-  letter-spacing: .01em;
-  margin: 0 0 20px;
-  padding-bottom: 12px;
+  margin: 0 0 24px;
   position: relative;
+  padding-bottom: 14px;
 
-  // Pastdagi qisqa chiziq
   &::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 28px;
+    width: 24px;
     height: 2px;
     background: variables.$primary;
     border-radius: 2px;
@@ -47,85 +176,75 @@
 }
 
 // ══════════════════════════════════════════
-//  1-USTUN: BRAND
-// ══════════════════════════════════════════
-
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.footer-logo {
-  font-size: 2.2rem;
-  font-weight: 900;
-  letter-spacing: -.04em;
-  color: variables.$dark;
-  text-decoration: none;
-  line-height: 1;
-  display: inline-block;
-}
-
-.footer-copy {
-  font-size: 16px;
-  line-height: 1.75;
-  color: rgba(variables.$dark, .45);
-  margin: 0;
-}
-
-// ══════════════════════════════════════════
-//  2-USTUN: NAV
+//  NAV USTUN
 // ══════════════════════════════════════════
 
 .footer-nav {
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-size: 15px;
     font-weight: 500;
+    color: rgba(variables.$dark, .52);
+    text-decoration: none;
+    transition: color .25s ease, gap .25s ease;
+
+    svg {
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      color: variables.$dark;
+      gap: 12px;
+
+      svg {
+        opacity: 1;
+        transform: translateX(2px);
+      }
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+//  KONTAKT USTUN
+// ══════════════════════════════════════════
+
+.footer-contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 1.65;
     color: rgba(variables.$dark, .55);
     text-decoration: none;
     transition: color .25s ease;
 
     &:hover {
       color: variables.$dark;
-    }
-  }
-}
 
-// ══════════════════════════════════════════
-//  3-USTUN: IJTIMOIY TARMOQLAR
-// ══════════════════════════════════════════
-
-.footer-social {
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  &__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: rgba(variables.$dark, .65);
-    font-size: 15px;
-    font-weight: 500;
-    transition: color .25s ease;
-
-    &:hover {
-      color: variables.$dark;
+      .footer-contacts__icon {
+        background: variables.$dark;
+        border-color: variables.$dark;
+        color: #fff;
+      }
     }
   }
 
@@ -133,79 +252,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    border: 1px solid rgba(variables.$dark, .1);
-    background: #f8f8f8;
-    flex-shrink: 0;
-    transition: background .25s ease, border-color .25s ease;
-
-    svg {
-      display: block;
-    }
-
-    .footer-social__link:hover & {
-      background: variables.$dark;
-      border-color: variables.$dark;
-      color: #fff;
-    }
-  }
-}
-
-// ══════════════════════════════════════════
-//  4-USTUN: KONTAKT
-// ══════════════════════════════════════════
-
-.footer-contact {
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  &__item {
-    display: flex;
-  }
-
-  &__link {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    text-decoration: none;
-    color: rgba(variables.$dark, .6);
-    font-size: 14px;
-    line-height: 1.6;
-    transition: color .25s ease;
-
-    &:hover {
-      color: variables.$dark;
-    }
-  }
-
-  &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 9px;
     border: 1px solid rgba(variables.$dark, .1);
     background: #f8f8f8;
     flex-shrink: 0;
     margin-top: 1px;
-    transition: background .25s ease, border-color .25s ease;
-
-    svg { display: block; }
-
-    .footer-contact__link:hover & {
-      background: variables.$dark;
-      border-color: variables.$dark;
-      color: #fff;
-    }
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
   }
 }
 
@@ -222,8 +276,32 @@
     justify-content: space-between;
     gap: 16px;
     padding: 20px 0;
-    font-size: 16px;
+  }
+
+  span {
+    font-size: 13px;
     color: rgba(variables.$dark, .38);
+  }
+}
+
+.footer-top-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(variables.$dark, .12);
+  background: transparent;
+  color: rgba(variables.$dark, .5);
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+
+  &:hover {
+    background: variables.$dark;
+    border-color: variables.$dark;
+    color: #fff;
+    transform: translateY(-2px);
   }
 }
 
@@ -232,62 +310,89 @@
 // ══════════════════════════════════════════
 
 // ── Kichik laptop ──
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
     gap: 40px 32px;
-    padding: 60px 0 52px;
+  }
+
+  .footer-hero__title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
   }
 }
 
 // ── Tablet ──
 @media (max-width: 768px) {
+  .footer-hero {
+    padding: 52px 0;
+  }
+
+  .footer-hero__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .footer-hero__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-main {
+    padding: 48px 0 40px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr 1fr;
     gap: 36px 24px;
-    padding: 52px 0 44px;
   }
 
   .footer-brand {
     grid-column: 1 / -1;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: 16px;
-    padding-bottom: 28px;
+    padding-bottom: 32px;
     border-bottom: 1px solid rgba(variables.$dark, .08);
   }
 
-  .footer-copy {
-    text-align: right;
-    br { display: none; }
+  .footer-brand__desc {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 // ── Mobil ──
-@media (max-width: 580px) {
+@media (max-width: 560px) {
+  .footer-hero {
+    padding: 44px 0;
+  }
+
+  .footer-hero__title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .footer-main {
+    padding: 40px 0 32px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
-    padding: 44px 0 36px;
   }
 
   .footer-brand {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding-bottom: 24px;
-  }
-
-  .footer-copy {
-    text-align: left;
+    gap: 14px;
+    padding-bottom: 28px;
   }
 
   .footer-bottom__inner {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 6px;
+    gap: 12px;
     padding: 16px 0;
   }
 }
