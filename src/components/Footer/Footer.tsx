@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Footer.scss";
-import logo from "../../assets/images/logo.png";
+import tinteraLogo from "../../assets/logo.png";
+
 
 const NAV_LINKS = [
   { label: "Главная",  href: "/" },
@@ -10,133 +11,37 @@ const NAV_LINKS = [
   { label: "Контакты", href: "/contacts" },
 ];
 
+// Tabler icon class lari — to'g'ri va chiroyli
 const SOCIALS = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/tinterauz/",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-        <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="1.8"/>
-        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/tinterauz",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-        <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M13.5 8H11.5C11.2 8 11 8.2 11 8.5V10.5H13.5L13 13H11V21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Threads",
-    href: "https://www.threads.net/@tinterauz",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-        <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M16 11.5C15.5 9 13.5 8 12 8C9.8 8 8.5 9.8 8.5 12C8.5 14.2 9.8 16 12 16C13.5 16 14.8 15.2 15.3 13.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
-        <path d="M13 10C14.2 10.6 15 11.8 15 13C15 14.6 13.7 16 12 16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Telegram",
-    href: "https://t.me/tinterauz",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-        <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M17.5 7L7 11.8L10.8 13L12.5 18L14.2 14.5L17.5 17L17.5 7Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
+  { label: "Instagram", href: "https://www.instagram.com/tinterauz/", icon: "ti-brand-instagram" },
+  { label: "Facebook",  href: "https://www.facebook.com/tinterauz",   icon: "ti-brand-facebook" },
+  { label: "Telegram",  href: "https://t.me/tinterauz",               icon: "ti-brand-telegram" },
+  { label: "Threads",   href: "https://www.threads.net/@tinterauz",   icon: "ti-brand-threads"  },
 ];
 
 const CONTACTS = [
   {
     label: "+998 90 007 00 09",
     href: "tel:+998900070009",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
-        <path d="M6.6 10.8C7.4 12.4 8.6 13.6 10.2 14.4L11.7 12.9C11.9 12.7 12.2 12.6 12.5 12.7C13.5 13.1 14.6 13.3 15.8 13.3C16.2 13.3 16.5 13.6 16.5 14V16.5C16.5 16.9 16.2 17.2 15.8 17.2C9.6 17.2 4.5 12.1 4.5 5.9C4.5 5.5 4.8 5.2 5.2 5.2H7.7C8.1 5.2 8.4 5.5 8.4 5.9C8.4 7.1 8.6 8.2 9 9.2C9.1 9.5 9 9.8 8.8 10L6.6 10.8Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    iconClass: "ti-phone",
   },
   {
     label: "www.tintera.uz@gmail.com",
     href: "mailto:www.tintera.uz@gmail.com",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
-        <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/>
-        <path d="M2 8L12 14L22 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      </svg>
-    ),
+    iconClass: "ti-mail",
   },
   {
     label: "г.Ташкент, Шайхонтохурский район, офис Хадра, Хадра кучаси, 25",
-    href: "https://maps.google.com/?q=Tashkent",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
-        <path d="M12 2C8.1 2 5 5.1 5 9C5 14.2 12 22 12 22C12 22 19 14.2 19 9C19 5.1 15.9 2 12 2Z" stroke="currentColor" strokeWidth="1.6"/>
-        <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
-      </svg>
-    ),
-  },
-];
-
-// ── Fixed aloqa tugmasi uchun elementlar ──
-const CONTACT_ITEMS = [
-  {
-    label: "Телефон",
-    href: "tel:+998900070009",
-    color: "#2196F3",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-        <path d="M6.6 10.8C7.4 12.4 8.6 13.6 10.2 14.4L11.7 12.9C11.9 12.7 12.2 12.6 12.5 12.7C13.5 13.1 14.6 13.3 15.8 13.3C16.2 13.3 16.5 13.6 16.5 14V16.5C16.5 16.9 16.2 17.2 15.8 17.2C9.6 17.2 4.5 12.1 4.5 5.9C4.5 5.5 4.8 5.2 5.2 5.2H7.7C8.1 5.2 8.4 5.5 8.4 5.9C8.4 7.1 8.6 8.2 9 9.2C9.1 9.5 9 9.8 8.8 10L6.6 10.8Z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/tinterauz/",
-    color: "#E1306C",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-        <rect x="2" y="2" width="20" height="20" rx="6" stroke="#fff" strokeWidth="1.8"/>
-        <circle cx="12" cy="12" r="4.5" stroke="#fff" strokeWidth="1.8"/>
-        <circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Telegram",
-    href: "https://t.me/tinterauz",
-    color: "#29B6F6",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-        <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V20L12.5 16.5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: "Google Map",
-    href: "https://maps.google.com/?q=Tashkent",
-    color: "#fff",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-        <path d="M12 2C8.1 2 5 5.1 5 9C5 14.2 12 22 12 22C12 22 19 14.2 19 9C19 5.1 15.9 2 12 2Z" stroke="#EA4335" strokeWidth="1.8"/>
-        <circle cx="12" cy="9" r="2.5" stroke="#EA4335" strokeWidth="1.8"/>
-      </svg>
-    ),
-    textColor: "#333",
+    href: "#map",
+    iconClass: "ti-map-pin",
   },
 ];
 
 // ── Mini Kalendar ──
-const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+const MONTHS = [
+  "Январь","Февраль","Март","Апрель","Май","Июнь",
+  "Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",
+];
 const DAYS_SHORT = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
 
 function MiniCalendar() {
@@ -151,24 +56,20 @@ function MiniCalendar() {
     ...Array(startOffset).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ];
-
   const prev = () => { if (month === 0) { setMonth(11); setYear(y => y - 1); } else setMonth(m => m - 1); };
   const next = () => { if (month === 11) { setMonth(0); setYear(y => y + 1); } else setMonth(m => m + 1); };
-  const isToday = (d: number) => d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+  const isToday = (d: number) =>
+    d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
 
   return (
     <div className="fc">
       <div className="fc-head">
         <button className="fc-nav" onClick={prev} aria-label="Oldingi oy">
-          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <i className="ti ti-chevron-left" />
         </button>
         <span className="fc-month">{MONTHS[month]} {year}</span>
         <button className="fc-nav" onClick={next} aria-label="Keyingi oy">
-          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <i className="ti ti-chevron-right" />
         </button>
       </div>
       <div className="fc-days">
@@ -176,22 +77,101 @@ function MiniCalendar() {
       </div>
       <div className="fc-grid">
         {cells.map((d, i) =>
-          d === null
-            ? <span key={`e-${i}`} />
-            : (
-              <button key={d} className={`fc-cell${isToday(d) ? " fc-cell--today" : ""}`}>
-                {d}
-              </button>
-            )
+          d === null ? <span key={`e-${i}`} /> : (
+            <button key={d} className={`fc-cell${isToday(d) ? " fc-cell--today" : ""}`}>{d}</button>
+          )
         )}
       </div>
     </div>
   );
 }
 
-// ── Fixed aloqa tugmasi ──
-function FloatingContact() {
+// ── Google Map Modal ──
+function MapModal({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  return (
+    <div className="map-modal" onClick={onClose}>
+      <div className="map-modal__box" onClick={e => e.stopPropagation()}>
+        <div className="map-modal__header">
+          <div className="map-modal__title">
+            <i className="ti ti-map-pin" style={{ color: "#EA4335", fontSize: 22 }} />
+            <span>Наш адрес</span>
+          </div>
+          <button className="map-modal__close" onClick={onClose} aria-label="Yopish">
+            <i className="ti ti-x" />
+          </button>
+        </div>
+        <p className="map-modal__addr">
+          г.Ташкент, Шайхонтохурский район, офис Хадра, Хадра кучаси, 25
+        </p>
+        <div className="map-modal__frame">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.5!2d69.2401!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b3a9c5c1f4f%3A0x6b5e4e7b8a3d2c1e!2sKhadra%2C%20Tashkent!5e0!3m2!1sen!2suz!4v1700000000000"
+            width="100%" height="100%"
+            style={{ border: 0 }}
+            allowFullScreen loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Tintera joylashuvi"
+          />
+        </div>
+        <a
+          href="https://maps.google.com/?q=Khadra,Tashkent"
+          target="_blank" rel="noopener noreferrer"
+          className="map-modal__btn"
+        >
+          <i className="ti ti-external-link" />
+          Открыть в Google Maps
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ── Floating contact items ──
+const FLOAT_ITEMS = [
+  {
+    label: "Google Map",
+    id: "map",
+    bg: "#fff",
+    labelColor: "#333",
+    iconClass: "ti-map-2",
+    iconColor: "#EA4335",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/tinterauz/",
+    bg: "#E1306C",
+    labelColor: "#333",
+    iconClass: "ti-brand-instagram",
+    iconColor: "#fff",
+  },
+  {
+    label: "Telegram",
+    href: "https://t.me/tinterauz",
+    bg: "#29B6F6",
+    labelColor: "#333",
+    iconClass: "ti-brand-telegram",
+    iconColor: "#fff",
+  },
+  {
+    label: "Телефон",
+    href: "tel:+998900070009",
+    bg: "#2196F3",
+    labelColor: "#333",
+    iconClass: "ti-phone",
+    iconColor: "#fff",
+  },
+];
+
+function FloatingWidgets() {
   const [open, setOpen] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -201,90 +181,123 @@ function FloatingContact() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
-    <div className={`fcontact${visible ? " fcontact--visible" : ""}`}>
-      {/* Qalqib chiquvchi elementlar */}
-      <div className={`fcontact-items${open ? " fcontact-items--open" : ""}`}>
-        {CONTACT_ITEMS.map((item, i) => (
-          <a
-            key={item.label}
-            href={item.href}
-            target={item.href.startsWith("http") ? "_blank" : undefined}
-            rel="noopener noreferrer"
-            className="fcontact-item"
-            style={{
-              "--delay": `${i * 0.06}s`,
-              "--item-color": item.color,
-            } as React.CSSProperties}
-            onClick={() => setOpen(false)}
-          >
-            <span
-              className="fcontact-item__icon"
-              style={{ background: item.color }}
-            >
-              {item.icon}
-            </span>
-            <span
-              className="fcontact-item__label"
-              style={{ color: item.textColor || "#fff" }}
-            >
-              {item.label}
-            </span>
-          </a>
-        ))}
-      </div>
-
-      {/* Asosiy tugma */}
-      <button
-        className={`fcontact-btn${open ? " fcontact-btn--open" : ""}`}
-        onClick={() => setOpen(o => !o)}
-        aria-label="Bog'lanish"
-        aria-expanded={open}
-      >
-        {/* Pulse halqalari */}
-        <span className="fcontact-btn__pulse fcontact-btn__pulse--1" />
-        <span className="fcontact-btn__pulse fcontact-btn__pulse--2" />
-
-        {/* Telefon ikonasi */}
-        <span className={`fcontact-btn__icon fcontact-btn__icon--phone${open ? " hidden" : ""}`}>
-          <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
-            <path d="M6.6 10.8C7.4 12.4 8.6 13.6 10.2 14.4L11.7 12.9C11.9 12.7 12.2 12.6 12.5 12.7C13.5 13.1 14.6 13.3 15.8 13.3C16.2 13.3 16.5 13.6 16.5 14V16.5C16.5 16.9 16.2 17.2 15.8 17.2C9.6 17.2 4.5 12.1 4.5 5.9C4.5 5.5 4.8 5.2 5.2 5.2H7.7C8.1 5.2 8.4 5.5 8.4 5.9C8.4 7.1 8.6 8.2 9 9.2C9.1 9.5 9 9.8 8.8 10L6.6 10.8Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </span>
-
-        {/* X ikonasi */}
-        <span className={`fcontact-btn__icon fcontact-btn__icon--close${!open ? " hidden" : ""}`}>
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-            <path d="M18 6L6 18M6 6l12 12" stroke="#fff" strokeWidth="2.2" strokeLinecap="round"/>
-          </svg>
-        </span>
-      </button>
-    </div>
-  );
-}
-
-function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
-      {/* Fixed aloqa tugmasi */}
-      <FloatingContact />
+      {showMap && <MapModal onClose={() => setShowMap(false)} />}
+
+      {/* ── Chap pastki: Aloqa tugmasi ── */}
+      <div className={`fcontact${visible ? " fcontact--visible" : ""}`}>
+        <div className={`fcontact-items${open ? " fcontact-items--open" : ""}`}>
+          {FLOAT_ITEMS.map((item, i) => {
+            const isMap = item.id === "map";
+            if (isMap) {
+              return (
+                <button
+                  key={item.label}
+                  className="fcontact-item"
+                  style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
+                  onClick={() => { setShowMap(true); setOpen(false); }}
+                >
+                  <span className="fcontact-item__icon" style={{ background: item.bg }}>
+                    <i className={`ti ${item.iconClass}`} style={{ color: item.iconColor, fontSize: 22 }} />
+                  </span>
+                  <span className="fcontact-item__label" style={{ color: item.labelColor }}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            }
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank" rel="noopener noreferrer"
+                className="fcontact-item"
+                style={{ "--delay": `${i * 0.07}s` } as React.CSSProperties}
+                onClick={() => setOpen(false)}
+              >
+                <span className="fcontact-item__icon" style={{ background: item.bg }}>
+                  <i className={`ti ${item.iconClass}`} style={{ color: item.iconColor, fontSize: 22 }} />
+                </span>
+                <span className="fcontact-item__label" style={{ color: item.labelColor }}>
+                  {item.label}
+                </span>
+              </a>
+            );
+          })}
+        </div>
+
+        <button
+          className={`fcontact-btn${open ? " fcontact-btn--open" : ""}`}
+          onClick={() => setOpen(o => !o)}
+          aria-label="Bog'lanish"
+          aria-expanded={open}
+        >
+          <span className="fcontact-btn__pulse fcontact-btn__pulse--1" />
+          <span className="fcontact-btn__pulse fcontact-btn__pulse--2" />
+          <i className={`ti ${open ? "ti-x" : "ti-phone"}`} style={{ fontSize: 24, color: "#fff", position: "relative", zIndex: 1 }} />
+        </button>
+      </div>
+
+      {/* ── O'ng pastki: Yuqoriga tugma ── */}
+      <button
+        className={`scroll-top${visible ? " scroll-top--visible" : ""}`}
+        onClick={scrollTop}
+        aria-label="Yuqoriga"
+      >
+        <span className="scroll-top__ring" />
+        <i className="ti ti-arrow-up" style={{ fontSize: 20, position: "relative", zIndex: 1 }} />
+      </button>
+    </>
+  );
+}
+
+function Footer() {
+  return (
+    <>
+      <FloatingWidgets />
 
       <footer className="footer">
 
-        {/* ── Animatsion fon shakllari ── */}
-        <div className="footer-shapes" aria-hidden="true">
-          <span className="footer-shape footer-shape--1" />
-          <span className="footer-shape footer-shape--2" />
-          <span className="footer-shape footer-shape--3" />
-          <span className="footer-shape footer-shape--4" />
-          <span className="footer-shape footer-shape--5" />
-          <span className="footer-shape footer-shape--6" />
-          <span className="footer-shape footer-shape--7" />
+        {/* ── Animatsion fon ── */}
+        <div className="footer-deco" aria-hidden="true">
+          {/* SVG inline shakllar */}
+          <svg className="footer-deco__svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="fg1" cx="10%" cy="80%" r="40%">
+                <stop offset="0%" stopColor="#C1633A" stopOpacity=".08"/>
+                <stop offset="100%" stopColor="#C1633A" stopOpacity="0"/>
+              </radialGradient>
+              <radialGradient id="fg2" cx="90%" cy="20%" r="35%">
+                <stop offset="0%" stopColor="#C1633A" stopOpacity=".06"/>
+                <stop offset="100%" stopColor="#C1633A" stopOpacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="1440" height="600" fill="url(#fg1)"/>
+            <rect width="1440" height="600" fill="url(#fg2)"/>
+
+            {/* Animatsion halqalar */}
+            <circle className="fd-ring fd-ring--1" cx="120"  cy="480" r="160" fill="none" stroke="#C1633A" strokeWidth="1" strokeOpacity=".1"/>
+            <circle className="fd-ring fd-ring--2" cx="120"  cy="480" r="240" fill="none" stroke="#C1633A" strokeWidth="1" strokeOpacity=".06"/>
+            <circle className="fd-ring fd-ring--3" cx="1320" cy="120" r="200" fill="none" stroke="#C1633A" strokeWidth="1" strokeOpacity=".08"/>
+            <circle className="fd-ring fd-ring--4" cx="1320" cy="120" r="290" fill="none" stroke="#C1633A" strokeWidth="1" strokeOpacity=".04"/>
+
+            {/* Kichik dekorativ elementlar */}
+            <circle className="fd-dot fd-dot--1" cx="200"  cy="60"  r="5"  fill="#C1633A" fillOpacity=".3"/>
+            <circle className="fd-dot fd-dot--2" cx="400"  cy="520" r="4"  fill="#C1633A" fillOpacity=".25"/>
+            <circle className="fd-dot fd-dot--3" cx="1100" cy="40"  r="6"  fill="#C1633A" fillOpacity=".2"/>
+            <circle className="fd-dot fd-dot--4" cx="1380" cy="520" r="4"  fill="#C1633A" fillOpacity=".28"/>
+            <circle className="fd-dot fd-dot--5" cx="700"  cy="20"  r="3"  fill="#C1633A" fillOpacity=".35"/>
+
+            {/* To'rtburchak kontur */}
+            <rect className="fd-rect fd-rect--1" x="50" y="200" width="40" height="40" rx="8" fill="none" stroke="#C1633A" strokeWidth="1.5" strokeOpacity=".15"/>
+            <rect className="fd-rect fd-rect--2" x="1360" y="300" width="28" height="28" rx="6" fill="none" stroke="#C1633A" strokeWidth="1.5" strokeOpacity=".12"/>
+          </svg>
         </div>
 
-        {/* ── Yuqori CTA ── */}
+        {/* ── CTA Banner ── */}
         <div className="footer-hero">
           <div className="container footer-hero__inner">
             <div className="footer-hero__left">
@@ -296,30 +309,35 @@ function Footer() {
             </div>
             <a href="mailto:www.tintera.uz@gmail.com" className="footer-hero__cta">
               Написать нам
-              <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <i className="ti ti-arrow-right" />
             </a>
           </div>
         </div>
 
-        {/* ── Asosiy grid ── */}
+        {/* ── Asosiy Grid ── */}
         <div className="footer-main">
           <div className="container footer-grid">
 
             {/* Brand */}
             <div className="footer-brand">
               <a href="/" className="footer-logo">
-                <img src={logo} alt="Tintera Decor Center" />
+                <img src={tinteraLogo} alt="Tintera Decor Center" />
               </a>
               <p className="footer-brand__desc">
                 Центр декоративных красок и штукатурок в Ташкенте. Более 120 оттенков для вашего интерьера.
               </p>
+              {/* Social icons — Tabler icon classlar */}
               <div className="footer-socials">
                 {SOCIALS.map(s => (
-                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                    className="footer-socials__item" aria-label={s.label} title={s.label}>
-                    {s.icon}
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank" rel="noopener noreferrer"
+                    className="footer-socials__item"
+                    aria-label={s.label}
+                    title={s.label}
+                  >
+                    <i className={`ti ${s.icon}`} />
                   </a>
                 ))}
               </div>
@@ -332,9 +350,7 @@ function Footer() {
                 {NAV_LINKS.map(l => (
                   <li key={l.href}>
                     <a href={l.href} className="footer-nav__link">
-                      <svg viewBox="0 0 24 24" fill="none" width="12" height="12" className="footer-nav__arrow">
-                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <i className="ti ti-chevron-right footer-nav__arrow" />
                       {l.label}
                     </a>
                   </li>
@@ -342,14 +358,16 @@ function Footer() {
               </ul>
             </div>
 
-            {/* Kontakt */}
+            {/* Kontaktlar */}
             <div className="footer-col">
               <h4 className="footer-col__title">Контакты</h4>
               <ul className="footer-contacts">
                 {CONTACTS.map((c, i) => (
                   <li key={i}>
                     <a href={c.href} className="footer-contacts__item">
-                      <span className="footer-contacts__icon">{c.icon}</span>
+                      <span className="footer-contacts__icon">
+                        <i className={`ti ${c.iconClass}`} />
+                      </span>
                       <span>{c.label}</span>
                     </a>
                   </li>
@@ -370,14 +388,7 @@ function Footer() {
         <div className="footer-bottom">
           <div className="container footer-bottom__inner">
             <span>© 2024 Tintera Decor Center. Все права защищены.</span>
-
-            {/* Yuqoriga qaytish — animatsion */}
-            <button className="footer-top-btn" onClick={scrollTop} aria-label="Yuqoriga">
-              <span className="footer-top-btn__ring" />
-              <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-                <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+            <a href="/" className="footer-bottom__logo">tintera</a>
           </div>
         </div>
 

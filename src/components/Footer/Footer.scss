@@ -1,7 +1,7 @@
 @use "../../styles/variables";
 
 // ══════════════════════════════════════════
-//  WRAPPER
+//  FOOTER WRAPPER
 // ══════════════════════════════════════════
 
 .footer {
@@ -12,98 +12,116 @@
 }
 
 // ══════════════════════════════════════════
-//  ANIMATSION SHAKLLAR
+//  ANIMATSION DEKORATSIYA — SVG qatlam
 // ══════════════════════════════════════════
 
-.footer-shapes {
+.footer-deco {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
+
+  &__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
-.footer-shape {
-  position: absolute;
-  border-radius: 50%;
+// SVG halqalar
+.fd-ring {
+  transform-origin: center center;
 
-  // 1 — katta yumshoq doira chap yuqori
   &--1 {
-    width: 380px; height: 380px;
-    top: -120px; left: -80px;
-    background: radial-gradient(circle, rgba(variables.$primary, .09) 0%, transparent 70%);
-    animation: fs-float-a 20s ease-in-out infinite;
+    animation: fd-spin 40s linear infinite;
   }
 
-  // 2 — o'rta doira o'ng pastda
   &--2 {
-    width: 300px; height: 300px;
-    bottom: -80px; right: -60px;
-    background: radial-gradient(circle, rgba(variables.$primary, .07) 0%, transparent 70%);
-    animation: fs-float-b 24s ease-in-out infinite;
+    animation: fd-spin 60s linear infinite reverse;
   }
 
-  // 3 — kichik to'q doira o'ng yuqori
   &--3 {
-    width: 12px; height: 12px;
-    top: 25%; right: 18%;
-    background: variables.$primary;
-    opacity: .55;
-    animation: fs-float-a 9s ease-in-out infinite;
+    animation: fd-spin 50s linear infinite;
   }
 
-  // 4 — halqa chap pastda
   &--4 {
-    width: 64px; height: 64px;
-    bottom: 22%; left: 7%;
-    border: 2px solid rgba(variables.$primary, .18);
-    background: transparent;
-    animation: fs-spin 28s linear infinite;
+    animation: fd-spin 75s linear infinite reverse;
+  }
+}
+
+@keyframes fd-spin {
+  from {
+    transform: rotate(0deg);
   }
 
-  // 5 — kichik nuqta markazda
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// SVG nuqtalar
+.fd-dot {
+  &--1 {
+    animation: fd-float-a 10s ease-in-out infinite;
+  }
+
+  &--2 {
+    animation: fd-float-b 13s ease-in-out infinite;
+  }
+
+  &--3 {
+    animation: fd-float-a 9s ease-in-out infinite 1s;
+  }
+
+  &--4 {
+    animation: fd-float-b 12s ease-in-out infinite 2s;
+  }
+
   &--5 {
-    width: 7px; height: 7px;
-    top: 60%; left: 40%;
-    background: rgba(variables.$primary, .4);
-    animation: fs-float-b 7s ease-in-out infinite;
-  }
-
-  // 6 — katta yupqa halqa o'ng yuqori
-  &--6 {
-    width: 200px; height: 200px;
-    top: -40px; right: 20%;
-    border: 1px solid rgba(variables.$primary, .07);
-    background: transparent;
-    animation: fs-spin 55s linear infinite reverse;
-  }
-
-  // 7 — to'rtburchak yonma-yon
-  &--7 {
-    width: 18px; height: 18px;
-    border-radius: 4px;
-    bottom: 35%; left: 20%;
-    border: 2px solid rgba(variables.$primary, .2);
-    background: transparent;
-    animation: fs-spin 14s linear infinite, fs-float-a 12s ease-in-out infinite;
+    animation: fd-float-a 7s ease-in-out infinite 0.5s;
   }
 }
 
-@keyframes fs-float-a {
-  0%, 100% { transform: translate(0, 0); }
-  50%       { transform: translate(18px, -22px); }
+@keyframes fd-float-a {
+
+  0%,
+  100% {
+    transform: translate(0, 0)
+  }
+
+  50% {
+    transform: translate(12px, -16px)
+  }
 }
-@keyframes fs-float-b {
-  0%, 100% { transform: translate(0, 0); }
-  50%       { transform: translate(-16px, 20px); }
+
+@keyframes fd-float-b {
+
+  0%,
+  100% {
+    transform: translate(0, 0)
+  }
+
+  50% {
+    transform: translate(-10px, 14px)
+  }
 }
-@keyframes fs-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+
+// SVG to'rtburchaklar
+.fd-rect {
+  &--1 {
+    animation: fd-spin 22s linear infinite;
+    transform-origin: 70px 220px;
+  }
+
+  &--2 {
+    animation: fd-spin 18s linear infinite reverse;
+    transform-origin: 1374px 314px;
+  }
 }
 
 // ══════════════════════════════════════════
-//  YUQORI CTA BANNER
+//  CTA BANNER
 // ══════════════════════════════════════════
 
 .footer-hero {
@@ -121,13 +139,13 @@
 }
 
 .footer-hero__eyebrow {
+  display: block;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.4);
-  display: block;
-  margin-bottom: 8px;
+  color: rgba(255, 255, 255, .4);
+  margin-bottom: 10px;
 }
 
 .footer-hero__title {
@@ -137,7 +155,10 @@
   letter-spacing: -.03em;
   color: #fff;
   margin: 0;
-  span { color: variables.$primary; }
+
+  span {
+    color: variables.$primary;
+  }
 }
 
 .footer-hero__cta {
@@ -156,8 +177,19 @@
   white-space: nowrap;
   transition: filter .25s, transform .25s;
 
-  svg { transition: transform .3s; }
-  &:hover { filter: brightness(1.1); transform: translateY(-2px); svg { transform: translateX(4px); } }
+  i {
+    font-size: 18px;
+    transition: transform .3s;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+
+    i {
+      transform: translateX(4px);
+    }
+  }
 }
 
 // ══════════════════════════════════════════
@@ -172,11 +204,12 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 0.9fr 1.2fr 1.2fr;
+  grid-template-columns: 1.4fr .9fr 1.2fr 1.2fr;
   gap: 48px 40px;
   align-items: start;
 }
 
+// Ustun sarlavhasi
 .footer-col__title {
   font-size: 12px;
   font-weight: 700;
@@ -190,15 +223,16 @@
   &::after {
     content: "";
     position: absolute;
-    left: 0; bottom: 0;
-    width: 24px; height: 2px;
+    left: 0;
+    bottom: 0;
+    width: 24px;
+    height: 2px;
     background: variables.$primary;
     border-radius: 2px;
   }
 }
 
-// ── Brand ──
-
+// Brand
 .footer-brand {
   display: flex;
   flex-direction: column;
@@ -207,7 +241,13 @@
 
 .footer-logo {
   display: inline-block;
-  img { height: 48px; width: auto; display: block; object-fit: contain; }
+
+  img {
+    height: 48px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
 }
 
 .footer-brand__desc {
@@ -218,6 +258,7 @@
   max-width: 280px;
 }
 
+// Social icons — Tabler icon
 .footer-socials {
   display: flex;
   align-items: center;
@@ -228,28 +269,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px; height: 40px;
-    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
     border: 1px solid rgba(variables.$dark, .1);
     color: rgba(variables.$dark, .55);
     text-decoration: none;
     transition: background .25s, border-color .25s, color .25s, transform .25s;
-    svg { display: block; }
+
+    i {
+      font-size: 22px;
+      display: block;
+    }
 
     &:hover {
-      background: variables.$dark;
-      border-color: variables.$dark;
-      color: #fff;
+      // Hover'da primary rang
+      background: rgba(variables.$primary, .1);
+      border-color: variables.$primary;
+      color: variables.$primary;
       transform: translateY(-2px);
     }
   }
 }
 
-// ── Nav ──
-
+// Nav
 .footer-nav {
   list-style: none;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -266,6 +313,7 @@
   }
 
   &__arrow {
+    font-size: 14px;
     opacity: 0;
     flex-shrink: 0;
     transition: opacity .25s, transform .25s;
@@ -274,15 +322,19 @@
   &__link:hover {
     color: variables.$dark;
     gap: 10px;
-    .footer-nav__arrow { opacity: 1; transform: translateX(2px); }
+
+    .footer-nav__arrow {
+      opacity: 1;
+      transform: translateX(2px);
+    }
   }
 }
 
-// ── Kontaktlar ──
-
+// Kontaktlar
 .footer-contacts {
   list-style: none;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -299,7 +351,12 @@
 
     &:hover {
       color: variables.$dark;
-      .footer-contacts__icon { background: variables.$dark; border-color: variables.$dark; color: #fff; }
+
+      .footer-contacts__icon {
+        background: variables.$primary;
+        border-color: variables.$primary;
+        color: #fff;
+      }
     }
   }
 
@@ -307,14 +364,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px; height: 34px;
+    width: 34px;
+    height: 34px;
     border-radius: 9px;
     border: 1px solid rgba(variables.$dark, .1);
     background: #f8f8f8;
     flex-shrink: 0;
     margin-top: 1px;
     transition: background .25s, border-color .25s, color .25s;
-    svg { display: block; }
+
+    i {
+      font-size: 18px;
+      display: block;
+    }
   }
 }
 
@@ -349,16 +411,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: 7px;
   border: 1px solid rgba(variables.$dark, .1);
   background: transparent;
   cursor: pointer;
   color: rgba(variables.$dark, .45);
   transition: background .2s, color .2s, border-color .2s;
-  svg { display: block; }
 
-  &:hover { background: variables.$primary; border-color: variables.$primary; color: #fff; }
+  i {
+    font-size: 16px;
+    display: block;
+  }
+
+  &:hover {
+    background: variables.$primary;
+    border-color: variables.$primary;
+    color: #fff;
+  }
 }
 
 .fc-days {
@@ -377,7 +448,10 @@
   color: rgba(variables.$dark, .3);
   padding: 3px 0 6px;
 
-  &:nth-child(6), &:nth-child(7) { color: rgba(variables.$primary, .55); }
+  &:nth-child(6),
+  &:nth-child(7) {
+    color: rgba(variables.$primary, .55);
+  }
 }
 
 .fc-grid {
@@ -401,13 +475,20 @@
   cursor: pointer;
   transition: background .18s, color .18s;
 
-  &:hover { background: rgba(variables.$primary, .1); color: variables.$primary; font-weight: 600; }
+  &:hover {
+    background: rgba(variables.$primary, .1);
+    color: variables.$primary;
+    font-weight: 600;
+  }
 
   &--today {
     background: variables.$primary;
     color: #fff;
     font-weight: 800;
-    &:hover { filter: brightness(1.08); }
+
+    &:hover {
+      filter: brightness(1.08);
+    }
   }
 }
 
@@ -428,69 +509,176 @@
     padding: 20px 0;
   }
 
-  span { font-size: 13px; color: rgba(variables.$dark, .38); }
+  span {
+    font-size: 13px;
+    color: rgba(variables.$dark, .38);
+  }
 }
 
-// Animatsion "yuqoriga" tugma
-
-.footer-top-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  border: 1.5px solid rgba(variables.$dark, .12);
-  background: #fff;
-  color: variables.$dark;
-  cursor: pointer;
-  transition: background .25s, border-color .25s, color .25s, transform .25s;
-  overflow: visible;
-
-  svg { display: block; position: relative; z-index: 1; transition: transform .3s; }
-
-  &__ring {
-    position: absolute;
-    inset: -6px;
-    border-radius: 16px;
-    border: 1.5px solid rgba(variables.$primary, .3);
-    animation: top-btn-ring 2.5s ease-in-out infinite;
-    pointer-events: none;
-  }
+.footer-bottom__logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: rgba(variables.$dark, .2);
+  text-decoration: none;
+  transition: color .25s;
 
   &:hover {
-    background: variables.$primary;
-    border-color: variables.$primary;
-    color: #fff;
-    transform: translateY(-3px);
-
-    svg { transform: translateY(-2px); }
+    color: variables.$primary;
   }
-}
-
-@keyframes top-btn-ring {
-  0%, 100% { transform: scale(1); opacity: .6; }
-  50%       { transform: scale(1.2); opacity: 0; }
 }
 
 // ══════════════════════════════════════════
-//  FIXED ALOQA TUGMASI
+//  GOOGLE MAP MODAL
+// ══════════════════════════════════════════
+
+.map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modal-bg-in .25s ease forwards;
+
+  &__box {
+    width: 100%;
+    max-width: 680px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px -20px rgba(0, 0, 0, .4);
+    animation: modal-box-in .3s cubic-bezier(.22, 1, .36, 1) forwards;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid rgba(variables.$dark, .08);
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 800;
+    color: variables.$dark;
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    border: 1px solid rgba(variables.$dark, .1);
+    background: #f8f8f8;
+    cursor: pointer;
+    color: rgba(variables.$dark, .6);
+    transition: background .2s, color .2s;
+
+    i {
+      font-size: 18px;
+    }
+
+    &:hover {
+      background: variables.$primary;
+      color: #fff;
+      border-color: variables.$primary;
+    }
+  }
+
+  &__addr {
+    padding: 12px 20px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(variables.$dark, .55);
+    margin: 0;
+    border-bottom: 1px solid rgba(variables.$dark, .07);
+  }
+
+  &__frame {
+    width: 100%;
+    height: 340px;
+
+    iframe {
+      display: block;
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 20px;
+    padding: 12px 24px;
+    border-radius: variables.$radius;
+    background: variables.$dark;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: background .25s;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: variables.$primary;
+    }
+  }
+}
+
+@keyframes modal-bg-in {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes modal-box-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(.97)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+// ══════════════════════════════════════════
+//  FLOATING CONTACT — CHAP PASTKI
 // ══════════════════════════════════════════
 
 .fcontact {
   position: fixed;
   left: 24px;
   bottom: 32px;
-  z-index: 999;
+  z-index: 998;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-
-  // Sahifa pastga tushganida paydo bo'ladi
+  gap: 0;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(16px);
+  transform: translateY(20px);
   transition: opacity .4s ease, transform .4s ease;
 
   &--visible {
@@ -500,32 +688,28 @@
   }
 }
 
-// ── Qalqib chiquvchi elementlar ──
-
 .fcontact-items {
   display: flex;
   flex-direction: column-reverse;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 
-  // Yopiq holat
   .fcontact-item {
     opacity: 0;
-    transform: translateY(12px) scale(.92);
+    transform: translateX(-14px) scale(.92);
     pointer-events: none;
-    transition:
-      opacity .3s cubic-bezier(.22, 1, .36, 1),
-      transform .3s cubic-bezier(.22, 1, .36, 1);
+    transition: opacity .3s cubic-bezier(.22, 1, .36, 1), transform .3s cubic-bezier(.22, 1, .36, 1);
   }
+}
 
-  // Ochiq holat
-  &--open .fcontact-item {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+.fcontact-items--open .fcontact-item {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
 
-    @for $i from 1 through 4 {
-      &:nth-child(#{$i}) { transition-delay: calc(#{$i - 1} * 0.06s); }
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      transition-delay: calc(#{$i - 1} * 0.07s);
     }
   }
 }
@@ -535,17 +719,28 @@
   align-items: center;
   gap: 0;
   text-decoration: none;
-  border-radius: 100px;
-  background: #fff;
-  box-shadow: 0 4px 20px -6px rgba(0,0,0,.22);
-  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   height: 48px;
   width: 48px;
-  transition: width .35s cubic-bezier(.22, 1, .36, 1), box-shadow .25s;
+  border-radius: 100px;
+  background: #fff;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, .2);
+  overflow: hidden;
+  transition: width .4s cubic-bezier(.22, 1, .36, 1), box-shadow .25s;
 
   &:hover {
-    width: 160px;
-    box-shadow: 0 8px 28px -6px rgba(0,0,0,.28);
+    width: 168px;
+    box-shadow: 0 8px 28px -6px rgba(0, 0, 0, .28);
+
+    .fcontact-item__label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .fcontact-item__label::hover {
+      color: variables.$primary !important;
+    }
   }
 
   &__icon {
@@ -556,74 +751,157 @@
     height: 48px;
     border-radius: 100px;
     flex-shrink: 0;
-    svg { display: block; }
+
+    i {
+      font-size: 22px;
+      display: block;
+    }
   }
 
   &__label {
     font-size: 13px;
     font-weight: 700;
     white-space: nowrap;
-    padding: 0 14px 0 8px;
+    padding: 0 16px 0 8px;
     opacity: 0;
-    transition: opacity .2s ease .1s;
+    transform: translateX(-8px);
+    transition: opacity .25s ease .06s, transform .25s ease .06s;
+    // Rangni inline style orqali belgilanadi
   }
-
-  &:hover &__label { opacity: 1; }
 }
-
-// ── Asosiy tugma ──
 
 .fcontact-btn {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 58px; height: 58px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   border: none;
   background: variables.$primary;
-  color: #fff;
   cursor: pointer;
   box-shadow: 0 8px 28px -8px rgba(variables.$primary, .6);
   transition: background .25s, transform .25s, box-shadow .25s;
 
-  &:hover { transform: scale(1.08); box-shadow: 0 12px 32px -8px rgba(variables.$primary, .7); }
-
-  &--open {
-    background: #333;
-    box-shadow: 0 8px 28px -8px rgba(0,0,0,.35);
-
-    .fcontact-btn__pulse--1,
-    .fcontact-btn__pulse--2 { display: none; }
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 32px -8px rgba(variables.$primary, .7);
   }
 
-  // Pulse halqalari
+  &--open {
+    background: #2c2c2c;
+    box-shadow: 0 8px 28px -8px rgba(0, 0, 0, .35);
+  }
+
+  &--open .fcontact-btn__pulse {
+    display: none;
+  }
+
   &__pulse {
     position: absolute;
     inset: 0;
     border-radius: 50%;
     border: 2px solid variables.$primary;
-    animation: fcontact-pulse 2.5s ease-out infinite;
+    animation: fcp 2.5s ease-out infinite;
 
-    &--2 { animation-delay: 1.1s; }
-  }
-
-  &__icon {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity .2s, transform .2s;
-
-    &.hidden { opacity: 0; transform: rotate(90deg) scale(.6); pointer-events: none; }
-
-    svg { display: block; }
+    &--2 {
+      animation-delay: 1.1s;
+    }
   }
 }
 
-@keyframes fcontact-pulse {
-  0%   { transform: scale(1); opacity: .8; }
-  100% { transform: scale(1.9); opacity: 0; }
+@keyframes fcp {
+  0% {
+    transform: scale(1);
+    opacity: .8
+  }
+
+  100% {
+    transform: scale(1.9);
+    opacity: 0
+  }
+}
+
+// ══════════════════════════════════════════
+//  SCROLL-TOP BTN — O'NG PASTKI (FIXED)
+// ══════════════════════════════════════════
+
+.scroll-top {
+  position: fixed;
+  right: 24px;
+  bottom: 32px;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(variables.$dark, .12);
+  background: #fff;
+  color: variables.$dark;
+  cursor: pointer;
+  overflow: visible;
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, .18);
+  transition: background .25s, border-color .25s, color .25s, transform .25s, box-shadow .25s;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity .4s ease, transform .4s ease, background .25s, border-color .25s, color .25s, box-shadow .25s;
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  i {
+    font-size: 22px;
+    position: relative;
+    z-index: 1;
+    transition: transform .3s;
+  }
+
+  &__ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 18px;
+    border: 1.5px solid rgba(variables.$primary, .28);
+    animation: st-ring 2.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: variables.$primary;
+    border-color: variables.$primary;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px -8px rgba(variables.$primary, .5);
+
+    i {
+      transform: translateY(-2px);
+    }
+
+    .scroll-top__ring {
+      border-color: rgba(variables.$primary, .6);
+    }
+  }
+}
+
+@keyframes st-ring {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .6
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0
+  }
 }
 
 // ══════════════════════════════════════════
@@ -631,15 +909,37 @@
 // ══════════════════════════════════════════
 
 @media (max-width: 1100px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 32px;
+  }
 }
 
 @media (max-width: 768px) {
-  .footer-hero { padding: 48px 0; }
-  .footer-hero__inner { flex-direction: column; align-items: flex-start; gap: 24px; }
-  .footer-hero__cta { width: 100%; justify-content: center; }
-  .footer-main { padding: 48px 0 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+  .footer-hero {
+    padding: 48px 0;
+  }
+
+  .footer-hero__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footer-hero__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-main {
+    padding: 48px 0 40px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 24px;
+  }
+
   .footer-brand {
     grid-column: 1 / -1;
     flex-direction: row;
@@ -648,23 +948,67 @@
     padding-bottom: 28px;
     border-bottom: 1px solid rgba(variables.$dark, .08);
   }
-  .footer-brand__desc { max-width: 100%; }
+
+  .footer-brand__desc {
+    max-width: 100%;
+  }
+
+  .map-modal__frame {
+    height: 260px;
+  }
 }
 
 @media (max-width: 560px) {
-  .footer-hero { padding: 40px 0; }
-  .footer-hero__title { font-size: clamp(1.5rem, 6vw, 2rem); }
-  .footer-main { padding: 40px 0 32px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-brand { flex-direction: column; gap: 14px; padding-bottom: 24px; }
-  .footer-bottom__inner { flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 16px 0; }
+  .footer-hero {
+    padding: 40px 0;
+  }
 
-  .fcontact { left: 16px; bottom: 20px; }
-  .fcontact-btn { width: 52px; height: 52px; }
+  .footer-main {
+    padding: 40px 0 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 24px;
+  }
+
+  .fcontact {
+    left: 16px;
+    bottom: 20px;
+  }
+
+  .scroll-top {
+    right: 16px;
+    bottom: 20px;
+  }
+
+  .fcontact-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .map-modal__frame {
+    height: 220px;
+  }
+
+  .map-modal__box {
+    border-radius: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-shape,
-  .footer-top-btn__ring,
-  .fcontact-btn__pulse { animation: none !important; }
+
+  .fd-ring,
+  .fd-dot,
+  .fd-rect,
+  .scroll-top__ring,
+  .fcontact-btn__pulse {
+    animation: none !important;
+  }
 }
