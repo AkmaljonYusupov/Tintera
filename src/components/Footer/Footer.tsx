@@ -310,7 +310,7 @@ function Footer() {
             {/* Brand */}
             <div className="footer-brand">
               <a href="/" className="footer-logo">
-                <img src={tinteraLogo} alt="Tintera Decor Center" />
+                <img src={logo} alt="Tintera Decor Center" />
               </a>
               <p className="footer-brand__desc">
                 Центр декоративных красок и штукатурок в Ташкенте. Более 120 оттенков для вашего интерьера.
