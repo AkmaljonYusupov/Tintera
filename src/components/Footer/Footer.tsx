@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Footer.scss";
-import tinteraLogo from "../../assets/logo.png";
+import tinteraLogo from "@assets/logo.png";
 
 const NAV_LINKS = [
   { label: "Главная",  href: "/" },
