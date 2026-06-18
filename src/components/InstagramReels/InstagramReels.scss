@@ -64,7 +64,7 @@
 .insta-card__frame {
   position: relative;
   // Keng eniga, balandlikka kichikroq — 5:4
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 6 / 8;
   border-radius: 14px;
   overflow: hidden;
   background: rgba(variables.$dark, .04);
@@ -102,24 +102,30 @@
   transition: background .3s, border-color .3s, color .3s;
 
   &:hover {
-    background: variables.$dark;
-    border-color: variables.$dark;
+    background: variables.$primary;
+    border-color: variables.$primary;
     color: #fff;
   }
 }
 
 @media (max-width: 900px) {
   .insta-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
-  .insta-card:nth-child(n+5) { display: none; }
+  .insta-card:nth-child(n+7) { display: none; }
 }
 
 @media (max-width: 480px) {
   .insta { padding: 72px 0 80px; }
-  .insta-grid { gap: 8px; }
-  .insta-card:nth-child(n+3) { display: none; }
+  .insta-grid { gap: 8px;  grid-template-columns: repeat(2, 1fr);}
+  .insta-card:nth-child(n+5) { display: none; }
+}
+
+@media (max-width: 380px) {
+  .insta { padding: 72px 0 80px; }
+  .insta-grid { gap: 8px;  grid-template-columns: repeat(1, 1fr);}
+  .insta-card:nth-child(n+5) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

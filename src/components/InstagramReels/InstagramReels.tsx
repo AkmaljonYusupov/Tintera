@@ -2,14 +2,14 @@ import "./InstagramReels.scss";
 
 // Reel URL lari — thumb yo'q, to'g'ridan iframe embed
 const REELS = [
-  "https://www.instagram.com/reel/REEL_ID_1/embed/",
-  "https://www.instagram.com/reel/REEL_ID_2/embed/",
-  "https://www.instagram.com/reel/REEL_ID_3/embed/",
-  "https://www.instagram.com/reel/REEL_ID_4/embed/",
-  "https://www.instagram.com/reel/REEL_ID_5/embed/",
-  "https://www.instagram.com/reel/REEL_ID_6/embed/",
-  "https://www.instagram.com/reel/REEL_ID_7/embed/",
-  "https://www.instagram.com/reel/REEL_ID_8/embed/",
+  "https://www.instagram.com/reel/DKlj63-txat/embed/",
+  "https://www.instagram.com/reel/C7oH_zLNekd/embed/",
+  "https://www.instagram.com/reel/DWRNCaSCHdt/embed/",
+  "https://www.instagram.com/reel/DZsDT4mIZIS/embed/",
+  "https://www.instagram.com/reel/DZZllw1oltG/embed/",
+  "https://www.instagram.com/reel/DZbhE-foKPV/embed/",
+  "https://www.instagram.com/reel/DZNK4SaIpR9/embed/",
+  "https://www.instagram.com/reel/DZFga31IGHB/embed/",
 ];
 
 const INSTAGRAM_URL = "https://www.instagram.com/tinterauz/";
