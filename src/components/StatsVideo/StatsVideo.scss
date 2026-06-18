@@ -117,19 +117,27 @@
 //  RESPONSIVE
 // ══════════════════════════════════════════
 
+@media (max-width: 1300px) {
+.stats {
+    background-attachment: fixed; // fixed effekt
+    background-size: cover;
+    
+  }
+}
 @media (max-width: 768px) {
 .stats {
-    background-attachment: scroll;
+    background-attachment: fixed; // fixed effekt
     background-size: cover;
+    
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px 0;
+    // gap: 32px 0;
   }
 
   .stats-item {
-    padding: 16px 20px;
+    padding: 32px 20px;
 
     & + & {
       border-left: none;
