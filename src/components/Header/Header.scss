@@ -120,8 +120,8 @@
   align-items: center;
   gap: 10px;
 
-  background: variables.$dark;
-  color: #fff;
+  border:1px solid variables.$primary;
+  color:variables.$primary;
 
   font-size: 12px;
   font-weight: 700;
@@ -140,7 +140,7 @@
     background: variables.$primary;
     gap: 14px;
     box-shadow: 0 10px 28px rgba(variables.$primary, .28);
-
+color:variables.$white;
     svg { transform: translateX(3px); }
   }
 }
@@ -344,8 +344,8 @@
 
   width: 100%;
 
-  background: variables.$dark;
-  color: #fff;
+  border: 1px solid variables.$primary;
+  color: variables.$primary;
 
   font-size: 13px;
   font-weight: 700;
@@ -363,6 +363,7 @@
   &:hover {
     background: variables.$primary;
     gap: 18px;
+    color:variables.$white;
 
     svg { transform: translateX(4px); }
   }
