@@ -40,17 +40,113 @@ const SOCIALS = [
 // ── Forma ──────────────────────────────────────────────────
 
 function ContactForm() {
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
-  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const validateName = (value: string) => {
+    if (!value.trim()) {
+      setNameError("Пожалуйста, введите ваше имя");
+      return false;
+    }
+    setNameError("");
+    return true;
+  };
 
-  const submit = (e: React.FormEvent) => {
+  const validatePhone = (value: string) => {
+    const phoneRegex = /^[\+\d\s\-\(\)]{7,20}$/;
+    if (!value.trim()) {
+      setPhoneError("Пожалуйста, введите номер телефона");
+      return false;
+    }
+    if (!phoneRegex.test(value.trim())) {
+      setPhoneError("Введите корректный номер телефона");
+      return false;
+    }
+    setPhoneError("");
+    return true;
+  };
+
+  const sendToTelegram = async (name: string, phone: string) => {
+    const BOT_TOKEN = "8703348503:AAEvLayIrZ5oMVAvKirEHdMBwlS5M56zMp0";
+    const CHAT_ID = "630353326";
+    
+    const message = `
+📞 <b>Новое сообщение с сайта Tintera</b>
+━━━━━━━━━━━━━━━━━━━━━━
+
+👤 <b>Имя:</b> ${name}
+📱 <b>Телефон:</b> ${phone}
+📅 <b>Время:</b> ${new Date().toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })}
+━━━━━━━━━━━━━━━━━━━━━━
+💡 <i>Скоро свяжемся с вами!</i>
+    `;
+    
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+          parse_mode: "HTML"
+        })
+      });
+      return response.ok;
+    } catch (error) {
+      console.error("Telegram send error:", error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const isNameValid = validateName(name);
+    const isPhoneValid = validatePhone(phone);
+    
+    if (!isNameValid || !isPhoneValid) {
+      return;
+    }
+    
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSent(true); }, 1400);
+    
+    try {
+      const sent = await sendToTelegram(name, phone);
+      if (sent) {
+        setSent(true);
+        setName("");
+        setPhone("");
+        setNameError("");
+        setPhoneError("");
+        setTimeout(() => setSent(false), 5000);
+      } else {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'cform-error-global';
+        errorDiv.textContent = 'Ошибка отправки. Пожалуйста, попробуйте позже.';
+        const form = document.querySelector('.cform');
+        if (form) form.prepend(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
+      }
+    } catch (error) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'cform-error-global';
+      errorDiv.textContent = 'Ошибка отправки. Пожалуйста, попробуйте позже.';
+      const form = document.querySelector('.cform');
+      if (form) form.prepend(errorDiv);
+      setTimeout(() => errorDiv.remove(), 5000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (sent) return (
@@ -63,47 +159,75 @@ function ContactForm() {
   );
 
   return (
-    <form className="cform" onSubmit={submit} noValidate>
-      <div className="cform-row">
-        <div className="cform-field">
-          <label htmlFor="cf-name">Имя</label>
-          <div className="cform-field__in">
-            <i className="ti ti-user" />
-            <input id="cf-name" name="name" type="text"
-              placeholder="Ваше имя"
-              value={form.name} onChange={change} required />
-          </div>
-        </div>
-        <div className="cform-field">
-          <label htmlFor="cf-phone">Телефон</label>
-          <div className="cform-field__in">
-            <i className="ti ti-phone" />
-            <input id="cf-phone" name="phone" type="tel"
-              placeholder="+998 __ ___ __ __"
-              value={form.phone} onChange={change} required />
-          </div>
-        </div>
-      </div>
-      <div className="cform-field">
-        <label htmlFor="cf-msg">Сообщение</label>
+    <form className="cform" onSubmit={handleSubmit} noValidate>
+      <div className={`cform-field ${nameError ? "cform-field--error" : ""}`}>
+        <label htmlFor="cf-name">Ваше имя</label>
         <div className="cform-field__in">
-          <i className="ti ti-message cform-field__icon-top" />
-          <textarea id="cf-msg" name="message" rows={4}
-            placeholder="Ваш вопрос или пожелание..."
-            value={form.message} onChange={change} />
+          <i className="ti ti-user" />
+          <input 
+            id="cf-name" 
+            name="name" 
+            type="text"
+            placeholder="Иван Иванов"
+            value={name} 
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value.trim()) setNameError("");
+            }}
+            onBlur={() => validateName(name)}
+            required 
+          />
         </div>
+        {nameError && <span className="cform-error">{nameError}</span>}
       </div>
+
+      <div className={`cform-field ${phoneError ? "cform-field--error" : ""}`}>
+        <label htmlFor="cf-phone">Номер телефона</label>
+        <div className="cform-field__in">
+          <i className="ti ti-phone" />
+          <input 
+            id="cf-phone" 
+            name="phone" 
+            type="tel"
+            placeholder="+998 90 123 45 67"
+            value={phone} 
+            onChange={(e) => {
+              setPhone(e.target.value);
+              if (e.target.value.trim()) setPhoneError("");
+            }}
+            onBlur={() => validatePhone(phone)}
+            required 
+          />
+        </div>
+        {phoneError && <span className="cform-error">{phoneError}</span>}
+      </div>
+
       <button
         type="submit"
         className={`cform-submit${loading ? " cform-submit--loading" : ""}`}
         disabled={loading}
       >
-        {loading
-          ? <><i className="ti ti-loader-2 cform-spin" /> Отправка...</>
-          : <><span>Отправить заявку</span><i className="ti ti-send" /></>
-        }
+        {loading ? (
+          <>
+            <span className="cform-spinner">
+              <span className="cform-spinner__dot" />
+              <span className="cform-spinner__dot" />
+              <span className="cform-spinner__dot" />
+            </span>
+            <span>Отправка...</span>
+          </>
+        ) : (
+          <>
+            <span>Отправить заявку</span>
+            <i className="ti ti-send" />
+          </>
+        )}
       </button>
-      <p className="cform-note"><i className="ti ti-lock" /> Ваши данные надёжно защищены</p>
+
+      <p className="cform-note">
+        <i className="ti ti-lock" /> 
+        Ваши данные надёжно защищены
+      </p>
     </form>
   );
 }
@@ -113,14 +237,12 @@ function ContactForm() {
 function Contacts() {
   return (
     <>
-      {/* Mavjud Hero komponentidan foydalanamiz */}
       <Hero
         title="Контакты"
         subtitle="Свяжитесь с нами — ответим в течение нескольких минут"
       />
 
       <section className="contacts">
-
         {/* Dekorativ fon */}
         <div className="contacts-deco" aria-hidden="true">
           <span className="contacts-deco__blob contacts-deco__blob--1" />
@@ -136,10 +258,8 @@ function Contacts() {
         </div>
 
         <div className="container contacts-grid">
-
           {/* ── CHAP: Info + Xarita ── */}
           <div className="contacts-left">
-
             {/* Info kartochkalar */}
             <div className="contacts-cards">
               {INFO_ITEMS.map((item, i) => {
@@ -232,7 +352,6 @@ function Contacts() {
                 </div>
               </div>
             </div>
-
           </div>
 
           {/* ── O'NG: Forma ── */}
@@ -251,7 +370,6 @@ function Contacts() {
               <ContactForm />
             </div>
           </div>
-
         </div>
       </section>
     </>

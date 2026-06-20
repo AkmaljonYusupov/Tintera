@@ -13,9 +13,7 @@
   background: #f8f8f8;
   overflow: hidden;
 
-  // Rasm — fon bilan yumshoq qo'shilib ketadigan pastki qatlam.
-  // Pastdan va o'ngdan #f8f8f8 ga eriydi, shuning uchun
-  // alohida "rasm bloki" ko'rinmaydi — barchasi yagona fon bo'lib qoladi.
+  // Rasm — fon bilan yumshoq qo'shilib ketadigan pastki qatlam
   &::before {
     content: "";
     position: absolute;
@@ -51,17 +49,49 @@
   max-width: 620px;
 }
 
-.hero-eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: variables.$primary;
-  margin-bottom: 22px;
+// ── Brand nomi (oddiy va chiroyli) ──
+.hero-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
 
   opacity: 0;
   transform: translateY(12px);
   animation: hero-up .6s cubic-bezier(.22, 1, .36, 1) .05s forwards;
+
+  // Dekorativ chiziq
+  &::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: variables.$primary;
+    border-radius: 2px;
+    flex-shrink: 0;
+    opacity: .6;
+  }
+
+  &__name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(variables.$dark, .5);
+    transition: color .3s ease;
+
+    // Dekorativ nuqta
+    &::after {
+      content: "•";
+      margin-left: 8px;
+      color: variables.$primary;
+      opacity: .5;
+    }
+  }
+
+  &:hover &__name {
+    color: variables.$dark;
+  }
 }
 
 // ── Title ──
@@ -72,7 +102,11 @@
   line-height: 1.1;
   letter-spacing: -.02em;
   color: variables.$dark;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: hero-up .7s cubic-bezier(.22, 1, .36, 1) .15s forwards;
 }
 
 .hero-title__row {
@@ -84,7 +118,7 @@
   display: inline-block;
   transform: translateY(110%);
   animation: hero-title-up .7s cubic-bezier(.22, 1, .36, 1) forwards;
-  animation-delay: calc(.15s + var(--i, 0) * .1s);
+  animation-delay: calc(.2s + var(--i, 0) * .1s);
 }
 
 // ── Subtitle ──
@@ -94,7 +128,7 @@
   font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.75;
   color: rgba(variables.$dark, .55);
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 
   opacity: 0;
   transform: translateY(12px);
@@ -102,103 +136,101 @@
 }
 
 // ══════════════════════════════════════════
-//  ACTIONS
+//  BREADCRUMB - Fonga mos chiroyli dizayn
 // ══════════════════════════════════════════
 
-.hero-actions {
+.hero-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 28px;
-  margin-bottom: 56px;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 0;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, .5);
+  backdrop-filter: blur(12px);
+  border-radius: 100px;
+  padding: 4px 6px 4px 4px;
+  border: 1px solid rgba(variables.$dark, .06);
+  box-shadow: 0 2px 12px rgba(variables.$dark, .04);
 
   opacity: 0;
   transform: translateY(12px);
   animation: hero-up .6s cubic-bezier(.22, 1, .36, 1) .45s forwards;
-}
 
-.hero-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  background: variables.$dark;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 0 0 0 32px;
-  height: 58px;
-  border-radius: variables.$radius;
-  overflow: hidden;
-  transition: background .3s ease;
-
-  &__icon {
-    display: flex;
+  &__link {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 58px;
-    margin-left: 24px;
-    background: rgba(255, 255, 255, .12);
-    transition: width .3s ease, background .3s ease;
+    gap: 6px;
+    padding: 6px 14px 6px 12px;
+    border-radius: 100px;
+    color: rgba(variables.$dark, .5);
+    text-decoration: none;
+    transition: all .3s ease;
+    background: transparent;
+    border: none;
 
-    svg { transition: transform .3s ease; }
+    svg {
+      flex-shrink: 0;
+      transition: transform .3s ease;
+    }
+
+    &:hover {
+      background: rgba(variables.$primary, .08);
+      color: variables.$primary;
+
+      svg {
+        transform: scale(1.1);
+        stroke: variables.$primary;
+      }
+    }
   }
 
-  &:hover {
+  &__separator {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(variables.$dark, .15);
+    padding: 0 2px;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__current {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 18px 6px 16px;
+    border-radius: 100px;
     background: variables.$primary;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .02em;
+    box-shadow: 0 4px 16px rgba(variables.$primary, .25);
+    transition: all .3s ease;
+    border: none;
 
-    .hero-btn__icon {
-      width: 68px;
-      background: rgba(0, 0, 0, .15);
-
-      svg { transform: translateX(4px); }
-    }
-  }
-}
-
-.hero-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  height: 58px;
-
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: variables.$dark;
-
-  span {
-    position: relative;
-    padding-bottom: 4px;
-
-    &::after {
+    &::before {
       content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .5);
+      margin-right: 8px;
+      flex-shrink: 0;
     }
-  }
 
-  &:hover {
-    color: variables.$primary;
-
-    span::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    &:hover {
+      box-shadow: 0 6px 24px rgba(variables.$primary, .35);
+      transform: translateY(-1px);
     }
   }
 }
 
 // ══════════════════════════════════════════
-//  STATS — sodda ko'rsatkichlar qatori
+//  STATS
 // ══════════════════════════════════════════
 
 .hero-stats {
@@ -206,7 +238,7 @@
   align-items: center;
   gap: 40px;
   padding-top: 32px;
-  border-top: 1px solid rgba(variables.$dark, .1);
+  border-top: 1px solid rgba(variables.$dark, .08);
   width: 100%;
   max-width: 480px;
 
@@ -217,13 +249,14 @@
   &__item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 
     strong {
       font-size: 24px;
       font-weight: 800;
       color: variables.$dark;
       letter-spacing: -.02em;
+      line-height: 1;
     }
 
     span {
@@ -233,29 +266,6 @@
       text-transform: uppercase;
       color: rgba(variables.$dark, .4);
     }
-  }
-}
-
-// ══════════════════════════════════════════
-//  MEDIA — o'ng ustun: yagona rasm
-// ══════════════════════════════════════════
-
-.hero-media {
-  position: relative;
-  height: 100%;
-  min-height: 420px;
-
-  opacity: 0;
-  transform: scale(.97);
-  animation: hero-media-in .8s cubic-bezier(.22, 1, .36, 1) .25s forwards;
-
-  &__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: variables.$radius;
   }
 }
 
@@ -273,81 +283,104 @@
   to   { transform: translateY(0); }
 }
 
-@keyframes hero-media-in {
-  from { opacity: 0; transform: scale(.97); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
 // ══════════════════════════════════════════
 //  RESPONSIVE
 // ══════════════════════════════════════════
 
-// ── Tablet — bir ustunga aylanadi ──
+// ── Tablet ──
 @media (max-width: 900px) {
   .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
     padding: 48px 0;
   }
 
-  .hero-media {
-    order: -1;
-    min-height: 320px;
+  .hero-content {
+    max-width: 100%;
   }
 }
 
 // ── Mobil ──
 @media (max-width: 576px) {
+  .hero {
+    min-height: calc(100vh - 70px);
+  }
+
   .hero-title {
     font-size: clamp(2.1rem, 9vw, 3rem);
   }
 
-  .hero-actions {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 16px 24px;
-    margin-bottom: 40px;
-  }
+  .hero-brand {
+    margin-bottom: 16px;
 
-  .hero-btn {
-    height: 52px;
-    padding-left: 26px;
-    font-size: 12px;
-
-    &__icon {
-      width: 52px;
-      height: 52px;
-      margin-left: 18px;
+    &::before {
+      width: 18px;
     }
 
-    &:hover &__icon { width: 58px; }
+    &__name {
+      font-size: 11px;
+      letter-spacing: .15em;
+    }
   }
 
-  .hero-link {
-    height: 52px;
+  .hero-breadcrumb {
     font-size: 12px;
+    gap: 4px;
+    padding: 3px 4px 3px 3px;
+    margin-bottom: 32px;
+    backdrop-filter: blur(8px);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &__link {
+      padding: 4px 10px 4px 8px;
+    }
+
+    &__current {
+      padding: 4px 14px 4px 12px;
+      font-size: 12px;
+
+      &::before {
+        width: 5px;
+        height: 5px;
+        margin-right: 6px;
+      }
+    }
   }
 
   .hero-stats {
-    gap: 28px;
+    gap: 24px;
     padding-top: 24px;
 
-    &__item strong { font-size: 20px; }
+    &__item strong {
+      font-size: 20px;
+    }
   }
+}
 
-  .hero-media {
-    min-height: 240px;
+// ── Kichik mobil ──
+@media (max-width: 400px) {
+  .hero-breadcrumb {
+    &__link span {
+      display: none;
+    }
+    
+    &__link svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
 // ── Animatsiyani kamaytirish ──
 @media (prefers-reduced-motion: reduce) {
-  .hero-eyebrow,
+  .hero-brand,
+  .hero-title,
   .hero-title__word,
   .hero-sub,
-  .hero-actions,
-  .hero-stats,
-  .hero-media {
+  .hero-breadcrumb,
+  .hero-stats {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

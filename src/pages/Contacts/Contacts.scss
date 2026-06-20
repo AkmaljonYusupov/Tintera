@@ -6,7 +6,7 @@
 
 .contacts {
   position: relative;
-  background: #f8f8f8;
+  background: linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%);
   padding: 90px 0 110px;
   overflow: hidden;
 }
@@ -22,12 +22,12 @@
 
   &--1 {
     width: 480px; height: 480px; top: -100px; left: -120px;
-    background: radial-gradient(circle, rgba(variables.$primary,.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(variables.$primary,.12) 0%, transparent 70%);
     animation: blob-drift 20s ease-in-out infinite alternate;
   }
   &--2 {
     width: 360px; height: 360px; bottom: -80px; right: -60px;
-    background: radial-gradient(circle, rgba(variables.$primary,.07) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(variables.$primary,.08) 0%, transparent 70%);
     animation: blob-drift 26s ease-in-out infinite alternate-reverse;
   }
 }
@@ -76,37 +76,54 @@
 
 .contacts-card {
   display: flex; align-items: flex-start; gap: 14px;
-  padding: 16px 18px;
+  padding: 18px 20px;
   border-radius: 16px;
   background: #fff;
   border: 1px solid rgba(variables.$dark,.06);
   box-shadow: 0 2px 12px -6px rgba(variables.$dark,.08);
   text-decoration: none; color: inherit;
-  transition: border-color .25s, box-shadow .25s, transform .25s;
+  transition: all .3s cubic-bezier(.22,1,.36,1);
 
   opacity: 0;
   animation: slide-in-left .5s cubic-bezier(.22,1,.36,1) forwards;
   animation-delay: calc(.08s + var(--idx,0) * .08s);
 
-  &--link:hover {
-    border-color: rgba(variables.$primary,.28);
-    box-shadow: 0 6px 24px -8px rgba(variables.$primary,.16);
-    transform: translateX(6px);
+  &--link {
+    cursor: pointer;
+    
+    &:hover {
+      border-color: rgba(variables.$primary,.3);
+      box-shadow: 0 8px 30px -12px rgba(variables.$primary,.2);
+      transform: translateX(6px);
 
-    .contacts-card__icon { background: variables.$primary; color: #fff; border-color: variables.$primary; }
-    .contacts-card__arr  { opacity: 1; transform: translate(2px,-2px); }
+      .contacts-card__icon { 
+        background: variables.$primary; 
+        color: #fff; 
+        border-color: variables.$primary; 
+        transform: scale(1.05);
+      }
+      .contacts-card__arr  { 
+        opacity: 1; 
+        transform: translate(2px,-2px); 
+      }
+    }
   }
 
   &__icon {
     display: flex; align-items: center; justify-content: center;
-    width: 42px; height: 42px; border-radius: 11px;
-    border: 1px solid rgba(variables.$dark,.08); background: #f8f8f8;
-    color: variables.$primary; flex-shrink: 0;
-    transition: background .25s, color .25s, border-color .25s;
-    i { font-size: 21px; display: block; }
+    width: 44px; height: 44px; border-radius: 12px;
+    border: 1px solid rgba(variables.$dark,.08); 
+    background: #f8f8f8;
+    color: variables.$primary; 
+    flex-shrink: 0;
+    transition: all .3s cubic-bezier(.22,1,.36,1);
+    
+    i { font-size: 22px; display: block; }
   }
 
-  &__body { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+  &__body { 
+    display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; 
+  }
 
   &__label {
     font-size: 11px; font-weight: 700; letter-spacing: .1em;
@@ -121,18 +138,19 @@
   &__arr {
     font-size: 18px; color: variables.$primary; flex-shrink: 0;
     opacity: 0; margin-top: 2px;
-    transition: opacity .25s, transform .25s;
+    transition: all .3s cubic-bezier(.22,1,.36,1);
   }
 }
 
 @keyframes slide-in-left {
-  from { opacity:0; transform:translateX(-16px); }
+  from { opacity:0; transform:translateX(-20px); }
   to   { opacity:1; transform:translateX(0); }
 }
 
 // Ijtimoiy tarmoqlar
 .contacts-socials {
   display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 16px 0;
 
   &__label {
     font-size: 12px; font-weight: 700; letter-spacing: .12em;
@@ -144,16 +162,23 @@
 
   &__item {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 16px; border-radius: 100px;
-    border: 1px solid rgba(variables.$dark,.1); background: #fff;
+    padding: 8px 18px; border-radius: 100px;
+    border: 1px solid rgba(variables.$dark,.08); 
+    background: #fff;
     font-size: 13px; font-weight: 600;
-    color: rgba(variables.$dark,.6); text-decoration: none;
-    transition: background .25s, border-color .25s, color .25s, transform .25s;
+    color: rgba(variables.$dark,.6); 
+    text-decoration: none;
+    transition: all .3s cubic-bezier(.22,1,.36,1);
+    box-shadow: 0 2px 8px rgba(variables.$dark,.04);
+    
     i { font-size: 18px; display: block; }
 
     &:hover {
-      background: var(--sc); border-color: var(--sc); color: #fff;
-      transform: translateY(-2px);
+      background: var(--sc); 
+      border-color: var(--sc); 
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px -8px var(--sc);
     }
   }
 }
@@ -165,9 +190,11 @@
 
 .contacts-map__badge {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 14px; border-radius: 100px;
+  padding: 8px 16px; border-radius: 100px;
   background: #fff; border: 1px solid rgba(variables.$dark,.08);
   font-size: 13px; font-weight: 600; color: rgba(variables.$dark,.65);
+  box-shadow: 0 2px 8px rgba(variables.$dark,.04);
+  
   i { font-size: 16px; color: variables.$primary; }
 }
 
@@ -175,30 +202,40 @@
   position: relative; height: 280px;
   border-radius: 20px; overflow: hidden;
   border: 2px solid #fff;
-  box-shadow: 0 12px 40px -12px rgba(variables.$dark,.2);
+  box-shadow: 0 12px 40px -12px rgba(variables.$dark,.15);
 
-  iframe { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  iframe { 
+    position: absolute; inset: 0; width: 100%; height: 100%; display: block; 
+  }
 }
 
 .contacts-map__overlay {
   position: absolute; inset: 0; z-index: 2;
   display: flex; align-items: flex-end; justify-content: flex-end;
   padding: 16px;
-  background: linear-gradient(to top, rgba(variables.$dark,.3) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(variables.$dark,.25) 0%, transparent 50%);
   pointer-events: none;
 }
 
 .contacts-map__open {
   display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 18px; border-radius: 12px;
+  padding: 10px 20px; border-radius: 12px;
   background: #fff;
   font-size: 12px; font-weight: 700; letter-spacing: .04em;
   color: variables.$dark;
-  box-shadow: 0 4px 16px -4px rgba(0,0,0,.2);
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,.15);
   pointer-events: auto;
-  transition: background .25s, color .25s;
+  transition: all .3s cubic-bezier(.22,1,.36,1);
+  text-decoration: none;
+  
   i { font-size: 15px; }
-  &:hover { background: variables.$primary; color: #fff; }
+  
+  &:hover { 
+    background: variables.$primary; 
+    color: #fff; 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -6px rgba(variables.$primary,.4);
+  }
 }
 
 // ══════════════════════════════════════════
@@ -209,20 +246,27 @@
 
 .contacts-form-card {
   background: #fff;
-  border: 1px solid rgba(variables.$dark,.07);
+  border: 1px solid rgba(variables.$dark,.06);
   border-radius: 24px;
-  padding: 36px 32px;
-  box-shadow: 0 20px 60px -20px rgba(variables.$dark,.12);
+  padding: 40px 36px;
+  box-shadow: 0 20px 60px -20px rgba(variables.$dark,.1);
+  transition: all .3s cubic-bezier(.22,1,.36,1);
+
+  &:hover {
+    box-shadow: 0 24px 72px -20px rgba(variables.$dark,.15);
+    border-color: rgba(variables.$primary,.08);
+  }
 
   &__head { margin-bottom: 28px; }
 
   &__badge {
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 6px 14px; border-radius: 100px;
+    padding: 6px 16px; border-radius: 100px;
     background: rgba(variables.$primary,.08);
     border: 1px solid rgba(variables.$primary,.15);
     font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
     color: variables.$primary; margin-bottom: 16px;
+    
     i { font-size: 15px; }
   }
 
@@ -232,74 +276,176 @@
     color: variables.$dark; margin: 0 0 8px;
   }
 
-  &__sub { font-size: 14px; color: rgba(variables.$dark,.5); margin: 0; line-height: 1.6; }
+  &__sub { 
+    font-size: 14px; color: rgba(variables.$dark,.5); margin: 0; line-height: 1.6; 
+  }
 }
 
 // ── Forma fieldlar ──
 
-.cform { display: flex; flex-direction: column; gap: 16px; }
-
-.cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cform { 
+  display: flex; flex-direction: column; gap: 18px; 
+}
 
 .cform-field {
-  display: flex; flex-direction: column; gap: 7px;
+  display: flex; flex-direction: column; gap: 6px;
 
   label {
-    font-size: 11px; font-weight: 700; letter-spacing: .1em;
-    text-transform: uppercase; color: rgba(variables.$dark,.45);
+    font-size: 12px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: rgba(variables.$dark,.5);
   }
 
   &__in {
-    position: relative; display: flex; align-items: flex-start;
+    position: relative; display: flex; align-items: center;
 
     > i {
-      position: absolute; left: 14px; top: 13px;
-      font-size: 18px; color: rgba(variables.$dark,.3);
-      pointer-events: none; transition: color .2s; z-index: 1;
+      position: absolute; left: 14px; 
+      font-size: 18px; color: rgba(variables.$dark,.25);
+      pointer-events: none; transition: all .3s ease; z-index: 1;
     }
 
-    .cform-field__icon-top { top: 14px; }
-
-    input, textarea {
-      width: 100%; padding: 12px 14px 12px 42px;
+    input {
+      width: 100%; padding: 13px 16px 13px 46px;
       border-radius: 12px;
-      border: 1.5px solid rgba(variables.$dark,.1);
+      border: 2px solid rgba(variables.$dark,.08);
       background: #f8f8f8;
-      font-size: 14px; font-weight: 500; color: variables.$dark;
-      outline: none; font-family: inherit; resize: none;
-      transition: border-color .25s, background .25s, box-shadow .25s;
-      &::placeholder { color: rgba(variables.$dark,.28); }
+      font-size: 15px; font-weight: 500; color: variables.$dark;
+      outline: none; font-family: inherit;
+      transition: all .3s cubic-bezier(.22,1,.36,1);
+      
+      &::placeholder { color: rgba(variables.$dark,.25); }
+      
       &:focus {
-        border-color: variables.$primary; background: #fff;
-        box-shadow: 0 0 0 3px rgba(variables.$primary,.1);
+        border-color: variables.$primary; 
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(variables.$primary,.08);
       }
     }
   }
 
   &:focus-within &__in > i { color: variables.$primary; }
+
+  // Error state
+  &--error {
+    &__in input {
+      border-color: #ef4444;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(#ef4444,.08);
+    }
+    &__in > i { color: #ef4444; }
+    label { color: #ef4444; }
+  }
+}
+
+.cform-error {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ef4444;
+  margin-top: 2px;
+  animation: error-shake .4s ease;
+  padding-left: 4px;
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.cform-error-global {
+  background: rgba(#ef4444,.08);
+  border: 1px solid rgba(#ef4444,.15);
+  color: #ef4444;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  animation: form-fade-in .4s ease;
+}
+
+@keyframes form-fade-in {
+  from { opacity: 0; transform: translateY(-8px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .cform-submit {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; padding: 15px; border-radius: 14px; border: none;
+  width: 100%; padding: 16px; border-radius: 14px; border: none;
   background: variables.$dark; color: #fff;
   font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   cursor: pointer; font-family: inherit;
-  transition: background .3s, transform .25s, box-shadow .25s;
+  transition: all .3s cubic-bezier(.22,1,.36,1);
   margin-top: 4px;
-  i { font-size: 18px; transition: transform .3s; }
+  min-height: 56px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  i { 
+    font-size: 18px; 
+    transition: transform .3s ease; 
+  }
 
   &:hover:not(:disabled) {
-    background: variables.$primary; transform: translateY(-2px);
-    box-shadow: 0 10px 28px -8px rgba(variables.$primary,.4);
-    i { transform: translateX(3px); }
+    background: variables.$primary; 
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px -10px rgba(variables.$primary,.4);
+    
+    i { transform: translateX(4px) rotate(-15deg); }
   }
-  &:disabled { opacity: .7; cursor: not-allowed; }
-  &--loading { background: rgba(variables.$dark,.75); }
+  
+  &:disabled { 
+    opacity: .8; 
+    cursor: not-allowed; 
+    transform: none !important;
+  }
+  
+  &--loading { 
+    background: rgba(variables.$dark,.8); 
+  }
 }
 
-.cform-spin { animation: spin 1s linear infinite !important; }
-@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+// ── Yangi Loading Spinner ──
+.cform-spinner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  &__dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.6);
+    animation: spinner-dot 1.2s ease-in-out infinite;
+    
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: .2s; }
+    &:nth-child(3) { animation-delay: .4s; }
+  }
+}
+
+@keyframes spinner-dot {
+  0%, 80%, 100% {
+    transform: scale(.4);
+    opacity: .3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
 .cform-note {
   display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -307,6 +453,7 @@
   i { font-size: 14px; }
 }
 
+// ── Success ──
 .cform-success {
   display: flex; flex-direction: column; align-items: center;
   text-align: center; gap: 12px; padding: 16px 0;
@@ -314,27 +461,49 @@
   &__icon {
     display: flex; align-items: center; justify-content: center;
     width: 72px; height: 72px; border-radius: 50%;
-    background: rgba(variables.$primary,.1); color: variables.$primary;
+    background: rgba(variables.$primary,.1); 
+    color: variables.$primary;
     animation: pop-in .5s cubic-bezier(.22,1,.36,1) forwards;
+    
     i { font-size: 36px; display: block; }
   }
 
-  h4 { font-size: 1.4rem; font-weight: 800; color: variables.$dark; margin: 0; }
-  p  { font-size: 14px; color: rgba(variables.$dark,.5); margin: 0; line-height: 1.65; }
+  h4 { 
+    font-size: 1.4rem; 
+    font-weight: 800; 
+    color: variables.$dark; 
+    margin: 0; 
+  }
+  
+  p { 
+    font-size: 14px; 
+    color: rgba(variables.$dark,.5); 
+    margin: 0; 
+    line-height: 1.65; 
+  }
 
   button {
-    padding: 11px 22px; border-radius: 12px;
-    border: 1.5px solid rgba(variables.$dark,.12); background: transparent;
-    font-size: 13px; font-weight: 700; color: rgba(variables.$dark,.6);
+    padding: 11px 24px; border-radius: 12px;
+    border: 2px solid rgba(variables.$dark,.1); 
+    background: transparent;
+    font-size: 13px; font-weight: 700; 
+    color: rgba(variables.$dark,.6);
     cursor: pointer; font-family: inherit;
-    transition: background .25s, color .25s, border-color .25s; margin-top: 8px;
-    &:hover { background: variables.$dark; color: #fff; border-color: variables.$dark; }
+    transition: all .3s cubic-bezier(.22,1,.36,1);
+    margin-top: 8px;
+    
+    &:hover { 
+      background: variables.$dark; 
+      color: #fff; 
+      border-color: variables.$dark;
+      transform: translateY(-2px);
+    }
   }
 }
 
 @keyframes pop-in {
-  from{transform:scale(.5);opacity:0}
-  to  {transform:scale(1);opacity:1}
+  from { transform:scale(.5) rotate(-10deg); opacity:0; }
+  to   { transform:scale(1) rotate(0deg); opacity:1; }
 }
 
 // ══════════════════════════════════════════
@@ -342,17 +511,45 @@
 // ══════════════════════════════════════════
 
 @media (max-width: 900px) {
-  .contacts-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contacts-grid { 
+    grid-template-columns: 1fr; 
+    gap: 48px; 
+  }
   .contacts-right { position: static; }
   .contacts-map__frame { height: 240px; }
 }
 
 @media (max-width: 576px) {
   .contacts { padding: 64px 0 72px; }
-  .contacts-form-card { padding: 24px 20px; border-radius: 20px; }
-  .cform-row { grid-template-columns: 1fr; }
-  .contacts-socials { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .contacts-form-card { 
+    padding: 24px 18px; 
+    border-radius: 20px; 
+  }
+  .contacts-card { 
+    padding: 14px 16px; 
+    
+    &__icon {
+      width: 38px; 
+      height: 38px; 
+      
+      i { font-size: 18px; }
+    }
+  }
+  .contacts-socials { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+  }
   .contacts-map__frame { height: 200px; }
+  .cform-submit { 
+    padding: 14px; 
+    font-size: 13px; 
+    min-height: 48px;
+  }
+  .cform-field__in input {
+    padding: 11px 14px 11px 40px;
+    font-size: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -360,6 +557,10 @@
   .contacts-deco__ring,
   .contacts-deco__cross i,
   .contacts-card,
-  .cform-spin,
-  .cform-success__icon { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .cform-spinner__dot,
+  .cform-success__icon {
+    animation: none !important; 
+    opacity: 1 !important; 
+    transform: none !important;
+  }
 }

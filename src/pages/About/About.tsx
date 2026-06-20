@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Hero from "../../components/Hero/Hero";
+import Person from "../../assets/Person.jpg"
 import "./About.scss";
 
 // ── Animated counter ──────────────────────────────────────
@@ -115,10 +116,27 @@ function ContactForm() {
   };
 
   const sendToTelegram = async (name: string, phone: string) => {
-    const BOT_TOKEN = "YOUR_BOT_TOKEN";
-    const CHAT_ID = "YOUR_CHAT_ID";
+    const BOT_TOKEN = "8703348503:AAEvLayIrZ5oMVAvKirEHdMBwlS5M56zMp0";
+    const CHAT_ID = "630353326";
     
-    const message = `🆕 Новое сообщение с сайта Tintera!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📅 Время: ${new Date().toLocaleString('ru-RU')}`;
+    const message = `
+🏢 <b>Tintera Decor Center</b>
+━━━━━━━━━━━━━━━━━━━━━━
+📩 <b>Новое сообщение с сайта</b>
+━━━━━━━━━━━━━━━━━━━━━━
+
+👤 <b>Имя:</b> ${name}
+📞 <b>Телефон:</b> ${phone}
+📅 <b>Время:</b> ${new Date().toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })}
+━━━━━━━━━━━━━━━━━━━━━━
+💡 <i>Скоро свяжемся с вами!</i>
+    `;
     
     try {
       const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -217,12 +235,16 @@ function ContactForm() {
       <button type="submit" className="about-team__form-btn" disabled={loading}>
         {loading ? (
           <>
-            <span className="about-team__spinner" />
-            Отправка...
+            <span className="about-team__spinner">
+              <span className="about-team__spinner-dot" />
+              <span className="about-team__spinner-dot" />
+              <span className="about-team__spinner-dot" />
+            </span>
+            <span className="about-team__btn-text">Отправка...</span>
           </>
         ) : (
           <>
-            <span>Отправить</span>
+            <span className="about-team__btn-text">Отправить</span>
             <i className="ti ti-arrow-right" />
           </>
         )}
@@ -231,7 +253,10 @@ function ContactForm() {
       {submitted && (
         <div className="about-team__form-success">
           <i className="ti ti-check-circle" />
-          <span>Спасибо! Мы свяжемся с вами в ближайшее время.</span>
+          <div>
+            <span className="about-team__success-title">Успешно отправлено!</span>
+            <span className="about-team__success-desc">Мы свяжемся с вами в ближайшее время</span>
+          </div>
         </div>
       )}
     </form>
@@ -435,7 +460,7 @@ function About() {
         </div>
       </section>
 
-      {/* ══ 6. TEAM ════════════════════════════════════════ */}
+      {/* ══ 6. TEAM - YANGILANGAN ══════════════════════════ */}
       <section
         className={`about-team${teamSection.inView ? " about-team--visible" : ""}`}
         ref={teamSection.ref as React.RefObject<HTMLElement>}
@@ -466,24 +491,24 @@ function About() {
             <div className="about-team__profile">
               <div className="about-team__profile-image">
                 <img 
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" 
-                  alt="Алексей Иванов" 
+                  src={Person}
+                  alt="Беҳруз Азизович" 
                 />
                 <div className="about-team__profile-ring" />
               </div>
               
               <div className="about-team__profile-info">
-                <h3 className="about-team__profile-name">Алексей Иванов</h3>
+                <h3 className="about-team__profile-name">Беҳруз Азизович</h3>
                 <p className="about-team__profile-role">Основатель &amp; Директор</p>
                 
                 <div className="about-team__profile-socials">
-                  <a href="#" className="about-team__social about-team__social--instagram" aria-label="Instagram">
+                  <a href="https://www.instagram.com/tinterauz/" target="_blank" className="about-team__social about-team__social--instagram" aria-label="Instagram">
                     <i className="ti ti-brand-instagram" />
                   </a>
-                  <a href="#" className="about-team__social about-team__social--telegram" aria-label="Telegram">
+                  <a href="https://t.me/tinterauz" target="_blank" className="about-team__social about-team__social--telegram" aria-label="Telegram">
                     <i className="ti ti-brand-telegram" />
                   </a>
-                  <a href="tel:+998901234567" className="about-team__social about-team__social--phone" aria-label="Phone">
+                  <a href="tel:+998901234567" target="_blank" className="about-team__social about-team__social--phone" aria-label="Phone">
                     <i className="ti ti-phone" />
                   </a>
                 </div>
