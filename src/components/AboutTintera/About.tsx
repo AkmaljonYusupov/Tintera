@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Hero from "../../components/Hero/Hero";
+import Hero from "../Hero/Hero";
 import "./About.scss";
 
 // ── Animated counter ──────────────────────────────────────
@@ -45,7 +45,6 @@ const MILESTONES = [
   { year: "Сегодня",   icon: "ti-trophy",          title: "Лидерство",          desc: "Более 5 000 клиентов. Ведущий дизайн-центр Ташкента." },
 ];
 
-// GALLERY - 7 ta rasm
 const GALLERY_IMGS = [
   "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80",
   "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
@@ -53,7 +52,6 @@ const GALLERY_IMGS = [
   "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
   "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80",
   "https://images.unsplash.com/photo-1560448075-bb485b067938?w=800&q=80",
-  "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80",
 ];
 
 // ── Scroll-triggered animation hook ──────────────────────
@@ -76,148 +74,52 @@ function ContactForm() {
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [nameError, setNameError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
 
-  const validateName = (value: string) => {
-    if (!value.trim()) {
-      setNameError("Пожалуйста, введите ваше имя");
-      return false;
-    }
-    setNameError("");
-    return true;
-  };
-
-  const validatePhone = (value: string) => {
-    const phoneRegex = /^[\+\d\s\-\(\)]{7,20}$/;
-    if (!value.trim()) {
-      setPhoneError("Пожалуйста, введите номер телефона");
-      return false;
-    }
-    if (!phoneRegex.test(value.trim())) {
-      setPhoneError("Введите корректный номер телефона");
-      return false;
-    }
-    setPhoneError("");
-    return true;
-  };
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setName(value);
-    if (value.trim()) setNameError("");
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPhone(value);
-    if (value.trim()) setPhoneError("");
-  };
-
-  const sendToTelegram = async (name: string, phone: string) => {
-    const BOT_TOKEN = "YOUR_BOT_TOKEN";
-    const CHAT_ID = "YOUR_CHAT_ID";
-    
-    const message = `🆕 Новое сообщение с сайта Tintera!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📅 Время: ${new Date().toLocaleString('ru-RU')}`;
-    
-    try {
-      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message,
-          parse_mode: "HTML"
-        })
-      });
-      return response.ok;
-    } catch (error) {
-      console.error("Telegram send error:", error);
-      return false;
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const isNameValid = validateName(name);
-    const isPhoneValid = validatePhone(phone);
-    
-    if (!isNameValid || !isPhoneValid) {
-      return;
-    }
-    
     setLoading(true);
     
-    try {
-      const sent = await sendToTelegram(name, phone);
-      if (sent) {
-        setSubmitted(true);
-        setName("");
-        setPhone("");
-        setNameError("");
-        setPhoneError("");
-        setTimeout(() => setSubmitted(false), 5000);
-      } else {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'about-team__form-error-global';
-        errorDiv.textContent = 'Ошибка отправки. Пожалуйста, попробуйте позже.';
-        const form = document.querySelector('.about-team__form');
-        if (form) form.prepend(errorDiv);
-        setTimeout(() => errorDiv.remove(), 5000);
-      }
-    } catch (error) {
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'about-team__form-error-global';
-      errorDiv.textContent = 'Ошибка отправки. Пожалуйста, попробуйте позже.';
-      const form = document.querySelector('.about-team__form');
-      if (form) form.prepend(errorDiv);
-      setTimeout(() => errorDiv.remove(), 5000);
-    } finally {
+    setTimeout(() => {
       setLoading(false);
-    }
+      setSubmitted(true);
+      setName("");
+      setPhone("");
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 1000);
   };
 
   return (
-    <form className="about-team__form" onSubmit={handleSubmit} noValidate>
-      <div className={`about-team__form-group ${nameError ? "about-team__form-group--error" : ""}`}>
+    <form className="ab-team__form" onSubmit={handleSubmit}>
+      <div className="ab-team__form-group">
         <label htmlFor="team-name">Ваше имя</label>
-        <div className="about-team__form-input-wrap">
-          <input
-            id="team-name"
-            type="text"
-            placeholder="Иван Иванов"
-            value={name}
-            onChange={handleNameChange}
-            onBlur={() => validateName(name)}
-            required
-          />
-          <i className="ti ti-user" />
-        </div>
-        {nameError && <span className="about-team__form-error">{nameError}</span>}
+        <input
+          id="team-name"
+          type="text"
+          placeholder="Иван Иванов"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <i className="ti ti-user" />
       </div>
 
-      <div className={`about-team__form-group ${phoneError ? "about-team__form-group--error" : ""}`}>
+      <div className="ab-team__form-group">
         <label htmlFor="team-phone">Номер телефона</label>
-        <div className="about-team__form-input-wrap">
-          <input
-            id="team-phone"
-            type="tel"
-            placeholder="+998 90 123 45 67"
-            value={phone}
-            onChange={handlePhoneChange}
-            onBlur={() => validatePhone(phone)}
-            required
-          />
-          <i className="ti ti-phone" />
-        </div>
-        {phoneError && <span className="about-team__form-error">{phoneError}</span>}
+        <input
+          id="team-phone"
+          type="tel"
+          placeholder="+998 90 123 45 67"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+        <i className="ti ti-phone" />
       </div>
 
-      <button type="submit" className="about-team__form-btn" disabled={loading}>
+      <button type="submit" className="ab-team__form-btn" disabled={loading}>
         {loading ? (
           <>
-            <span className="about-team__spinner" />
+            <span className="ab-team__spinner" />
             Отправка...
           </>
         ) : (
@@ -229,7 +131,7 @@ function ContactForm() {
       </button>
 
       {submitted && (
-        <div className="about-team__form-success">
+        <div className="ab-team__form-success">
           <i className="ti ti-check-circle" />
           <span>Спасибо! Мы свяжемся с вами в ближайшее время.</span>
         </div>
@@ -253,45 +155,43 @@ function About() {
 
       {/* ══ 1. STORY ═══════════════════════════════════════ */}
       <section className="ab-story">
-        <div className="about-deco" aria-hidden="true">
-          <span className="about-deco__blob about-deco__blob--a" />
-          <span className="about-deco__blob about-deco__blob--b" />
-          <span className="about-deco__ring about-deco__ring--1" />
-          <span className="about-deco__ring about-deco__ring--2" />
-          {[...Array(6)].map((_, i) => <span key={i} className="about-deco__particle" style={{ "--pi": i } as React.CSSProperties} />)}
+        <div className="ab-deco" aria-hidden="true">
+          <span className="ab-deco__blob ab-deco__blob--a" />
+          <span className="ab-deco__blob ab-deco__blob--b" />
+          <span className="ab-deco__ring ab-deco__ring--1" />
+          <span className="ab-deco__ring ab-deco__ring--2" />
+          {[...Array(6)].map((_, i) => <span key={i} className="ab-deco__particle" style={{ "--pi": i } as React.CSSProperties} />)}
         </div>
 
         <div className="container ab-story__grid">
           <div className="ab-story__text">
-            <span className="about-eyebrow">
+            <span className="ab-eyebrow">
               <i className="ti ti-sparkles" />
               Наша история
             </span>
-            <h2 className="about-section-title">
+            <h2 className="ab-title">
               Мир красок,<br />
-              <span className="about-accent about-accent--block">рождённый из страсти</span>
+              <em>рождённый из страсти</em>
             </h2>
-            <div className="ab-story__text-content">
-              <p>
-                Tintera Decor Center был основан <strong>1 мая 2023 года</strong> в Шайхонтохурском
-                районе Ташкента. Мы создавались с одной мечтой — сделать мир вокруг людей красивее,
-                ярче и богаче цветом.
-              </p>
-              <p>
-                Сегодня наш центр — это пространство вдохновения, где каждый найдёт идеальный
-                оттенок для своего интерьера. Более 120 оттенков декоративных красок и штукатурок,
-                соответствующих европейским стандартам.
-              </p>
-              <p>
-                Мы мечтаем, чтобы Tintera стал не просто магазином, а творческим домом — местом,
-                где рождаются идеи и воплощаются в жизнь красивые интерьеры.
-              </p>
-            </div>
+            <p>
+              Tintera Decor Center был основан <strong>1 мая 2023 года</strong> в Шайхонтохурском
+              районе Ташкента. Мы создавались с одной мечтой — сделать мир вокруг людей красивее,
+              ярче и богаче цветом.
+            </p>
+            <p>
+              Сегодня наш центр — это пространство вдохновения, где каждый найдёт идеальный
+              оттенок для своего интерьера. Более 120 оттенков декоративных красок и штукатурок,
+              соответствующих европейским стандартам.
+            </p>
+            <p>
+              Мы мечтаем, чтобы Tintera стал не просто магазином, а творческим домом — местом,
+              где рождаются идеи и воплощаются в жизнь красивые интерьеры.
+            </p>
 
             <div className="ab-story__chips">
-              <span className="about-chip"><i className="ti ti-certificate" /> EU стандарты</span>
-              <span className="about-chip"><i className="ti ti-shield-check" /> Гарантия</span>
-              <span className="about-chip"><i className="ti ti-truck-delivery" /> Доставка</span>
+              <span className="ab-chip"><i className="ti ti-certificate" /> EU стандарты</span>
+              <span className="ab-chip"><i className="ti ti-shield-check" /> Гарантия</span>
+              <span className="ab-chip"><i className="ti ti-truck-delivery" /> Доставка</span>
             </div>
 
             <a href="/contacts" className="ab-story__cta">
@@ -326,8 +226,8 @@ function About() {
         ref={statsSection.ref as React.RefObject<HTMLElement>}
       >
         <div className="ab-stats__bg" aria-hidden="true">
-          <span className="about-deco__ring about-deco__ring--stats1" />
-          <span className="about-deco__ring about-deco__ring--stats2" />
+          <span className="ab-deco__ring ab-deco__ring--stats1" />
+          <span className="ab-deco__ring ab-deco__ring--stats2" />
         </div>
         <div className="container ab-stats__grid">
           {STATS.map((s, i) => (
@@ -348,18 +248,18 @@ function About() {
         className={`ab-values${valuesSection.inView ? " ab-values--visible" : ""}`}
         ref={valuesSection.ref as React.RefObject<HTMLElement>}
       >
-        <div className="about-deco about-deco--values" aria-hidden="true">
-          <span className="about-deco__blob about-deco__blob--c" />
-          <span className="about-deco__cross"><i className="ti ti-plus" /></span>
-          <span className="about-deco__cross about-deco__cross--2"><i className="ti ti-plus" /></span>
+        <div className="ab-deco ab-deco--values" aria-hidden="true">
+          <span className="ab-deco__blob ab-deco__blob--c" />
+          <span className="ab-deco__cross"><i className="ti ti-plus" /></span>
+          <span className="ab-deco__cross ab-deco__cross--2"><i className="ti ti-plus" /></span>
         </div>
 
         <div className="container">
-          <div className="about-section-head">
-            <span className="about-eyebrow"><i className="ti ti-diamond" /> Наши принципы</span>
-            <h2 className="about-section-title">
+          <div className="ab-section-head">
+            <span className="ab-eyebrow"><i className="ti ti-diamond" /> Наши принципы</span>
+            <h2 className="ab-title">
               Ценности, которые<br />
-              <span className="about-accent">нас объединяют</span>
+              <em>нас объединяют</em>
             </h2>
           </div>
 
@@ -378,14 +278,14 @@ function About() {
         </div>
       </section>
 
-      {/* ══ 4. GALLERY - 7 ta rasm ════════════════════════ */}
+      {/* ══ 4. GALLERY ═════════════════════════════════════ */}
       <section
         className={`ab-gallery${gallerySection.inView ? " ab-gallery--visible" : ""}`}
         ref={gallerySection.ref as React.RefObject<HTMLElement>}
       >
         <div className="container ab-gallery__head">
-          <span className="about-eyebrow"><i className="ti ti-photo" /> Наши работы</span>
-          <h2 className="about-section-title">Вдохновение<br /><span className="about-accent">в каждом оттенке</span></h2>
+          <span className="ab-eyebrow"><i className="ti ti-photo" /> Наши работы</span>
+          <h2 className="ab-title">Вдохновение<br /><em>в каждом оттенке</em></h2>
         </div>
 
         <div className="ab-gallery__grid">
@@ -394,7 +294,6 @@ function About() {
               <img src={src} alt={`Tintera project ${i + 1}`} loading="lazy" />
               <div className="ab-gallery__item-overlay">
                 <i className="ti ti-eye" />
-                <span>Посмотреть</span>
               </div>
             </div>
           ))}
@@ -406,15 +305,15 @@ function About() {
         className={`ab-timeline${timelineSection.inView ? " ab-timeline--visible" : ""}`}
         ref={timelineSection.ref as React.RefObject<HTMLElement>}
       >
-        <div className="about-deco about-deco--timeline" aria-hidden="true">
-          <span className="about-deco__blob about-deco__blob--d" />
-          <span className="about-deco__ring about-deco__ring--3" />
+        <div className="ab-deco ab-deco--timeline" aria-hidden="true">
+          <span className="ab-deco__blob ab-deco__blob--d" />
+          <span className="ab-deco__ring ab-deco__ring--3" />
         </div>
 
         <div className="container">
-          <div className="about-section-head about-section-head--center">
-            <span className="about-eyebrow"><i className="ti ti-timeline" /> Наш путь</span>
-            <h2 className="about-section-title">История<br /><span className="about-accent">развития</span></h2>
+          <div className="ab-section-head ab-section-head--center">
+            <span className="ab-eyebrow"><i className="ti ti-timeline" /> Наш путь</span>
+            <h2 className="ab-title">История<br /><em>развития</em></h2>
           </div>
 
           <div className="ab-timeline__track">
@@ -435,75 +334,79 @@ function About() {
         </div>
       </section>
 
-      {/* ══ 6. TEAM ════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════ */}
+      {/* ══ 6. TEAM - КОМАНДА ══════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════ */}
       <section
-        className={`about-team${teamSection.inView ? " about-team--visible" : ""}`}
+        className={`ab-team${teamSection.inView ? " ab-team--visible" : ""}`}
         ref={teamSection.ref as React.RefObject<HTMLElement>}
       >
-        <div className="about-deco" aria-hidden="true">
-          <span className="about-deco__blob about-deco__blob--a" />
-          <span className="about-deco__blob about-deco__blob--c" />
-          <span className="about-deco__ring about-deco__ring--1" />
-          <span className="about-deco__ring about-deco__ring--3" />
-          {[...Array(4)].map((_, i) => <span key={i} className="about-deco__particle" style={{ "--pi": i + 3 } as React.CSSProperties} />)}
+        <div className="ab-deco" aria-hidden="true">
+          <span className="ab-deco__blob ab-deco__blob--a" />
+          <span className="ab-deco__blob ab-deco__blob--c" />
+          <span className="ab-deco__ring ab-deco__ring--1" />
+          <span className="ab-deco__ring ab-deco__ring--3" />
+          {[...Array(4)].map((_, i) => <span key={i} className="ab-deco__particle" style={{ "--pi": i + 3 } as React.CSSProperties} />)}
         </div>
 
         <div className="container">
-          <div className="about-section-head about-section-head--center">
-            <span className="about-eyebrow">
+          <div className="ab-section-head">
+            <span className="ab-eyebrow">
               <i className="ti ti-users" />
               Команда
             </span>
-            <h2 className="about-section-title">
-              Люди за <span className="about-accent">Tintera</span>
+            <h2 className="ab-title">
+              Люди за <em>Tintera</em>
             </h2>
-            <p className="about-section-sub">
+            <p className="ab-team__subtitle">
               Профессионалы, которые помогают вам создать идеальный интерьер
             </p>
           </div>
 
-          <div className="about-team__grid">
-            <div className="about-team__profile">
-              <div className="about-team__profile-image">
+          <div className="ab-team__grid">
+            {/* ─── CHAP TOMON: RASM + ISM + IJTIMOIY TARMOQLAR ─── */}
+            <div className="ab-team__profile">
+              <div className="ab-team__profile-image">
                 <img 
                   src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" 
                   alt="Алексей Иванов" 
                 />
-                <div className="about-team__profile-ring" />
+                <div className="ab-team__profile-ring" />
               </div>
               
-              <div className="about-team__profile-info">
-                <h3 className="about-team__profile-name">Алексей Иванов</h3>
-                <p className="about-team__profile-role">Основатель &amp; Директор</p>
+              <div className="ab-team__profile-info">
+                <h3 className="ab-team__profile-name">Алексей Иванов</h3>
+                <p className="ab-team__profile-role">Основатель &amp; Директор</p>
                 
-                <div className="about-team__profile-socials">
-                  <a href="#" className="about-team__social about-team__social--instagram" aria-label="Instagram">
+                <div className="ab-team__profile-socials">
+                  <a href="#" className="ab-team__social ab-team__social--instagram" aria-label="Instagram">
                     <i className="ti ti-brand-instagram" />
                   </a>
-                  <a href="#" className="about-team__social about-team__social--telegram" aria-label="Telegram">
+                  <a href="#" className="ab-team__social ab-team__social--telegram" aria-label="Telegram">
                     <i className="ti ti-brand-telegram" />
                   </a>
-                  <a href="tel:+998901234567" className="about-team__social about-team__social--phone" aria-label="Phone">
+                  <a href="#" className="ab-team__social ab-team__social--phone" aria-label="Phone">
                     <i className="ti ti-phone" />
                   </a>
                 </div>
                 
-                <div className="about-team__profile-contact">
-                  <a href="tel:+998901234567" className="about-team__profile-phone">
+                <div className="ab-team__profile-contact">
+                  <span className="ab-team__profile-phone">
                     <i className="ti ti-phone" />
                     +998 90 123 45 67
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="about-team__form-wrapper">
-              <div className="about-team__form-card">
-                <h4 className="about-team__form-title">
+            {/* ─── O'NG TOMON: CONTACT FORMA ─── */}
+            <div className="ab-team__form-wrapper">
+              <div className="ab-team__form-card">
+                <h4 className="ab-team__form-title">
                   <i className="ti ti-message-circle" />
                   Свяжитесь с нами
                 </h4>
-                <p className="about-team__form-desc">
+                <p className="ab-team__form-desc">
                   Оставьте свои контакты и мы поможем вам подобрать идеальное решение
                 </p>
                 <ContactForm />
@@ -513,33 +416,25 @@ function About() {
         </div>
       </section>
 
-      {/* ══ 7. CTA - YANGILANGAN ═══════════════════════════ */}
+      {/* ══ 7. CTA ═════════════════════════════════════════ */}
       <section className="ab-cta">
         <div className="ab-cta__deco" aria-hidden="true">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <span key={i} className="ab-cta__particle" style={{ "--pi": i } as React.CSSProperties} />
           ))}
-          <span className="about-deco__ring about-deco__ring--cta" />
-          <span className="ab-cta__circle ab-cta__circle--1" />
-          <span className="ab-cta__circle ab-cta__circle--2" />
-          <span className="ab-cta__circle ab-cta__circle--3" />
+          <span className="ab-deco__ring ab-deco__ring--cta" />
         </div>
 
         <div className="container ab-cta__inner">
-          <div className="ab-cta__badge">
-            <i className="ti ti-rocket" />
-            <span>Готовы начать?</span>
-          </div>
-          
+          <span className="ab-eyebrow ab-eyebrow--light">
+            <i className="ti ti-rocket" /> Готовы начать?
+          </span>
           <h2 className="ab-cta__title">
-            Преобразите свой<br />
-            <span className="ab-cta__highlight">интерьер с Tintera</span>
+            Преобразите свой<br />интерьер с Tintera
           </h2>
-          
           <p className="ab-cta__sub">
             Посетите шоурум или свяжитесь с нами — поможем подобрать идеальный цвет
           </p>
-          
           <div className="ab-cta__btns">
             <a href="/contacts" className="ab-cta__btn ab-cta__btn--fill">
               <span>Связаться</span>
@@ -549,23 +444,6 @@ function About() {
               <span>Каталог</span>
               <i className="ti ti-chevron-right" />
             </a>
-          </div>
-
-          <div className="ab-cta__stats">
-            <div className="ab-cta__stat-item">
-              <span className="ab-cta__stat-number">120+</span>
-              <span className="ab-cta__stat-label">Оттенков</span>
-            </div>
-            <div className="ab-cta__stat-divider" />
-            <div className="ab-cta__stat-item">
-              <span className="ab-cta__stat-number">5000+</span>
-              <span className="ab-cta__stat-label">Клиентов</span>
-            </div>
-            <div className="ab-cta__stat-divider" />
-            <div className="ab-cta__stat-item">
-              <span className="ab-cta__stat-number">4.9</span>
-              <span className="ab-cta__stat-label">Рейтинг</span>
-            </div>
           </div>
         </div>
       </section>

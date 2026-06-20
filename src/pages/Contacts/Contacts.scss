@@ -1,0 +1,365 @@
+@use "../../styles/variables";
+
+// ══════════════════════════════════════════
+//  SECTION
+// ══════════════════════════════════════════
+
+.contacts {
+  position: relative;
+  background: #f8f8f8;
+  padding: 90px 0 110px;
+  overflow: hidden;
+}
+
+// ── Dekoratsiya ──
+
+.contacts-deco {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+}
+
+.contacts-deco__blob {
+  position: absolute; border-radius: 50%; filter: blur(80px);
+
+  &--1 {
+    width: 480px; height: 480px; top: -100px; left: -120px;
+    background: radial-gradient(circle, rgba(variables.$primary,.1) 0%, transparent 70%);
+    animation: blob-drift 20s ease-in-out infinite alternate;
+  }
+  &--2 {
+    width: 360px; height: 360px; bottom: -80px; right: -60px;
+    background: radial-gradient(circle, rgba(variables.$primary,.07) 0%, transparent 70%);
+    animation: blob-drift 26s ease-in-out infinite alternate-reverse;
+  }
+}
+
+@keyframes blob-drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(24px,-28px) scale(1.05); }
+}
+
+.contacts-deco__ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(variables.$primary,.1); background: transparent;
+
+  &--1 { width: 260px; height: 260px; top: 6%; right: 3%; animation: ring-spin 42s linear infinite; }
+  &--2 { width: 140px; height: 140px; bottom: 10%; left: 4%; border-style: dashed; animation: ring-spin 30s linear infinite reverse; }
+}
+
+@keyframes ring-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.contacts-deco__cross {
+  position: absolute; color: rgba(variables.$primary,.16);
+  i { font-size: 26px; display: block; animation: ring-spin 18s linear infinite; }
+
+  &--1 { top: 14%; right: 10%; }
+  &--2 { bottom: 20%; left: 8%; i { font-size: 18px; animation-direction: reverse; } }
+}
+
+// ── Grid ──
+
+.contacts-grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+// ══════════════════════════════════════════
+//  CHAP USTUN
+// ══════════════════════════════════════════
+
+.contacts-left { display: flex; flex-direction: column; gap: 28px; }
+
+// Info kartochkalar
+.contacts-cards { display: flex; flex-direction: column; gap: 10px; }
+
+.contacts-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(variables.$dark,.06);
+  box-shadow: 0 2px 12px -6px rgba(variables.$dark,.08);
+  text-decoration: none; color: inherit;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+
+  opacity: 0;
+  animation: slide-in-left .5s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay: calc(.08s + var(--idx,0) * .08s);
+
+  &--link:hover {
+    border-color: rgba(variables.$primary,.28);
+    box-shadow: 0 6px 24px -8px rgba(variables.$primary,.16);
+    transform: translateX(6px);
+
+    .contacts-card__icon { background: variables.$primary; color: #fff; border-color: variables.$primary; }
+    .contacts-card__arr  { opacity: 1; transform: translate(2px,-2px); }
+  }
+
+  &__icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 11px;
+    border: 1px solid rgba(variables.$dark,.08); background: #f8f8f8;
+    color: variables.$primary; flex-shrink: 0;
+    transition: background .25s, color .25s, border-color .25s;
+    i { font-size: 21px; display: block; }
+  }
+
+  &__body { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+
+  &__label {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: rgba(variables.$dark,.4);
+  }
+
+  &__value {
+    font-size: 14px; font-weight: 500; color: variables.$dark;
+    line-height: 1.55; word-break: break-word;
+  }
+
+  &__arr {
+    font-size: 18px; color: variables.$primary; flex-shrink: 0;
+    opacity: 0; margin-top: 2px;
+    transition: opacity .25s, transform .25s;
+  }
+}
+
+@keyframes slide-in-left {
+  from { opacity:0; transform:translateX(-16px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+
+// Ijtimoiy tarmoqlar
+.contacts-socials {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+
+  &__label {
+    font-size: 12px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: rgba(variables.$dark,.38);
+    white-space: nowrap;
+  }
+
+  &__row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  &__item {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 100px;
+    border: 1px solid rgba(variables.$dark,.1); background: #fff;
+    font-size: 13px; font-weight: 600;
+    color: rgba(variables.$dark,.6); text-decoration: none;
+    transition: background .25s, border-color .25s, color .25s, transform .25s;
+    i { font-size: 18px; display: block; }
+
+    &:hover {
+      background: var(--sc); border-color: var(--sc); color: #fff;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Xarita
+.contacts-map { position: relative; }
+
+.contacts-map__top { margin-bottom: 12px; }
+
+.contacts-map__badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px; border-radius: 100px;
+  background: #fff; border: 1px solid rgba(variables.$dark,.08);
+  font-size: 13px; font-weight: 600; color: rgba(variables.$dark,.65);
+  i { font-size: 16px; color: variables.$primary; }
+}
+
+.contacts-map__frame {
+  position: relative; height: 280px;
+  border-radius: 20px; overflow: hidden;
+  border: 2px solid #fff;
+  box-shadow: 0 12px 40px -12px rgba(variables.$dark,.2);
+
+  iframe { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+}
+
+.contacts-map__overlay {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(variables.$dark,.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.contacts-map__open {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 12px;
+  background: #fff;
+  font-size: 12px; font-weight: 700; letter-spacing: .04em;
+  color: variables.$dark;
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,.2);
+  pointer-events: auto;
+  transition: background .25s, color .25s;
+  i { font-size: 15px; }
+  &:hover { background: variables.$primary; color: #fff; }
+}
+
+// ══════════════════════════════════════════
+//  O'NG USTUN — FORMA
+// ══════════════════════════════════════════
+
+.contacts-right { position: sticky; top: 96px; }
+
+.contacts-form-card {
+  background: #fff;
+  border: 1px solid rgba(variables.$dark,.07);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 60px -20px rgba(variables.$dark,.12);
+
+  &__head { margin-bottom: 28px; }
+
+  &__badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px; border-radius: 100px;
+    background: rgba(variables.$primary,.08);
+    border: 1px solid rgba(variables.$primary,.15);
+    font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: variables.$primary; margin-bottom: 16px;
+    i { font-size: 15px; }
+  }
+
+  &__title {
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    font-weight: 800; letter-spacing: -.025em;
+    color: variables.$dark; margin: 0 0 8px;
+  }
+
+  &__sub { font-size: 14px; color: rgba(variables.$dark,.5); margin: 0; line-height: 1.6; }
+}
+
+// ── Forma fieldlar ──
+
+.cform { display: flex; flex-direction: column; gap: 16px; }
+
+.cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.cform-field {
+  display: flex; flex-direction: column; gap: 7px;
+
+  label {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: rgba(variables.$dark,.45);
+  }
+
+  &__in {
+    position: relative; display: flex; align-items: flex-start;
+
+    > i {
+      position: absolute; left: 14px; top: 13px;
+      font-size: 18px; color: rgba(variables.$dark,.3);
+      pointer-events: none; transition: color .2s; z-index: 1;
+    }
+
+    .cform-field__icon-top { top: 14px; }
+
+    input, textarea {
+      width: 100%; padding: 12px 14px 12px 42px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(variables.$dark,.1);
+      background: #f8f8f8;
+      font-size: 14px; font-weight: 500; color: variables.$dark;
+      outline: none; font-family: inherit; resize: none;
+      transition: border-color .25s, background .25s, box-shadow .25s;
+      &::placeholder { color: rgba(variables.$dark,.28); }
+      &:focus {
+        border-color: variables.$primary; background: #fff;
+        box-shadow: 0 0 0 3px rgba(variables.$primary,.1);
+      }
+    }
+  }
+
+  &:focus-within &__in > i { color: variables.$primary; }
+}
+
+.cform-submit {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 15px; border-radius: 14px; border: none;
+  background: variables.$dark; color: #fff;
+  font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; font-family: inherit;
+  transition: background .3s, transform .25s, box-shadow .25s;
+  margin-top: 4px;
+  i { font-size: 18px; transition: transform .3s; }
+
+  &:hover:not(:disabled) {
+    background: variables.$primary; transform: translateY(-2px);
+    box-shadow: 0 10px 28px -8px rgba(variables.$primary,.4);
+    i { transform: translateX(3px); }
+  }
+  &:disabled { opacity: .7; cursor: not-allowed; }
+  &--loading { background: rgba(variables.$dark,.75); }
+}
+
+.cform-spin { animation: spin 1s linear infinite !important; }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.cform-note {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 12px; color: rgba(variables.$dark,.35); margin: 0;
+  i { font-size: 14px; }
+}
+
+.cform-success {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 12px; padding: 16px 0;
+
+  &__icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(variables.$primary,.1); color: variables.$primary;
+    animation: pop-in .5s cubic-bezier(.22,1,.36,1) forwards;
+    i { font-size: 36px; display: block; }
+  }
+
+  h4 { font-size: 1.4rem; font-weight: 800; color: variables.$dark; margin: 0; }
+  p  { font-size: 14px; color: rgba(variables.$dark,.5); margin: 0; line-height: 1.65; }
+
+  button {
+    padding: 11px 22px; border-radius: 12px;
+    border: 1.5px solid rgba(variables.$dark,.12); background: transparent;
+    font-size: 13px; font-weight: 700; color: rgba(variables.$dark,.6);
+    cursor: pointer; font-family: inherit;
+    transition: background .25s, color .25s, border-color .25s; margin-top: 8px;
+    &:hover { background: variables.$dark; color: #fff; border-color: variables.$dark; }
+  }
+}
+
+@keyframes pop-in {
+  from{transform:scale(.5);opacity:0}
+  to  {transform:scale(1);opacity:1}
+}
+
+// ══════════════════════════════════════════
+//  RESPONSIVE
+// ══════════════════════════════════════════
+
+@media (max-width: 900px) {
+  .contacts-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contacts-right { position: static; }
+  .contacts-map__frame { height: 240px; }
+}
+
+@media (max-width: 576px) {
+  .contacts { padding: 64px 0 72px; }
+  .contacts-form-card { padding: 24px 20px; border-radius: 20px; }
+  .cform-row { grid-template-columns: 1fr; }
+  .contacts-socials { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .contacts-map__frame { height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contacts-deco__blob,
+  .contacts-deco__ring,
+  .contacts-deco__cross i,
+  .contacts-card,
+  .cform-spin,
+  .cform-success__icon { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
