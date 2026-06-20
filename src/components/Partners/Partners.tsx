@@ -1,5 +1,11 @@
 import "./Partners.scss";
 
+// ── Rasmlarni import qilish ──
+import CoMe from "../../assets/partners/come.png";
+import ElfDecor from "../../assets/partners/elfdecor.png";
+import DecorPaint from "../../assets/partners/decorpaint.png";
+import Isaval from "../../assets/partners/isaval.png";
+
 interface Partner {
   src: string;
   alt: string;
@@ -7,14 +13,10 @@ interface Partner {
 }
 
 const PARTNERS: Partner[] = [
-  { src: "/assets/partners/caparol.svg",   alt: "Caparol",    url: "https://www.caparol.com" },
-  { src: "/assets/partners/betek.svg",     alt: "Betek",      url: "https://www.betek.com.tr" },
-  { src: "/assets/partners/dulux.svg",     alt: "Dulux",      url: "https://www.dulux.com" },
-  { src: "/assets/partners/marshall.svg",  alt: "Marshall",   url: "https://www.marshall.com.tr" },
-  { src: "/assets/partners/tikkurila.svg", alt: "Tikkurila",  url: "https://www.tikkurila.com" },
-  { src: "/assets/partners/alpina.svg",    alt: "Alpina",     url: "https://www.alpina.de" },
-  { src: "/assets/partners/partner-7.svg", alt: "Partner 7",  url: "#" },
-  { src: "/assets/partners/partner-8.svg", alt: "Partner 8",  url: "#" },
+  { src: CoMe,   alt: "Caparol",    url: "https://www.come.it/en/decoration/" },
+  { src: ElfDecor, alt: "Elf Decor",  url: "https://elf-decor.com/" },
+  { src: DecorPaint,     alt: "Betek",      url: "https://decorpaint.uz/" },
+  { src: Isaval,     alt: "Dulux",      url: "https://www.isaval.es/en/" }
 ];
 
 const TRACK = [...PARTNERS, ...PARTNERS, ...PARTNERS];

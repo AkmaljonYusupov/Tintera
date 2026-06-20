@@ -5,6 +5,7 @@
   padding: 90px 0 100px;
   overflow: hidden;
   border-top: 1px solid rgba(variables.$dark, .07);
+  border-bottom: 1px solid rgba(variables.$dark, .07);
 }
 
 .partners-inner {
@@ -82,7 +83,7 @@
   to   { transform: translateX(-33.3333%); }
 }
 
-// ── Logo — katta, tooltip yo'q, link bor ──
+// ── Logo ──
 
 .partners-logo {
   display: flex;

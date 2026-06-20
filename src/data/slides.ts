@@ -49,18 +49,6 @@ export const slides: Slide[] = [
     year: "2026",
     image:
       "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=2000&q=90",
-  },
-  {
-    id: 4,
-    number: "04",
-    title: "Будущее",
-    accent: "пространства",
-    description:
-      "Инновационные интерьеры, обогащённые технологиями будущего для вашего комфорта и стиля.",
-    buttonText: "Начать",
-    link: "/contact",
-    year: "2026",
-    image:
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=2000&q=90",
-  },
+  }
+
 ];

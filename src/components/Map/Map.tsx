@@ -1,8 +1,12 @@
+import Contacts from "./Contacts";
 import "./Map.scss";
 
 function Map() {
   return (
+    <>
+   <Contacts /> 
     <section className="map">
+
       <div className="container">
 
         <div className="map-wrapper">
@@ -50,6 +54,7 @@ function Map() {
 
       </div>
     </section>
+    </>
   );
 }
 

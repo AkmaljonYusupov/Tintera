@@ -426,7 +426,6 @@ function Products() {
           {/* Sarlavha */}
           <div className="products-head">
             <span className="products-eyebrow">
-              <i className="ti ti-palette" />
               Наша продукция
             </span>
             <h2 className="products-title">

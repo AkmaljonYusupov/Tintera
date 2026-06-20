@@ -15,38 +15,35 @@
 }
 
 .header-container {
-  height: 90px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 // ══════════════════════════════
-//  LOGO
+//  LOGO (FAQAT RASM - 160px)
 // ══════════════════════════════
 
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
 
-  font-size: 24px;
-  font-weight: 900;
-  letter-spacing: -.02em;
-  color: variables.$dark;
-
-  &__dot {
+  &__image {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
     display: block;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: variables.$primary;
-    flex-shrink: 0;
-    transition: variables.$transition;
   }
+}
 
-  &:hover &__dot {
-    transform: scale(1.3);
+// ── Offcanvas dagi logo ──
+.offcanvas-top .logo {
+  &__image {
+    width: 120px;
+    height: 120px;
   }
 }
 
@@ -69,6 +66,7 @@
   display: inline-block;
 
   transition: color .3s ease;
+  text-decoration: none;
 }
 
 // ── Hover Effect — underline chapdan o'ngga ──
@@ -115,7 +113,7 @@
   gap: 16px;
 }
 
-// ── CTA tugma (Hero btn bilan bir xil til) ──
+// ── CTA tugma ──
 
 .header-cta {
   display: inline-flex;
@@ -134,6 +132,7 @@
   border-radius: variables.$radius;
 
   transition: variables.$transition;
+  text-decoration: none;
 
   svg { transition: transform .3s ease; }
 
@@ -286,6 +285,7 @@
   border-radius: variables.$radius;
 
   transition: variables.$transition;
+  text-decoration: none;
 
   opacity: 0;
   transform: translateX(24px);
@@ -356,6 +356,7 @@
   border-radius: variables.$radius;
 
   transition: variables.$transition;
+  text-decoration: none;
 
   svg { transition: transform .3s ease; }
 
@@ -383,15 +384,75 @@
   .menu-btn {
     display: flex;
   }
+
+  .header-container {
+    height: 90px;
+  }
+
+  .logo__image {
+    width: 130px;
+    height: 130px;
+  }
+
+  .offcanvas-top .logo__image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    height: 80px;
+  }
+
+  .logo__image {
+    width: 110px;
+    height: 110px;
+  }
+
+  .offcanvas-top .logo__image {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 @media (max-width: 576px) {
   .offcanvas {
-    width: calc(100% - 40px); // chap tomonda 40px gap qoladi
+    width: calc(100% - 40px);
   }
 
   .offcanvas nav a {
     font-size: 16px;
+  }
+
+  .header-container {
+    height: 70px;
+  }
+
+  .logo__image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .offcanvas-top .logo__image {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-container {
+    height: 64px;
+  }
+
+  .logo__image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .offcanvas-top .logo__image {
+    width: 64px;
+    height: 64px;
   }
 }
 

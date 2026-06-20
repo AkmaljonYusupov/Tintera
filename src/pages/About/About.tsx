@@ -289,7 +289,6 @@ function About() {
         <div className="container ab-story__grid">
           <div className="ab-story__text">
             <span className="about-eyebrow">
-              <i className="ti ti-sparkles" />
               Наша история
             </span>
             <h2 className="about-section-title">
@@ -381,7 +380,7 @@ function About() {
 
         <div className="container">
           <div className="about-section-head">
-            <span className="about-eyebrow"><i className="ti ti-diamond" /> Наши принципы</span>
+            <span className="about-eyebrow"> Наши принципы</span>
             <h2 className="about-section-title">
               Ценности, которые<br />
               <span className="about-accent">нас объединяют</span>
@@ -409,7 +408,7 @@ function About() {
         ref={gallerySection.ref as React.RefObject<HTMLElement>}
       >
         <div className="container ab-gallery__head">
-          <span className="about-eyebrow"><i className="ti ti-photo" /> Наши работы</span>
+          <span className="about-eyebrow"> Наши работы</span>
           <h2 className="about-section-title">Вдохновение<br /><span className="about-accent">в каждом оттенке</span></h2>
         </div>
 
@@ -438,7 +437,7 @@ function About() {
 
         <div className="container">
           <div className="about-section-head about-section-head--center">
-            <span className="about-eyebrow"><i className="ti ti-timeline" /> Наш путь</span>
+            <span className="about-eyebrow"> Наш путь</span>
             <h2 className="about-section-title">История<br /><span className="about-accent">развития</span></h2>
           </div>
 
@@ -476,8 +475,7 @@ function About() {
         <div className="container">
           <div className="about-section-head about-section-head--center">
             <span className="about-eyebrow">
-              <i className="ti ti-users" />
-              Команда
+                          Команда
             </span>
             <h2 className="about-section-title">
               Люди за <span className="about-accent">Tintera</span>

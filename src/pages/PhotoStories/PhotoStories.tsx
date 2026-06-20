@@ -302,7 +302,7 @@ function PhotoStories() {
           {/* Sarlavha */}
           <div className="stories-head">
             <span className="stories-eyebrow">
-              <i className="ti ti-photo" />
+            
               Наши работы
             </span>
             <h2 className="stories-title">

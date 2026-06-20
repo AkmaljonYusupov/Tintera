@@ -7,7 +7,7 @@ const BADGES = [
   { value: "2023", label: "С этого года" },
   { value: "Ташкент", label: "Шайхонтохур" },
   { value: "EU", label: "Стандарт качества" },
-];
+];  
 
 function AboutTintera() {
   const titleWords = "О Тинтере".split(" ");
