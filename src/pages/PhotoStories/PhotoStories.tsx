@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Hero from "../../components/Hero/Hero";
 import "./PhotoStories.scss";
+import SEO from "../../components/SEO/SEO";
 
 // ── Interyer rasmlari - 20 ta eng zo'r ──
 const STORIES = [
@@ -282,6 +283,13 @@ function PhotoStories() {
       <Hero
         title="Фотоистории"
         subtitle="Наши проекты"
+      />
+
+         <SEO
+        title="Фотоистории - Tintera Decor Center"
+        description="Наши проекты и фотоистории. Вдохновение для создания идеального интерьера."
+        keywords="фотоистории, проекты, Tintera, интерьер, дизайн"
+        url="https://tintera.uz/stories"
       />
 
       <section className="stories">

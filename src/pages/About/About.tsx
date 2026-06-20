@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Hero from "../../components/Hero/Hero";
 import Person from "../../assets/Person.jpg"
 import "./About.scss";
+import SEO from "../../components/SEO/SEO";
 
 // ── Animated counter ──────────────────────────────────────
 function Counter({ to, suffix, started }: { to: number; suffix: string; started: boolean }) {
@@ -275,7 +276,12 @@ function About() {
   return (
     <>
       <Hero title="О компании" subtitle="История и ценности" />
-
+  <SEO
+        title="О Нас - Tintera Decor Center"
+        description="Tintera Decor Center - декоративные краски, штукатурки и интерьерные решения в Ташкенте. Качественные материалы для вашего дома."
+        keywords="декоративная штукатурка, краски, интерьер, Tintera, Ташкент, дизайн интерьера"
+        url="https://tintera.uz/about"
+      />
       {/* ══ 1. STORY ═══════════════════════════════════════ */}
       <section className="ab-story">
         <div className="about-deco" aria-hidden="true">

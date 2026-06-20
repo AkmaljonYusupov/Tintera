@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Hero from "../../components/Hero/Hero";
 import "./Contacts.scss";
+import SEO from "../../components/SEO/SEO";
 
 const INFO_ITEMS = [
   {
@@ -240,6 +241,12 @@ function Contacts() {
       <Hero
         title="Контакты"
         subtitle="Свяжитесь с нами — ответим в течение нескольких минут"
+      />
+         <SEO
+        title=" Контакты - Tintera Decor Center"
+        description="Широкий ассортимент декоративных красок, штукатурок и покрытий для интерьера. Европейское качество, доступные цены в Ташкенте."
+        keywords="каталог красок, декоративная штукатурка, краски для стен, Tintera, интерьерные покрытия"
+        url="https://tintera.uz/contacts"
       />
 
       <section className="contacts">

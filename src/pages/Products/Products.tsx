@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Hero from "../../components/Hero/Hero";
 import "./Products.scss";
+import SEO from "../../components/SEO/SEO";
 
 // ── Mahsulotlar ma'lumotlari ──
 const PRODUCTS = [
@@ -406,6 +407,12 @@ function Products() {
       <Hero
         title="Каталог продукции"
         subtitle="Лучшие решения для вашего дома"
+      />
+         <SEO
+        title="Каталог продукции - Tintera Decor Center"
+        description="Широкий ассортимент декоративных красок, штукатурок и покрытий для интерьера. Европейское качество, доступные цены в Ташкенте."
+        keywords="каталог красок, декоративная штукатурка, краски для стен, Tintera, интерьерные покрытия"
+        url="https://tintera.uz/products"
       />
 
       <section className="products">

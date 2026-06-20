@@ -1,0 +1,20 @@
+{
+  "name": "Tintera Decor Center",
+  "short_name": "Tintera",
+  "description": "Декоративные краски и штукатурки в Ташкенте",
+  "theme_color": "#b48a64",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
