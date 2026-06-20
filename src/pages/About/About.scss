@@ -1157,13 +1157,12 @@
   }
 
   .ab-cta__stats {
-    flex-direction: column;
     gap: 16px;
     padding: 24px 32px;
   }
 
   .ab-cta__stat-divider {
-    width: 60px; height: 1px;
+    width: 1px; height: 60px;
   }
 }
 
@@ -1239,13 +1238,13 @@
 
   .ab-cta__title { font-size: clamp(2rem, 8vw, 2.8rem); }
   .ab-cta__stats { 
+    width: fit-content; 
     padding: 20px 24px; 
-    gap: 14px;
-    flex-direction: column;
+    margin:0px 20px;
   }
   .ab-cta__stat-number { font-size: 20px; }
   .ab-cta__stat-divider {
-    width: 60px; height: 1px;
+    width: 1px; height:60px;
   }
   .ab-cta__btn { padding: 14px 24px; font-size: 13px; }
   .ab-cta__badge { padding: 8px 18px; font-size: 12px; }
