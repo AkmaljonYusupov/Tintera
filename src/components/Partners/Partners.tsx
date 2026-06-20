@@ -5,6 +5,7 @@ import CoMe from "../../assets/partners/come.png";
 import ElfDecor from "../../assets/partners/elfdecor.png";
 import DecorPaint from "../../assets/partners/decorpaint.png";
 import Isaval from "../../assets/partners/isaval.png";
+import Boldrini from "../../assets/partners/boldrini.png";
 
 interface Partner {
   src: string;
@@ -13,10 +14,11 @@ interface Partner {
 }
 
 const PARTNERS: Partner[] = [
-  { src: CoMe,   alt: "Caparol",    url: "https://www.come.it/en/decoration/" },
+  { src: CoMe,   alt: "CoMe",    url: "https://www.come.it/en/decoration/" },
   { src: ElfDecor, alt: "Elf Decor",  url: "https://elf-decor.com/" },
-  { src: DecorPaint,     alt: "Betek",      url: "https://decorpaint.uz/" },
-  { src: Isaval,     alt: "Dulux",      url: "https://www.isaval.es/en/" }
+  { src: DecorPaint,     alt: "DecorPaint",      url: "https://decorpaint.uz/" },
+  { src: Isaval,     alt: "Isaval",      url: "https://www.isaval.es/en/" },
+  { src: Boldrini,   alt: "Boldrini",    url: "https://www.pennelliboldrini.it/en/" }
 ];
 
 const TRACK = [...PARTNERS, ...PARTNERS, ...PARTNERS];

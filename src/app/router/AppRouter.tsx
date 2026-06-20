@@ -7,9 +7,12 @@ import Products from "../../pages/Products/Products";
 import About from "../../pages/About/About";
 import PhotoStories from "../../pages/PhotoStories/PhotoStories";
 import Contacts from "../../pages/Contacts/Contacts";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 function AppRouter() {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
@@ -19,6 +22,7 @@ function AppRouter() {
         <Route path="contacts" element={<Contacts />} />
       </Route>
     </Routes>
+    </>
   );
 }
 
