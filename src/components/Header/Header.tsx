@@ -23,7 +23,15 @@ function Header() {
       <header className="header">
         <div className="container header-container">
           <NavLink to="/" className="logo">
-            <img src={LogoImage} alt="Tintera" className="logo__image" />
+            <img 
+              src={LogoImage} 
+              alt="Tintera" 
+              className="logo__image"
+              width="160"
+              height="160"
+              loading="eager"
+              decoding="async"
+            />
           </NavLink>
 
           <nav className="desktop-nav">
@@ -66,8 +74,16 @@ function Header() {
 
       <aside className={`offcanvas ${open ? "active" : ""}`}>
         <div className="offcanvas-top">
-          <NavLink to="/" className="logo" onClick={() => setOpen(false)}>
-            <img src={LogoImage} alt="Tintera" className="logo__image" />
+          <NavLink to="/" className="logo offcanvas-logo" onClick={() => setOpen(false)}>
+            <img 
+              src={LogoImage} 
+              alt="Tintera" 
+              className="logo__image"
+              width="120"
+              height="120"
+              loading="eager"
+              decoding="async"
+            />
           </NavLink>
 
           <button
