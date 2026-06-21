@@ -125,35 +125,6 @@ const CATEGORIES = [
   "Грунтовка"
 ];
 
-// ── Scroll-triggered animation hook ──
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const currentRef = ref.current;
-    if (!currentRef) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    observer.observe(currentRef);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 // ── Modal komponenti (Forma bilan) ──
 function ProductModal({ product, onClose }: { product: typeof PRODUCTS[0] | null; onClose: () => void }) {
   const [name, setName] = useState("");
@@ -210,7 +181,7 @@ function ProductModal({ product, onClose }: { product: typeof PRODUCTS[0] | null
   };
 
   const sendToTelegram = async (name: string, phone: string, productName: string, productPrice: string) => {
-   const BOT_TOKEN = "8703348503:AAEvLayIrZ5oMVAvKirEHdMBwlS5M56zMp0";
+    const BOT_TOKEN = "8703348503:AAEvLayIrZ5oMVAvKirEHdMBwlS5M56zMp0";
     const CHAT_ID = "630353326";
     
     const message = `
@@ -315,7 +286,6 @@ function ProductModal({ product, onClose }: { product: typeof PRODUCTS[0] | null
           <p className="product-modal__desc">{product.desc}</p>
           <div className="product-modal__price">{product.price}</div>
 
-          {/* ── Forma ── */}
           {!submitted ? (
             <form className="product-modal__form" onSubmit={handleSubmit} noValidate>
               <div className={`product-modal__form-group ${nameError ? "product-modal__form-group--error" : ""}`}>
@@ -396,7 +366,12 @@ function ProductModal({ product, onClose }: { product: typeof PRODUCTS[0] | null
 function Products() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
-  const { ref, inView } = useInView(0.1);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Sahifa yuklanganda darrov animatsiya ishga tushsin
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const filteredProducts = activeCategory === "Все" 
     ? PRODUCTS 
@@ -408,7 +383,7 @@ function Products() {
         title="Каталог продукции"
         subtitle="Лучшие решения для вашего дома"
       />
-         <SEO
+      <SEO
         title="Каталог продукции - Tintera Decor Center"
         description="Широкий ассортимент декоративных красок, штукатурок и покрытий для интерьера. Европейское качество, доступные цены в Ташкенте."
         keywords="каталог красок, декоративная штукатурка, краски для стен, Tintera, интерьерные покрытия"
@@ -457,8 +432,8 @@ function Products() {
             ))}
           </div>
 
-          {/* Grid */}
-          <div className={`products-grid ${inView ? "products-grid--visible" : ""}`} ref={ref}>
+          {/* Grid - har doim visible */}
+          <div className={`products-grid ${isVisible ? "products-grid--visible" : ""}`}>
             {filteredProducts.map((product, i) => (
               <div
                 key={product.id}

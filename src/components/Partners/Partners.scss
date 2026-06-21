@@ -74,6 +74,7 @@
 .partners-track {
   display: flex;
   align-items: center;
+  column-gap: 40px;
   width: max-content;
   animation: partners-scroll 32s linear infinite;
 }
