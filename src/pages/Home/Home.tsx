@@ -5,7 +5,6 @@ import InstagramReels from "../../components/InstagramReels/InstagramReels";
 import Map from "../../components/Map/Map";
 import "./Home.scss";
 import Partners from "../../components/Partners/Partners";
-import Products from "../Products/Products";
 
 function Home() {
   return (
