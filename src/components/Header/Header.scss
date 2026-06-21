@@ -22,7 +22,7 @@
 }
 
 // ══════════════════════════════
-//  LOGO (FAQAT RASM - 160px)
+//  LOGO - STABIL O'LCHAM
 // ══════════════════════════════
 
 .logo {
@@ -30,10 +30,12 @@
   align-items: center;
   text-decoration: none;
   flex-shrink: 0;
+  width: 160px; // ✅ Aniq kenglik
+  height: 160px; // ✅ Aniq balandlik
 
   &__image {
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
   }
@@ -41,10 +43,8 @@
 
 // ── Offcanvas dagi logo ──
 .offcanvas-top .logo {
-  &__image {
-    width: 120px;
-    height: 120px;
-  }
+  width: 120px;
+  height: 120px;
 }
 
 // ══════════════════════════════
@@ -68,8 +68,6 @@
   transition: color .3s ease;
   text-decoration: none;
 }
-
-// ── Hover Effect — underline chapdan o'ngga ──
 
 .desktop-nav a::after {
   content: "";
@@ -104,7 +102,7 @@
 }
 
 // ══════════════════════════════
-//  HEADER ACTIONS  (CTA + burger)
+//  HEADER ACTIONS
 // ══════════════════════════════
 
 .header-actions {
@@ -113,15 +111,13 @@
   gap: 16px;
 }
 
-// ── CTA tugma ──
-
 .header-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
 
-  border:1px solid variables.$primary;
-  color:variables.$primary;
+  border: 1px solid variables.$primary;
+  color: variables.$primary;
 
   font-size: 12px;
   font-weight: 700;
@@ -140,12 +136,11 @@
     background: variables.$primary;
     gap: 14px;
     box-shadow: 0 10px 28px rgba(variables.$primary, .28);
-color:variables.$white;
+    color: #fff;
+
     svg { transform: translateX(3px); }
   }
 }
-
-// ── Mobile burger ──
 
 .menu-btn {
   display: none;
@@ -221,8 +216,6 @@ color:variables.$white;
   right: 0;
 }
 
-// ── Top ──
-
 .offcanvas-top {
   padding: 28px 28px 24px;
 
@@ -258,8 +251,6 @@ color:variables.$white;
   }
 }
 
-// ── Nav ──
-
 .offcanvas nav {
   flex: 1;
   row-gap: 5px;
@@ -291,7 +282,6 @@ color:variables.$white;
   transform: translateX(24px);
 }
 
-// offcanvas ochilganda har bir link ketma-ket chiqadi
 .offcanvas.active nav a {
   animation: offcanvas-link-in .5s cubic-bezier(.22, 1, .36, 1) forwards;
   animation-delay: calc(.08s + var(--i) * .06s);
@@ -329,8 +319,6 @@ color:variables.$white;
   color: variables.$primary;
 }
 
-// ── Bottom ──
-
 .offcanvas-bottom {
   padding: 20px 24px 28px;
   border-top: 1px solid rgba(variables.$dark, .06);
@@ -363,14 +351,14 @@ color:variables.$white;
   &:hover {
     background: variables.$primary;
     gap: 18px;
-    color:variables.$white;
+    color: #fff;
 
     svg { transform: translateX(4px); }
   }
 }
 
 // ══════════════════════════════
-//  RESPONSIVE
+//  RESPONSIVE - STABIL LOGO
 // ══════════════════════════════
 
 @media (max-width: 992px) {
@@ -390,12 +378,12 @@ color:variables.$white;
     height: 90px;
   }
 
-  .logo__image {
+  .logo {
     width: 130px;
     height: 130px;
   }
 
-  .offcanvas-top .logo__image {
+  .offcanvas-top .logo {
     width: 100px;
     height: 100px;
   }
@@ -406,12 +394,12 @@ color:variables.$white;
     height: 80px;
   }
 
-  .logo__image {
+  .logo {
     width: 110px;
     height: 110px;
   }
 
-  .offcanvas-top .logo__image {
+  .offcanvas-top .logo {
     width: 90px;
     height: 90px;
   }
@@ -430,12 +418,12 @@ color:variables.$white;
     height: 70px;
   }
 
-  .logo__image {
+  .logo {
     width: 90px;
     height: 90px;
   }
 
-  .offcanvas-top .logo__image {
+  .offcanvas-top .logo {
     width: 80px;
     height: 80px;
   }
@@ -446,12 +434,12 @@ color:variables.$white;
     height: 64px;
   }
 
-  .logo__image {
+  .logo {
     width: 70px;
     height: 70px;
   }
 
-  .offcanvas-top .logo__image {
+  .offcanvas-top .logo {
     width: 64px;
     height: 64px;
   }

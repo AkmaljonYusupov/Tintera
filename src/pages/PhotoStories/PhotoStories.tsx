@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "../../components/Hero/Hero";
 import "./PhotoStories.scss";
 import SEO from "../../components/SEO/SEO";
 
-// ── Interyer rasmlari - 20 ta eng zo'r ──
+// ── Interyer rasmlari - 20 ta ──
 const STORIES = [
   {
     id: 1,
@@ -180,35 +180,6 @@ const CATEGORIES = [
   "Балкон"
 ];
 
-// ── Scroll-triggered animation hook ──
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const currentRef = ref.current;
-    if (!currentRef) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    observer.observe(currentRef);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 // ── Modal komponenti ──
 function StoryModal({ story, onClose }: { story: typeof STORIES[0] | null; onClose: () => void }) {
   useEffect(() => {
@@ -272,7 +243,12 @@ function StoryModal({ story, onClose }: { story: typeof STORIES[0] | null; onClo
 function PhotoStories() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [selectedStory, setSelectedStory] = useState<typeof STORIES[0] | null>(null);
-  const { ref, inView } = useInView(0.1);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // ✅ Sahifa yuklanganda darrov animatsiya ishga tushsin
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const filteredStories = activeCategory === "Все" 
     ? STORIES 
@@ -285,7 +261,7 @@ function PhotoStories() {
         subtitle="Наши проекты"
       />
 
-         <SEO
+      <SEO
         title="Фотоистории - Tintera Decor Center"
         description="Наши проекты и фотоистории. Вдохновение для создания идеального интерьера."
         keywords="фотоистории, проекты, Tintera, интерьер, дизайн"
@@ -310,7 +286,6 @@ function PhotoStories() {
           {/* Sarlavha */}
           <div className="stories-head">
             <span className="stories-eyebrow">
-            
               Наши работы
             </span>
             <h2 className="stories-title">
@@ -335,8 +310,8 @@ function PhotoStories() {
             ))}
           </div>
 
-          {/* Grid */}
-          <div className={`stories-grid ${inView ? "stories-grid--visible" : ""}`} ref={ref}>
+          {/* ✅ Grid - har doim visible */}
+          <div className={`stories-grid ${isVisible ? "stories-grid--visible" : ""}`}>
             {filteredStories.map((story, i) => (
               <div
                 key={story.id}
